@@ -20,8 +20,10 @@ onRecordAfterCreateSuccess((e) => {
     from: { address: meta.senderAddress, name: r.get("nom") + " (" + r.get("email") + ")" }, // De : son nom et son adresse
     headers: { "Reply-To": r.get("email") }, // Répondre à : son adresse
     to: [{ address: "linabenmabrouk23@gmail.com" }], // À : ton adresse de réception
-    subject: "[Portfolio] " + (r.get("sujet") || "Nouveau message"), // Objet : [Portfolio] + son sujet
+    subject: "[Portfolio] " + (r.get("sujet") || "Nouveau message") + " - " + r.get("nom"), // Objet : [Portfolio] + son sujet + son nom
     html:
+      // Gmail cache le nom de l'expéditeur, donc on le remet en haut du mail
+      "<p><strong>De :</strong> " + echapper(r.get("nom")) + " (" + echapper(r.get("email")) + ")</p>" +
       "<p>" + echapper(r.get("message")) + "</p>" +
       "<p style=\"color:#888;font-size:12px\">Envoyé depuis le formulaire de contact de ton portfolio.</p>",
   });

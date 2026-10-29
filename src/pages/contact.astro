@@ -2,7 +2,11 @@
 import { Image } from "astro:assets";
 import Layout from "../layouts/Layout.astro";
 import Hero from "../components/Hero.astro";
+import Bandeau from "../components/Bandeau.astro";
 import chibi from "../assets/images/chibi.png";
+import fleche from "../assets/icons/fleche.svg";
+import flecheBas from "../assets/icons/fleche_bas.svg";
+import perso from "../assets/images/perso.png";
 ---
 
 <Layout title="Contact" description="">
@@ -16,4 +20,171 @@ import chibi from "../assets/images/chibi.png";
     On fait <span class="text-rose md:ml-12">équipe</span><span class="text-jaune">?</span>
     <Image slot="visuel" src={chibi} alt="" width={1024} class="size-full object-contain" loading="eager" />
   </Hero>
+
+  <!-- Bande qui défile sous le hero (même composant que sur l'accueil) -->
+  <Bandeau texte="Je recherche un stage du 29 mars au 4 juin" />
+
+  <!-- Réseaux + personnage à gauche, formulaire à droite (l'un sous l'autre en mobile) -->
+  <div class="mx-auto mt-10 mb-24 flex max-w-7xl flex-col gap-14 px-4 md:mt-20 md:flex-row md:justify-between md:gap-20 md:px-10">
+    <!-- Colonne de gauche -->
+    <div class="flex flex-col gap-14 md:gap-15">
+      <!-- Réseaux : grille de 2 colonnes en mobile, une colonne avec un trait au milieu en desktop -->
+      <div class="relative grid grid-cols-2 gap-x-3 gap-y-6 md:flex md:flex-col md:gap-13">
+        <!-- Trait vertical entre les labels et les liens (desktop) -->
+        <div class="absolute top-0 bottom-0 left-31 hidden w-1.25 bg-bleu-fonce md:block"></div>
+
+        <!-- E-mail (toute la largeur en mobile) -->
+        <div class="col-span-2 flex flex-col gap-2 md:flex-row md:items-center md:gap-13">
+          <p class="font-titre text-sm font-bold text-bleu-fonce uppercase md:w-25 md:text-right md:text-h3 md:text-noir md:normal-case">E-mail</p>
+          <a href="mailto:linabenmabrouk23@gmail.com" class="font-texte text-h4-mobile font-medium text-rose md:text-h4">linabenmabrouk23@gmail.com</a>
+        </div>
+
+        <!-- Behance -->
+        <div class="flex flex-col gap-2 md:flex-row md:items-center md:gap-13">
+          <p class="font-titre text-sm font-bold text-bleu-fonce uppercase md:w-25 md:text-right md:text-h3 md:text-noir md:normal-case">Behance</p>
+          <a href="#" target="_blank" rel="noopener" class="flex items-center gap-3 font-texte text-h4-mobile font-medium text-rose md:text-h4">
+            Mes designs <Image src={fleche} alt="" class="size-5 md:size-6" />
+          </a>
+        </div>
+
+        <!-- LinkedIn -->
+        <div class="flex flex-col gap-2 md:flex-row md:items-center md:gap-13">
+          <p class="font-titre text-sm font-bold text-bleu-fonce uppercase md:w-25 md:text-right md:text-h3 md:text-noir md:normal-case">LinkedIn</p>
+          <a href="#" target="_blank" rel="noopener" class="flex items-center gap-3 font-texte text-h4-mobile font-medium text-rose md:text-h4">
+            Mon profil <Image src={fleche} alt="" class="size-5 md:size-6" />
+          </a>
+        </div>
+
+        <!-- GitHub -->
+        <div class="flex flex-col gap-2 md:flex-row md:items-center md:gap-13">
+          <p class="font-titre text-sm font-bold text-bleu-fonce uppercase md:w-25 md:text-right md:text-h3 md:text-noir md:normal-case">GitHub</p>
+          <a href="#" target="_blank" rel="noopener" class="flex items-center gap-3 font-texte text-h4-mobile font-medium text-rose md:text-h4">
+            Mes dépôts <Image src={fleche} alt="" class="size-5 md:size-6" />
+          </a>
+        </div>
+
+        <!-- CV : la flèche est tournée vers le bas -->
+        <div class="flex flex-col gap-2 md:flex-row md:items-center md:gap-13">
+          <p class="font-titre text-sm font-bold text-bleu-fonce uppercase md:w-25 md:text-right md:text-h3 md:text-noir md:normal-case">CV</p>
+          <a href="/cv.pdf" download class="flex items-center gap-3 font-texte text-h4-mobile font-medium text-rose md:text-h4">
+            Télécharger <Image src={fleche} alt="" class="size-5 rotate-135 md:size-6" />
+          </a>
+        </div>
+      </div>
+
+      <!-- Personnage + bulle (en mobile : -mt-10 le remonte, mb-10 ajoute de l'espace avant le formulaire) -->
+      <div class="-mt-10 mb-10 flex items-center justify-center gap-4 md:mt-0 md:mb-0 md:justify-start md:gap-3">
+        <!-- Personnage (translate-y : seule l'image descend un peu, pas la bulle) -->
+        <Image src={perso} alt="" width={400} class="h-auto w-32 shrink-0 translate-y-10 md:w-48 md:translate-y-16" />
+        <p class="rounded-3xl rounded-bl-sm bg-rose px-4 py-3 font-texte text-sm font-medium text-blanc md:px-6.5 md:py-4 md:text-body">
+          Je vous réponds sous 48 h !
+        </p>
+      </div>
+    </div>
+
+    <!-- Formulaire de contact -->
+    <form id="form-contact" class="fond-points-clair relative flex flex-col gap-17 rounded-2xl bg-bleu-clair p-5 md:w-1/2 md:p-7.5">
+      <!-- Nom -->
+      <div class="flex flex-col gap-6">
+        <label for="nom" class="font-titre text-h4 font-bold text-noir">Nom & Prénom*</label>
+        <input id="nom" type="text" name="nom" placeholder="votre nom" required class="w-full border-b border-noir bg-transparent pb-1 font-texte text-body-mobile text-noir placeholder:text-rose placeholder:italic focus:outline-none md:text-body" />
+      </div>
+
+      <!-- E-mail -->
+      <div class="flex flex-col gap-6">
+        <label for="email" class="font-titre text-h4 font-bold text-noir">E-mail*</label>
+        <input id="email" type="email" name="email" placeholder="exemple@gmail.com" required class="w-full border-b border-noir bg-transparent pb-1 font-texte text-body-mobile text-noir placeholder:text-rose placeholder:italic focus:outline-none md:text-body" />
+      </div>
+
+      <!-- Sujet : liste déroulante avec la flèche à droite -->
+      <div class="flex flex-col gap-6">
+        <label for="sujet" class="font-titre text-h4 font-bold text-noir">Sujet*</label>
+        <div class="relative">
+          <select id="sujet" name="sujet" required class="w-full appearance-none rounded-md bg-blanc px-4 py-2.5 font-texte text-body-mobile text-noir invalid:text-rose invalid:italic focus:outline-none md:text-body">
+            <option value="" disabled selected class="text-rose italic">choisir votre sujet...</option>
+            <!-- invalid: : tant qu'aucun sujet n'est choisi, le texte est rose et en italique -->
+          <option>Proposition de stage</option>
+            <option>Projet ou collaboration</option>
+            <option>Question</option>
+            <option>Autre</option>
+          </select>
+          <Image src={flecheBas} alt="" class="pointer-events-none absolute top-1/2 right-3 size-6 -translate-y-1/2" />
+        </div>
+        <!-- Champ caché, qui apparaît quand on choisit "Autre" -->
+        <input id="sujet-autre" type="text" name="sujetAutre" placeholder="précisez votre sujet..." aria-label="Précisez votre sujet" class="hidden w-full border-b border-noir bg-transparent pb-1 font-texte text-body-mobile text-noir placeholder:text-rose placeholder:italic focus:outline-none md:text-body" />
+      </div>
+
+      <!-- Message -->
+      <div class="flex flex-col gap-6">
+        <!-- Fond blanc, la zone grandit quand on écrit (voir le script) -->
+        <label for="message" class="font-titre text-h4 font-bold text-noir">Message*</label>
+        <textarea id="message" name="message" rows="3" placeholder="écrire votre message..." required class="w-full resize-none overflow-hidden rounded-md bg-blanc px-4 py-2.5 font-texte text-body-mobile text-noir placeholder:text-rose placeholder:italic focus:outline-none md:text-body"></textarea>
+      </div>
+
+      <!-- Bouton + message de retour -->
+      <div class="flex flex-col gap-3">
+        <button type="submit" class="flex w-full items-center justify-center gap-2.5 rounded-xl bg-jaune py-3 font-texte text-button font-bold text-noir hover:bg-jaune-clair disabled:opacity-50">
+          Envoyer le message <Image src={fleche} alt="" class="size-6" />
+        </button>
+        <p id="message-retour" aria-live="polite" class="font-texte text-small text-bleu-fonce"></p>
+      </div>
+    </form>
+  </div>
 </Layout>
+
+<script>
+  import { envoyerMessage } from "../js/backend.mjs";
+
+  const form = document.getElementById("form-contact");
+  const bouton = form.querySelector("button");
+  const retour = document.getElementById("message-retour");
+  const selectSujet = document.getElementById("sujet");
+  const sujetAutre = document.getElementById("sujet-autre");
+  const zoneMessage = document.getElementById("message");
+
+  // "Autre" choisi : on affiche le champ pour écrire son sujet (et il devient obligatoire)
+  selectSujet.addEventListener("change", () => {
+    const autre = selectSujet.value === "Autre";
+    sujetAutre.classList.toggle("hidden", !autre);
+    sujetAutre.required = autre;
+    if (autre) sujetAutre.focus();
+  });
+
+  // Le message grandit avec le texte : on remet la hauteur à zéro, puis à la hauteur du contenu
+  zoneMessage.addEventListener("input", () => {
+    zoneMessage.style.height = "auto";
+    zoneMessage.style.height = zoneMessage.scrollHeight + "px";
+  });
+
+  form.addEventListener("submit", async (e) => {
+    // On reste sur la page (pas de rechargement)
+    e.preventDefault();
+
+    // Valeurs des champs
+    const donnees = new FormData(form);
+    const message = {
+      nom: donnees.get("nom"),
+      email: donnees.get("email"),
+      // Si "Autre", on envoie le sujet écrit par la personne
+      sujet: donnees.get("sujet") === "Autre" ? "Autre : " + donnees.get("sujetAutre") : donnees.get("sujet"),
+      message: donnees.get("message"),
+    };
+
+    // Pendant l'envoi, le bouton est désactivé
+    bouton.disabled = true;
+    retour.textContent = "Envoi en cours…";
+
+    try {
+      await envoyerMessage(message);
+      form.reset();
+      sujetAutre.classList.add("hidden");
+      sujetAutre.required = false;
+      zoneMessage.style.height = "auto";
+      retour.textContent = "Merci, votre message a bien été envoyé !";
+    } catch (erreur) {
+      retour.textContent = "Oups, le message n'est pas parti. Réessayez plus tard.";
+    }
+
+    bouton.disabled = false;
+  });
+</script>

@@ -112,6 +112,33 @@
     background-size: 30px 30px;
   }
 
+  /* Même fond à points, plus clair (formulaire de contact) : opacité 0.05 */
+  .fond-points-clair::before,
+  .fond-points-clair::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    pointer-events: none;
+    background-image: radial-gradient(circle, rgb(23 52 218 / 0.05) 5px, transparent 6px);
+    background-size: 30px 30px;
+  }
+
+  .fond-points-clair::before {
+    mask-image: linear-gradient(to bottom, black 5%, transparent 45%);
+  }
+
+  .fond-points-clair::after {
+    filter: blur(6px);
+    mask-image: linear-gradient(to bottom, transparent 5%, black 45%);
+  }
+
+  /* Le contenu passe devant les points */
+  .fond-points-clair > * {
+    position: relative;
+    z-index: 1;
+  }
+
   .fond-points::before {
     mask-image: linear-gradient(to bottom, black 5%, transparent 45%);
   }
