@@ -3,6 +3,9 @@ import { defineConfig } from "astro/config";
 import tailwindcss from "@tailwindcss/vite";
 
 export default defineConfig({
+  // Site en SSR : chaque page est créée à chaque visite, avec les données à jour de PocketBase
+  output: "server",
+
   image: {
     // Autorise les images servies par PocketBase en local
     remotePatterns: [

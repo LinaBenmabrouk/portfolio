@@ -70,10 +70,13 @@ export async function getParcours() {
   }
 }
 
+// Un seul projet, retrouvé grâce à son slug. Renvoie null s'il n'existe pas.
 export async function getProjet(slug) {
-  return await pb
-    .collection("projets")
-    .getFirstListItem(pb.filter("slug = {:slug}", { slug }));
+  try {
+    return await pb.collection("projets").getFirstListItem(pb.filter("slug = {:slug}", { slug }));
+  } catch (erreur) {
+    return null;
+  }
 }
 
 export function getImageUrl(record, fichier) {

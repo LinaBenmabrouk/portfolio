@@ -33,41 +33,41 @@ import perso from "../assets/images/perso.png";
         <!-- Trait vertical entre les labels et les liens (desktop) -->
         <div class="absolute top-0 bottom-0 left-31 hidden w-1.25 bg-bleu-fonce md:block"></div>
 
-        <!-- E-mail (toute la largeur en mobile) -->
+        <!-- E-mail (toute la largeur en mobile). Survol des liens : bleu foncé + la flèche glisse dans sa direction -->
         <div class="col-span-2 flex flex-col gap-2 md:flex-row md:items-center md:gap-13">
           <p class="font-titre text-sm font-bold text-bleu-fonce uppercase md:w-25 md:text-right md:text-h3 md:text-noir md:normal-case">E-mail</p>
-          <a href="mailto:linabenmabrouk23@gmail.com" class="font-texte text-h4-mobile font-medium text-rose md:text-h4">linabenmabrouk23@gmail.com</a>
+          <a href="mailto:linabenmabrouk23@gmail.com" class="font-texte text-h4-mobile font-medium text-rose underline-offset-4 transition-colors hover:text-bleu-fonce hover:underline md:text-h4">linabenmabrouk23@gmail.com</a>
         </div>
 
         <!-- Behance -->
         <div class="flex flex-col gap-2 md:flex-row md:items-center md:gap-13">
           <p class="font-titre text-sm font-bold text-bleu-fonce uppercase md:w-25 md:text-right md:text-h3 md:text-noir md:normal-case">Behance</p>
-          <a href="#" target="_blank" rel="noopener" class="flex items-center gap-3 font-texte text-h4-mobile font-medium text-rose md:text-h4">
-            Mes designs <Image src={fleche} alt="" class="size-5 md:size-6" />
+          <a href="https://www.behance.net/linabenmabrouk" target="_blank" rel="noopener" class="group flex items-center gap-3 font-texte text-h4-mobile font-medium text-rose transition-colors hover:text-bleu-fonce md:text-h4">
+            Mes designs <Image src={fleche} alt="" class="size-5 transition-transform group-hover:translate-x-1 group-hover:-translate-y-1 md:size-6" />
           </a>
         </div>
 
         <!-- LinkedIn -->
         <div class="flex flex-col gap-2 md:flex-row md:items-center md:gap-13">
           <p class="font-titre text-sm font-bold text-bleu-fonce uppercase md:w-25 md:text-right md:text-h3 md:text-noir md:normal-case">LinkedIn</p>
-          <a href="#" target="_blank" rel="noopener" class="flex items-center gap-3 font-texte text-h4-mobile font-medium text-rose md:text-h4">
-            Mon profil <Image src={fleche} alt="" class="size-5 md:size-6" />
+          <a href="https://www.linkedin.com/in/lina-ben-mabrouk-b28564397/" target="_blank" rel="noopener" class="group flex items-center gap-3 font-texte text-h4-mobile font-medium text-rose transition-colors hover:text-bleu-fonce md:text-h4">
+            Mon profil <Image src={fleche} alt="" class="size-5 transition-transform group-hover:translate-x-1 group-hover:-translate-y-1 md:size-6" />
           </a>
         </div>
 
         <!-- GitHub -->
         <div class="flex flex-col gap-2 md:flex-row md:items-center md:gap-13">
           <p class="font-titre text-sm font-bold text-bleu-fonce uppercase md:w-25 md:text-right md:text-h3 md:text-noir md:normal-case">GitHub</p>
-          <a href="#" target="_blank" rel="noopener" class="flex items-center gap-3 font-texte text-h4-mobile font-medium text-rose md:text-h4">
-            Mes dépôts <Image src={fleche} alt="" class="size-5 md:size-6" />
+          <a href="https://github.com/LinaBenmabrouk" target="_blank" rel="noopener" class="group flex items-center gap-3 font-texte text-h4-mobile font-medium text-rose transition-colors hover:text-bleu-fonce md:text-h4">
+            Mes dépôts <Image src={fleche} alt="" class="size-5 transition-transform group-hover:translate-x-1 group-hover:-translate-y-1 md:size-6" />
           </a>
         </div>
 
         <!-- CV : la flèche est tournée vers le bas -->
         <div class="flex flex-col gap-2 md:flex-row md:items-center md:gap-13">
           <p class="font-titre text-sm font-bold text-bleu-fonce uppercase md:w-25 md:text-right md:text-h3 md:text-noir md:normal-case">CV</p>
-          <a href="/cv.pdf" download class="flex items-center gap-3 font-texte text-h4-mobile font-medium text-rose md:text-h4">
-            Télécharger <Image src={fleche} alt="" class="size-5 rotate-135 md:size-6" />
+          <a href="/cv.pdf" download class="group flex items-center gap-3 font-texte text-h4-mobile font-medium text-rose transition-colors hover:text-bleu-fonce md:text-h4">
+            Télécharger <Image src={fleche} alt="" class="size-5 rotate-135 transition-transform group-hover:translate-y-1 md:size-6" />
           </a>
         </div>
       </div>
@@ -76,7 +76,7 @@ import perso from "../assets/images/perso.png";
       <div class="-mt-10 mb-10 flex items-center justify-center gap-4 md:mt-0 md:mb-0 md:justify-start md:gap-3">
         <!-- Personnage (translate-y : seule l'image descend un peu, pas la bulle) -->
         <Image src={perso} alt="" width={400} class="h-auto w-32 shrink-0 translate-y-10 md:w-48 md:translate-y-16" />
-        <p class="rounded-3xl rounded-bl-sm bg-rose px-4 py-3 font-texte text-sm font-medium text-blanc md:px-6.5 md:py-4 md:text-body">
+        <p id="bulle" aria-live="polite" class="origin-bottom-left rounded-3xl rounded-bl-sm bg-rose px-4 py-3 font-texte text-sm font-medium text-blanc md:px-6.5 md:py-4 md:text-body">
           Je vous réponds sous 48 h !
         </p>
       </div>
@@ -123,7 +123,7 @@ import perso from "../assets/images/perso.png";
 
       <!-- Bouton + message de retour -->
       <div class="flex flex-col gap-3">
-        <button type="submit" class="flex w-full items-center justify-center gap-2.5 rounded-xl bg-jaune py-3 font-texte text-button font-bold text-noir hover:bg-jaune-clair disabled:opacity-50">
+        <button type="submit" class="relative flex w-full items-center justify-center gap-2.5 rounded-xl bg-jaune py-3 font-texte text-button font-bold text-noir hover:bg-jaune-clair disabled:opacity-50">
           Envoyer le message <Image src={fleche} alt="" class="size-6" />
         </button>
         <p id="message-retour" aria-live="polite" class="font-texte text-small text-bleu-fonce"></p>
@@ -141,6 +141,47 @@ import perso from "../assets/images/perso.png";
   const selectSujet = document.getElementById("sujet");
   const sujetAutre = document.getElementById("sujet-autre");
   const zoneMessage = document.getElementById("message");
+  const bulle = document.getElementById("bulle");
+  const contenuBouton = bouton.innerHTML;
+  const texteBulle = bulle.textContent.trim(); // "Je vous réponds sous 48 h !"
+
+  // Animation de réussite : des étoiles jaillissent du bouton
+  function lancerEtoiles() {
+    // Pas d'animation si la personne a choisi de réduire les animations
+    if (matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+
+    const zone = bouton.getBoundingClientRect();
+    const couleurs = ["text-rose", "text-jaune", "text-bleu-fonce"];
+
+    for (let i = 0; i < 16; i++) {
+      const etoile = document.createElement("span");
+      etoile.textContent = "✱";
+      etoile.className = "pointer-events-none fixed z-50 animate-etincelle font-titre text-2xl font-bold " + couleurs[i % 3];
+
+      // Départ : le centre du bouton
+      etoile.style.left = zone.left + zone.width / 2 + "px";
+      etoile.style.top = zone.top + zone.height / 2 + "px";
+
+      // Direction : tout autour du bouton, à une distance un peu différente pour chaque étoile
+      const angle = (i / 16) * 2 * Math.PI;
+      const distance = 80 + Math.random() * 80;
+      etoile.style.setProperty("--x", Math.cos(angle) * distance + "px");
+      etoile.style.setProperty("--y", Math.sin(angle) * distance + "px");
+      etoile.style.setProperty("--r", Math.random() * 360 + "deg");
+
+      document.body.append(etoile);
+      // L'étoile est supprimée à la fin de son animation
+      etoile.addEventListener("animationend", () => etoile.remove());
+    }
+  }
+
+  // La bulle du personnage change de texte avec un petit rebond
+  function faireParlerPerso(texte) {
+    bulle.textContent = texte;
+    bulle.classList.remove("animate-rebond");
+    void bulle.offsetWidth; // relance l'animation même si elle a déjà eu lieu
+    bulle.classList.add("animate-rebond");
+  }
 
   // "Autre" choisi : on affiche le champ pour écrire son sujet (et il devient obligatoire)
   selectSujet.addEventListener("change", () => {
@@ -180,7 +221,22 @@ import perso from "../assets/images/perso.png";
       sujetAutre.classList.add("hidden");
       sujetAutre.required = false;
       zoneMessage.style.height = "auto";
-      retour.textContent = "Merci, votre message a bien été envoyé !";
+      retour.textContent = "Votre message a bien été envoyé !";
+
+      // Réussite : étoiles, bouton rose, et le perso répond
+      lancerEtoiles();
+      bouton.innerHTML = "Message envoyé ✱";
+      bouton.classList.replace("bg-jaune", "bg-rose");
+      bouton.classList.replace("text-noir", "text-blanc");
+      faireParlerPerso("Merci ! Je reviens vers vous très vite ✱");
+
+      // Après 4 secondes, le bouton et la bulle redeviennent normaux
+      setTimeout(() => {
+        bouton.innerHTML = contenuBouton;
+        bouton.classList.replace("bg-rose", "bg-jaune");
+        bouton.classList.replace("text-blanc", "text-noir");
+        faireParlerPerso(texteBulle);
+      }, 4000);
     } catch (erreur) {
       retour.textContent = "Oups, le message n'est pas parti. Réessayez plus tard.";
     }

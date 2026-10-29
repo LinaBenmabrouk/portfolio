@@ -67,8 +67,46 @@
   --text-display-mobile--line-height: 26px;
   --text-display-mobile--letter-spacing: -0.05em;
 
+  /* Grand titre du hero quand un mot est long (ex : SURCHAUFFE), pour qu'il ne sorte pas du cadre */
+  --text-titre-long: 116px;
+  --text-titre-long--line-height: 69px; /* même rapport que le grand titre (95 / 160) */
+  --text-titre-long--letter-spacing: -0.05em;
+  /* Même titre, plus grand sur les grands écrans (2xl : 1536 px et plus) */
+  --text-titre-long-grand: 112px;
+  --text-titre-long-grand--line-height: 67px;
+  --text-titre-long-grand--letter-spacing: -0.05em;
+
   /* Espacement des lettres */
   --tracking-large: 0.3em;
+
+  /* Étoiles qui jaillissent du bouton après l'envoi du formulaire (classe animate-etincelle).
+     --x, --y et --r (direction et rotation) sont donnés par le script pour chaque étoile */
+  --animate-etincelle: etincelle 0.9s ease-out forwards;
+
+  @keyframes etincelle {
+    from {
+      transform: translate(-50%, -50%) scale(0.4);
+      opacity: 1;
+    }
+    to {
+      transform: translate(calc(-50% + var(--x)), calc(-50% + var(--y))) rotate(var(--r)) scale(1.2);
+      opacity: 0;
+    }
+  }
+
+  /* Petit rebond quand la bulle du personnage change de texte (classe animate-rebond) */
+  --animate-rebond: rebond 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+
+  @keyframes rebond {
+    from {
+      transform: scale(0.6);
+      opacity: 0;
+    }
+    to {
+      transform: scale(1);
+      opacity: 1;
+    }
+  }
 
   /* Animation du bandeau qui défile (classe animate-defile) */
   --animate-defile: defile 30s linear infinite;
