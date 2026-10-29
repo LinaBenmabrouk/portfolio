@@ -92,6 +92,41 @@
   }
 }
 
+/* Classe .details : texte riche venu de PocketBase (on remet les puces des listes) */
+@layer components {
+  .details ul {
+    list-style: disc;
+    padding-left: 1.5rem;
+  }
+
+  /* Fond à points bleus (section Mon parcours) : nets en haut, flous en bas.
+     Deux calques de points identiques : ::before net qui s'efface vers le bas,
+     ::after flou qui apparaît vers le bas. Le contenu passe devant (relative z-10). */
+  .fond-points::before,
+  .fond-points::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background-image: radial-gradient(circle, rgb(23 52 218 / 0.12) 5px, transparent 6px);
+    background-size: 30px 30px;
+  }
+
+  .fond-points::before {
+    mask-image: linear-gradient(to bottom, black 5%, transparent 45%);
+  }
+
+  .fond-points::after {
+    filter: blur(6px);
+    mask-image: linear-gradient(to bottom, transparent 5%, black 45%);
+  }
+
+  /* Trait vertical en pointillés (frise du parcours) */
+  .trait-pointille {
+    background-image: repeating-linear-gradient(to bottom, var(--color-bleu-fonce) 0 10px, transparent 10px 20px);
+  }
+}
+
 @layer base {
   body {
     @apply font-texte bg-rose-pale;

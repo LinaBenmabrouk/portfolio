@@ -1,0 +1,35 @@
+---
+// Un groupe de technologies (ex : "Développement Web") avec ses cartes
+import PbImage from "./PbImage.astro";
+
+const { titre, technologies } = Astro.props;
+---
+
+<div>
+  <!-- Titre du groupe + trait bleu -->
+  <h3 class="font-texte text-body-mobile font-normal text-noir md:text-body">{titre}</h3>
+  <div class="mt-2.5 h-px w-72 bg-bleu-fonce"></div>
+
+  <!-- Cartes : carrousel en mobile, sur une ligne en desktop -->
+  <div
+    class="-mx-4 mt-5 flex snap-x snap-mandatory scroll-px-4 gap-5 overflow-x-auto px-4 scrollbar-cache md:mx-0 md:flex-wrap md:gap-4 md:overflow-visible md:px-0"
+  >
+    {
+      // Pour chaque technologie venue de PocketBase, on affiche une carte
+      technologies.map((techno) => (
+        <div class="flex w-56 shrink-0 snap-start items-center gap-6 rounded-2xl bg-rose px-4 py-3">
+          <PbImage
+            record={techno}
+            recordImage={techno.icone}
+            alt={techno.nom}
+            class="size-15 shrink-0 object-contain"
+          />
+          <div class="flex flex-col gap-1">
+            <p class="font-texte text-h4 font-bold text-blanc">{techno.nom}</p>
+            <p class="font-texte text-small font-normal text-noir">{techno.niveau}</p>
+          </div>
+        </div>
+      ))
+    }
+  </div>
+</div>
