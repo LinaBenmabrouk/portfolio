@@ -1,0 +1,166 @@
+---
+import { Image } from "astro:assets";
+import Layout from "../../layouts/Layout.astro";
+import Hero from "../../components/Hero.astro";
+import PbImage from "../../components/PbImage.astro";
+import chibi from "../../assets/images/chibi.png";
+import dossierFond from "../../assets/icons/dossier-fond.svg";
+import dossierDevant from "../../assets/icons/dossier-devant.svg";
+import FlecheGauche from "../../assets/icons/fleche_gauche.svg";
+import FlecheDroite from "../../assets/icons/fleche_droite.svg";
+import { getProjets } from "../../js/backend.mjs";
+
+// Tous les projets de PocketBase, triés par ordre
+const projets = await getProjets();
+---
+
+<Layout title="Projets" description="">
+  <Hero
+    surtitre="Découvrez mes réalisations"
+    sousTitre="Développement web & projets créatifs"
+    texte="Une sélection d'applications web et de projets créatifs conçus avec soin."
+  >
+    Mes <span class="text-rose">projets</span><span class="text-jaune">.</span>
+    <Image slot="visuel" src={chibi} alt="" width={1024} class="size-full object-contain" loading="eager" />
+  </Hero>
+
+  <!-- Filtres : un bouton par catégorie (data-filtre), "Tout" actif au départ -->
+  <div class="mx-auto mt-9 mb-9 flex flex-wrap gap-5 px-4 md:mt-15 md:mb-14 md:gap-9 md:px-11">
+    <button type="button" data-filtre="tout" aria-pressed="true" class="bouton-filtre rounded-xl border-2 border-jaune bg-jaune px-3 py-2 font-texte text-mini font-semibold text-noir md:border-3 md:px-7.5 md:py-2.5 md:text-button md:font-bold">Tout</button>
+    <button type="button" data-filtre="dev" aria-pressed="false" class="bouton-filtre rounded-xl border-2 border-jaune px-3 py-2 font-texte text-mini font-semibold text-noir md:border-3 md:px-7.5 md:py-2.5 md:text-button md:font-bold">Développement</button>
+    <button type="button" data-filtre="design" aria-pressed="false" class="bouton-filtre rounded-xl border-2 border-jaune px-3 py-2 font-texte text-mini font-semibold text-noir md:border-3 md:px-7.5 md:py-2.5 md:text-button md:font-bold">Design</button>
+    <button type="button" data-filtre="animation" aria-pressed="false" class="bouton-filtre rounded-xl border-2 border-jaune px-3 py-2 font-texte text-mini font-semibold text-noir md:border-3 md:px-7.5 md:py-2.5 md:text-button md:font-bold">Animation</button>
+  </div>
+
+  <!-- Liste des projets -->
+  <div id="liste-projets" class="mx-auto mb-16 flex scroll-mt-28 flex-col gap-12 px-4 md:mb-24 md:gap-15 md:px-11">
+    {
+      // Pour chaque projet de PocketBase : une carte (dossier + texte)
+      projets.map((projet) => (
+        <a
+          href={"/projets/" + projet.slug}
+          data-categorie={projet.categorie}
+          class="carte-projet group flex flex-col gap-5 md:flex-row md:gap-6"
+        >
+          <!-- Dossier : fond, image du projet, puis devant du dossier par-dessus (self-start : il garde sa taille) -->
+          <div class="relative w-48 shrink-0 md:w-86 md:self-start">
+            <Image src={dossierFond} alt="" class="w-full" />
+            <!-- La div donne la place de l'image (l'image seule en absolute garderait sa taille d'origine).
+                 Au survol de la carte (desktop), ou quand la carte est au milieu de l'écran (mobile, data-ouvert),
+                 l'image sort du dossier : elle monte, grandit un peu et penche -->
+            <div class="absolute inset-x-1.5 top-1/6 bottom-1/8 transition duration-500 ease-out group-hover:-translate-y-1/4 group-hover:-rotate-3 group-hover:scale-105 max-md:group-data-ouvert:-translate-y-1/4 max-md:group-data-ouvert:-rotate-3 max-md:group-data-ouvert:scale-105 group-focus-visible:-translate-y-1/4 group-focus-visible:-rotate-3 motion-reduce:transition-none md:inset-x-3">
+              <PbImage
+                record={projet}
+                recordImage={projet.image_couverture}
+                class="size-full rounded-xl object-cover transition-shadow duration-500 group-hover:shadow-xl max-md:group-data-ouvert:shadow-xl md:rounded-3xl"
+              />
+            </div>
+            <Image src={dossierDevant} alt="" class="absolute bottom-0 left-0 w-full" />
+          </div>
+
+          <!-- Texte (en desktop, il prend la hauteur de la carte : les tags vont en bas avec mt-auto) -->
+          <div class="flex flex-col gap-3 md:flex-1 md:gap-5">
+            <h2 class="font-titre text-h2-mobile font-bold text-noir uppercase md:text-h2">{projet.titre}</h2>
+
+            <div class="flex flex-col gap-1.5">
+              <!-- Année ✱ contexte ✱ équipe (l'année n'est affichée que si elle existe) -->
+              <p class="font-texte text-sm font-medium text-bleu-fonce md:text-base">
+                {projet.annee && <>{projet.annee}<span class="mx-2 text-rose">✱</span></>}
+                {projet.contexte}
+                <span class="mx-2 text-rose">✱</span>
+                {projet.equipe}
+              </p>
+              <p class="font-texte text-sm font-normal text-noir md:text-base">
+                <span class="font-bold">Mon rôle :</span> {projet.role}
+              </p>
+            </div>
+
+            <p class="font-texte text-small-mobile font-normal text-noir md:text-body">{projet.description}</p>
+
+            <p class="mt-3 font-texte text-small-mobile font-semibold text-rose md:mt-auto md:pt-4 md:text-body md:font-bold">{projet.tags}</p>
+          </div>
+        </a>
+      ))
+    }
+  </div>
+
+  <!-- Pagination : toujours affichée (boutons grisés quand il n'y a qu'une page).
+       Les flèches sont en SVG inline (fill="currentColor") : elles prennent la couleur du texte -->
+  <nav id="pagination" aria-label="Pagination des projets" class="mb-16 flex items-center justify-center gap-4 px-4 md:mb-24 md:gap-8">
+    <button type="button" id="page-precedente" class="rounded-xl border-2 border-jaune flex items-center gap-2 px-3 py-2 font-texte text-mini font-normal text-noir hover:bg-jaune-clair disabled:opacity-40 disabled:hover:bg-transparent md:border-3 md:px-6 md:py-2.5 md:text-button"><FlecheGauche class="size-4 md:size-5" aria-hidden="true" /> Précédent</button>
+    <p id="page-info" aria-live="polite" class="font-texte text-small-mobile font-normal text-noir md:text-body">Page 1 / 1</p>
+    <button type="button" id="page-suivante" class="rounded-xl border-2 border-jaune flex items-center gap-2 px-3 py-2 font-texte text-mini font-normal text-noir hover:bg-jaune-clair disabled:opacity-40 disabled:hover:bg-transparent md:border-3 md:px-6 md:py-2.5 md:text-button">Suivant <FlecheDroite class="size-4 md:size-5" aria-hidden="true" /></button>
+  </nav>
+</Layout>
+
+<script>
+  const boutons = document.querySelectorAll(".bouton-filtre");
+  const cartes = document.querySelectorAll(".carte-projet");
+
+  const boutonPrecedent = document.getElementById("page-precedente");
+  const boutonSuivant = document.getElementById("page-suivante");
+  const infoPage = document.getElementById("page-info");
+
+  // Nombre de projets par page
+  const PROJETS_PAR_PAGE = 4;
+
+  let filtre = "tout";
+  let page = 1;
+
+  // Affiche seulement les cartes du filtre choisi, et seulement celles de la page en cours
+  function afficher() {
+    // 1. Les cartes qui correspondent au filtre
+    const cartesFiltrees = [...cartes].filter((carte) => filtre === "tout" || carte.dataset.categorie === filtre);
+
+    // 2. Nombre de pages (au moins 1)
+    const nbPages = Math.max(1, Math.ceil(cartesFiltrees.length / PROJETS_PAR_PAGE));
+
+    // 3. On cache tout, puis on montre les cartes de la page
+    const debut = (page - 1) * PROJETS_PAR_PAGE;
+    const fin = debut + PROJETS_PAR_PAGE;
+    cartes.forEach((carte) => carte.classList.add("hidden"));
+    cartesFiltrees.slice(debut, fin).forEach((carte) => carte.classList.remove("hidden"));
+
+    // 4. Mise à jour de la pagination
+    infoPage.textContent = "Page " + page + " / " + nbPages;
+    boutonPrecedent.disabled = page === 1;
+    boutonSuivant.disabled = page === nbPages;
+  }
+
+  // Clic sur un filtre : le bouton devient jaune, on revient à la page 1
+  boutons.forEach((bouton) => {
+    bouton.addEventListener("click", () => {
+      boutons.forEach((b) => {
+        b.classList.toggle("bg-jaune", b === bouton);
+        b.setAttribute("aria-pressed", String(b === bouton));
+      });
+      filtre = bouton.dataset.filtre;
+      page = 1;
+      afficher();
+    });
+  });
+
+  // Changement de page : on remonte en haut de la liste
+  function changerPage(nouvellePage) {
+    page = nouvellePage;
+    afficher();
+    document.getElementById("liste-projets").scrollIntoView({ behavior: "smooth" });
+  }
+  boutonPrecedent.addEventListener("click", () => changerPage(page - 1));
+  boutonSuivant.addEventListener("click", () => changerPage(page + 1));
+
+  // Premier affichage
+  afficher();
+
+  // Mobile : pas de survol, donc l'image sort du dossier quand la carte passe au milieu de l'écran
+  const observateur = new IntersectionObserver(
+    (entrees) => {
+      entrees.forEach((entree) => {
+        entree.target.toggleAttribute("data-ouvert", entree.isIntersecting);
+      });
+    },
+    // Zone de détection : la bande du milieu de l'écran (on enlève 40 % en haut et en bas)
+    { rootMargin: "-40% 0px -40% 0px" }
+  );
+  cartes.forEach((carte) => observateur.observe(carte));
+</script>
