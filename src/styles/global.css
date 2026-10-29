@@ -33,12 +33,17 @@
   --text-body--line-height: 25px;
   --text-button: 15px;
   --text-button--line-height: 20px;
-  --text-small: 15px;
+  --text-small: 16px;
   --text-small--line-height: 20px;
 
   /* Tailles de texte mobile */
   --text-h1-mobile: 32px;
   --text-h1-mobile--line-height: 30px;
+
+  /* Titre de section qui doit tenir sur une ligne en mobile (ex : Projets sélectionnés) */
+  --text-titre-section-mobile: 28px;
+  --text-titre-section-mobile--line-height: 30px;
+
   --text-h2-mobile: 24px;
   --text-h2-mobile--line-height: 20px;
   --text-h4-mobile: 17px;
@@ -64,6 +69,27 @@
 
   /* Espacement des lettres */
   --tracking-large: 0.3em;
+
+  /* Animation du bandeau qui défile (classe animate-defile) */
+  --animate-defile: defile 30s linear infinite;
+
+  @keyframes defile {
+    from {
+      transform: translateX(0);
+    }
+    to {
+      transform: translateX(-50%);
+    }
+  }
+}
+
+/* Classe scrollbar-cache : cache la barre de défilement (le contenu défile toujours) */
+@utility scrollbar-cache {
+  scrollbar-width: none;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
 }
 
 @layer base {

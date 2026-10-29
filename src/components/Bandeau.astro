@@ -1,0 +1,39 @@
+---
+// Texte qui défile en boucle (passé par la page)
+const { texte } = Astro.props;
+---
+
+<!-- Bandeau jaune, avec un espace normal au-dessus -->
+<section class="mt-6 w-full overflow-hidden bg-jaune py-3 md:mt-9 md:py-5">
+  <!-- Texte lu une seule fois par les lecteurs d'écran -->
+  <p class="sr-only">{texte}</p>
+
+  <!-- Ligne qui défile : 2 groupes identiques, l'animation décale de la moitié -->
+  <div
+    aria-hidden="true"
+    class="flex w-max animate-defile font-titre text-small-mobile font-bold whitespace-nowrap text-bleu-fonce motion-reduce:animate-none md:text-h4"
+  >
+    <!-- Groupe 1 : 4 fois le texte, plus large que l'écran -->
+    <div class="flex shrink-0 items-center gap-8 pr-8 md:gap-14 md:pr-14">
+      <span>{texte}</span>
+      <span>✱</span>
+      <span>{texte}</span>
+      <span>✱</span>
+      <span>{texte}</span>
+      <span>✱</span>
+      <span>{texte}</span>
+      <span>✱</span>
+    </div>
+    <!-- Groupe 2 : copie du groupe 1 pour que la boucle ne se voie pas -->
+    <div class="flex shrink-0 items-center gap-8 pr-8 md:gap-14 md:pr-14">
+      <span>{texte}</span>
+      <span>✱</span>
+      <span>{texte}</span>
+      <span>✱</span>
+      <span>{texte}</span>
+      <span>✱</span>
+      <span>{texte}</span>
+      <span>✱</span>
+    </div>
+  </div>
+</section>

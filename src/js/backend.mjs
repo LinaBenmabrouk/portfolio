@@ -9,11 +9,18 @@ export async function getProjets() {
   return await pb.collection("projets").getFullList({ sort: "ordre" });
 }
 
+// Projets cochés "en_avant" (section "Projets sélectionnés" de l'accueil).
+// Si PocketBase ne répond pas, on renvoie une liste vide pour que le site marche quand même.
 export async function getProjetsEnAvant() {
-  return await pb.collection("projets").getFullList({
-    filter: "en_avant = true",
-    sort: "ordre",
-  });
+  try {
+    return await pb.collection("projets").getFullList({
+      filter: "en_avant = true",
+      sort: "ordre",
+    });
+  } catch (erreur) {
+    console.error("Impossible de récupérer les projets en avant :", erreur.message);
+    return [];
+  }
 }
 
 export async function getProjet(slug) {

@@ -2,7 +2,17 @@
 import { Image } from "astro:assets";
 import Layout from "../layouts/Layout.astro";
 import Hero from "../components/Hero.astro";
+import Bandeau from "../components/Bandeau.astro";
+import CardCompetence from "../components/CardCompetence.astro";
+import CardProjet from "../components/CardProjet.astro";
 import chibi from "../assets/images/chibi.png";
+import fleche from "../assets/icons/fleche.svg";
+import imageEmplacement from "../assets/images/image_emplacement.png";
+import etoile from "../assets/icons/etoile.svg";
+import { getProjetsEnAvant } from "../js/backend.mjs";
+
+// Projets cochés "en_avant" dans PocketBase, triés par ordre
+const projets = await getProjetsEnAvant();
 ---
 
 <Layout title="Accueil" description="">
@@ -11,6 +21,7 @@ import chibi from "../assets/images/chibi.png";
     sousTitre="Salut! Je suis"
     sousTitreLigne2="Lina Ben Mabrouk"
     flecheSousTitre
+    sousTitreLien="/a-propos"
     texte="Intégration web et développement d'applications front-end."
     boutonTexte="Voir mes projets"
     boutonLien="/projets"
@@ -19,4 +30,109 @@ import chibi from "../assets/images/chibi.png";
     Port <span class="ml-7 text-rose md:ml-28">Folio</span><span class="text-jaune">.</span>
     <Image slot="visuel" src={chibi} alt="" width={1024} class="size-full object-contain" loading="eager" />
   </Hero>
+
+  <!-- Bandeau qui défile sous le hero -->
+  <Bandeau texte="Je recherche un stage du 29 mars au 4 juin" />
+
+  <!-- Ce que je fais : 3 cartes (en colonne en mobile, sur une ligne en desktop) -->
+  <section class="px-4 py-12 md:px-11 md:py-24">
+    <h2 class="font-titre text-h1-mobile font-bold text-jaune uppercase md:text-h1">Ce que je fais</h2>
+
+    <div class="mt-6 grid gap-6 md:mt-12 md:grid-cols-3 md:gap-8">
+      <CardCompetence
+        titre="Développement web"
+        texte="J'intègre des maquettes en sites responsives et je développe des applications web interactives."
+        outils="HTML · CSS · JavaScript · Astro · Tailwind"
+      />
+      <CardCompetence
+        titre="Design UI / UX"
+        texte="Je conçois l'arborescence, les parcours utilisateur et les interfaces, de la maquette au prototype."
+        outils="Figma · Arborescence · Prototypage"
+      />
+      <CardCompetence
+        titre="Animation & personnages"
+        texte="Je dessine et j'anime des personnages 2D, et je découvre la modélisation 3D."
+        outils="IbisPaint X · Live2D · Blender"
+      />
+    </div>
+  </section>
+
+  <!-- Projets sélectionnés : carrousel en mobile, 3 colonnes en desktop -->
+  <section class="px-4 pb-12 md:px-11 md:pb-24">
+    <h2 class="mb-8 font-titre text-titre-section-mobile font-bold text-jaune uppercase md:mb-16 md:text-h1">Projets Sélectionnés</h2>
+
+    <div class="-mx-4 flex snap-x snap-mandatory scroll-px-4 gap-6 overflow-x-auto px-4 scrollbar-cache md:mx-0 md:grid md:grid-cols-3 md:gap-10 md:overflow-visible md:px-0">
+      {
+        // Pour chaque projet venu de PocketBase, on affiche une card
+        projets.map((projet) => <CardProjet projet={projet} />)
+      }
+    </div>
+  </section>
+
+  <!-- Qui je suis : texte + photo (côte à côte en desktop, l'un sous l'autre en mobile) -->
+  <section class="flex flex-col gap-12 px-4 pb-16 md:flex-row md:items-center md:justify-between md:gap-16 md:px-11 md:pb-24">
+    <div class="md:max-w-3xl">
+      <h2 class="font-titre text-h1-mobile font-bold text-jaune uppercase md:text-h1">Qui je suis</h2>
+
+      <p class="mt-8 font-texte text-body-mobile font-normal text-noir md:mt-12 md:text-body">
+        Je m'appelle Lina, étudiante en BUT MMI passionnée par la création numérique.<br />
+        Mon intérêt pour le développement web s'inscrit dans une recherche de logique, d'interactivité et de soin apporté à l'expérience utilisateur.
+      </p>
+      <p class="mt-6 font-texte text-body-mobile font-normal text-noir md:text-body">
+        Je me passionne aussi pour l'animation 2D, les personnages virtuels et les environnements inspirés du streaming.
+      </p>
+
+      <!-- Bouton vers la page À propos -->
+      <a
+        href="/a-propos"
+        class="mt-8 inline-flex items-center gap-3 rounded-xl bg-jaune px-4 py-3 font-texte text-mini font-medium text-noir hover:bg-jaune-clair md:mt-10 md:gap-4 md:text-button md:font-bold"
+      >
+        En savoir plus
+        <Image src={fleche} alt="" class="size-4 md:size-6" />
+      </a>
+    </div>
+
+    <!-- PHOTO : image provisoire (image_emplacement.png), à remplacer par ma photo -->
+    <Image
+      src={imageEmplacement}
+      alt=""
+      class="aspect-square w-full shrink-0 object-cover md:w-100"
+    />
+  </section>
+
+  <!-- En ce moment : encadré bleu, je cherche un stage ou une alternance -->
+  <section class="px-4 pb-16 md:px-7 md:pb-24">
+    <div class="flex items-center justify-between gap-8 rounded-3xl bg-bleu-fonce px-6 py-10 md:rounded-4xl md:px-17 md:py-17">
+      <div class="md:max-w-4xl">
+        <!-- Petit surtitre -->
+        <p class="font-texte text-small-mobile font-normal tracking-widest text-jaune uppercase md:text-small">✱ En ce moment</p>
+
+        <h2 class="mt-3 font-titre text-h2-mobile leading-7 font-bold text-blanc md:mt-4 md:text-h2 md:leading-10">Je cherche un stage ou une alternance</h2>
+
+        <p class="mt-4 font-texte text-body-mobile font-normal text-blanc md:text-body">
+          En développement web front-end, et idéalement dans un studio de jeux vidéo. Je continue aussi à me former en autonomie sur de nouveaux outils.
+        </p>
+
+        <!-- Dates du stage, dans une pastille jaune -->
+        <p class="mt-5 inline-block rounded-full bg-jaune px-4 py-2 font-texte text-small-mobile text-bleu-fonce md:mt-6 md:px-6 md:py-3 md:text-button">
+          ✱ Stage : <span class="ml-1 font-bold md:text-small">du 29 mars au 4 juin 2027</span>
+        </p>
+
+        <!-- Bouton : télécharge le CV (fichier public/cv.pdf) -->
+        <div class="mt-4 md:mt-5">
+          <a
+            href="/cv.pdf"
+            download
+            class="inline-flex items-center gap-3 rounded-xl bg-jaune px-4 py-3 font-texte text-small-mobile font-bold text-noir hover:bg-jaune-clair md:gap-4 md:text-button"
+          >
+            Télécharger mon CV
+            <Image src={fleche} alt="" class="size-4 md:size-6" />
+          </a>
+        </div>
+      </div>
+
+      <!-- Grande étoile décorative (cachée en mobile pour laisser la place au texte) -->
+      <Image src={etoile} alt="" class="hidden size-60 shrink-0 rotate-12 md:block" />
+    </div>
+  </section>
 </Layout>

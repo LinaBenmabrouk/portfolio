@@ -15,7 +15,8 @@ import chibi from "../assets/images/chibi.png";
   >
     <!-- "profil." est décalé vers la droite en desktop seulement
          (un peu moins que "Folio" pour ne pas sortir de l'écran à 1280 px) -->
-    Mon <span class="text-rose md:ml-24">profil</span><span class="text-jaune">.</span>
+    <!-- <br /> : "profil." toujours sur la 2e ligne -->
+    Mon<br /><span class="text-rose md:ml-24">profil</span><span class="text-jaune">.</span>
     <Image slot="visuel" src={chibi} alt="" width={1024} class="size-full object-contain" loading="eager" />
   </Hero>
 </Layout>

@@ -13,25 +13,23 @@ const {
   sousTitre,
   sousTitreLigne2,
   flecheSousTitre = false,
+  // Lien facultatif : le sous-titre (et sa flèche) devient cliquable
+  sousTitreLien,
   texte,
   boutonTexte,
   boutonLien,
   boutonTelecharger = false,
 } = Astro.props;
 
+// Balise du sous-titre : un lien <a> si sousTitreLien est donné, sinon un simple <span>
+const BaliseSousTitre = sousTitreLien ? "a" : "span";
+
 // Coupe le surtitre autour du ✱ pour pouvoir le colorer en rose
 const morceaux = surtitre.split("✱");
 ---
 
 <section class="relative w-full overflow-visible bg-bleu-fonce">
-  <!-- Vagues : les bosses dépassent sous la section, par-dessus la section suivante (z-10) -->
-  <Image
-    src={vagues}
-    alt=""
-    class="pointer-events-none absolute top-full left-0 z-10 h-auto w-full -translate-y-2/3"
-  />
-
-  <!-- Texture par-dessus le fond bleu (et par-dessus le haut des vagues) -->
+  <!-- Texture par-dessus le fond bleu -->
   <Image
     src={motif}
     alt=""
@@ -45,9 +43,10 @@ const morceaux = surtitre.split("✱");
     <span class="text-rose">✱</span> Portfolio 2026
   </p>
 
-  <!-- Contenu : 2 colonnes côte à côte (z-20 : au-dessus des vagues) -->
+  <!-- Contenu : 2 colonnes côte à côte (z-20 : devant la texture).
+       En mobile, pl-10 : le chibi et le texte sont décalés vers la droite (le texte vertical ne bouge pas) -->
   <div
-    class="relative z-20 flex min-h-60 items-center gap-2 py-6 pr-4 pl-6 md:h-175 md:items-start md:gap-0 md:py-0 md:pt-20 md:pr-15 md:pl-18"
+    class="relative z-20 flex min-h-60 items-center gap-8 py-6 pr-2 pl-10 md:h-175 md:items-start md:gap-0 md:py-0 md:pt-20 md:pr-15 md:pl-18"
   >
     <!-- Colonne gauche (moitié en desktop) -->
     <div class="shrink-0 md:w-1/2">
@@ -55,7 +54,8 @@ const morceaux = surtitre.split("✱");
            En desktop, calée à droite de sa colonne, à 60 px du texte -->
       <div id="zone-3d" class="relative h-28 w-28 md:mr-15 md:ml-auto md:h-124 md:w-128">
         <!-- Pas de rotation : chibi.png est déjà penché d'environ 6° dans le fichier -->
-        <div class="size-full">
+        <!-- En mobile, scale-125 : le chibi est agrandi sans déplacer le texte -->
+        <div class="size-full scale-125 md:scale-100">
           <slot name="visuel" />
         </div>
         <!-- Point d'exclamation en haut à droite de la zone -->
@@ -75,12 +75,15 @@ const morceaux = surtitre.split("✱");
         </span>
       </p>
 
-      <!-- Sous-titre, avec la petite flèche jaune si demandé -->
-      <p class="mt-5 uppercase text-blanc font-titre font-normal text-small-mobile md:mt-9 md:ml-5 md:font-titre md:font-normal md:text-xl">
-        {sousTitre}
-        <!-- 2e partie facultative : à la ligne en mobile, sur la même ligne en desktop -->
-        {sousTitreLigne2 && <>{" "}<br class="md:hidden" />{sousTitreLigne2}</>}
-        {flecheSousTitre && <Image src={flecheJaune} alt="" class="ml-1 inline-block size-3 align-baseline md:ml-2 md:size-5" />}
+      <!-- Sous-titre, avec la petite flèche jaune si demandé.
+           relative z-10 : devant le grand titre, dont les lettres débordent vers le haut (sinon le lien ne se clique pas) -->
+      <p class="relative z-10 mt-5 uppercase text-blanc font-titre font-normal text-small-mobile md:mt-9 md:ml-5 md:font-titre md:font-normal md:text-xl">
+        <BaliseSousTitre href={sousTitreLien} class:list={[sousTitreLien && "transition-colors hover:text-jaune"]}>
+          {sousTitre}
+          <!-- 2e partie facultative : à la ligne en mobile, sur la même ligne en desktop -->
+          {sousTitreLigne2 && <>{" "}<br class="md:hidden" />{sousTitreLigne2}</>}
+          {flecheSousTitre && <Image src={flecheJaune} alt="" class="ml-1 inline-block size-3 align-baseline md:ml-2 md:size-5" />}
+        </BaliseSousTitre>
       </p>
 
       <!-- Grand titre : le contenu vient de la page (slot).
@@ -107,7 +110,7 @@ const morceaux = surtitre.split("✱");
             href={boutonLien}
             download={boutonTelecharger}
             class:list={[
-              "mt-5 inline-flex items-center gap-2 rounded-xl bg-jaune text-noir hover:bg-jaune-clair font-texte font-semibold text-mini px-2.5 py-2 md:gap-3 md:font-bold md:text-button md:px-6 md:py-4",
+              "mt-5 inline-flex items-center gap-2 rounded-lg bg-jaune text-noir hover:bg-jaune-clair font-texte font-semibold text-mini px-2.5 py-2 md:rounded-xl md:gap-3 md:font-bold md:text-button md:px-6 md:py-4",
               texte ? "md:mt-8" : "md:mt-25",
             ]}
           >
@@ -119,3 +122,12 @@ const morceaux = surtitre.split("✱");
     </div>
   </div>
 </section>
+
+<!-- Vagues : dans le flux, juste sous la section (-mt-px : 1 px de chevauchement pour éviter un trait clair). On n'affiche que leur moitié basse
+     (aspect-11/1 + object-bottom) : elles prennent leur place, donc ce qui suit le hero
+     se met automatiquement en dessous, quelle que soit la largeur de l'écran -->
+<Image
+  src={vagues}
+  alt=""
+  class="pointer-events-none -mt-px block aspect-11/1 w-full object-cover object-bottom"
+/>
