@@ -47,6 +47,23 @@
   --text-body-mobile--line-height: 20px;
   --text-small-mobile: 13px;
   --text-small-mobile--line-height: 15px;
+
+  /* Petites tailles mobile */
+  --text-mini: 10px;
+  --text-mini--line-height: 15px;
+  --text-intro-mobile: 11px;
+  --text-intro-mobile--line-height: 15px;
+
+  /* Grand titre du hero */
+  --text-display: 160px;
+  --text-display--line-height: 95px;
+  --text-display--letter-spacing: -0.05em;
+  --text-display-mobile: 40px;
+  --text-display-mobile--line-height: 26px;
+  --text-display-mobile--letter-spacing: -0.05em;
+
+  /* Espacement des lettres */
+  --tracking-large: 0.3em;
 }
 
 @layer base {

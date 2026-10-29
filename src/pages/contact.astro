@@ -1,7 +1,19 @@
 ---
+import { Image } from "astro:assets";
 import Layout from "../layouts/Layout.astro";
+import Hero from "../components/Hero.astro";
+import chibi from "../assets/images/chibi.png";
 ---
 
 <Layout title="Contact" description="">
-  <h1>Contact</h1>
+  <Hero
+    surtitre="Discutons"
+    sousTitre="Un projet en tête ?"
+    texte="Un stage, une alternance ou simplement échanger sur le dev ? Envoyez-moi un message, je réponds rapidement."
+  >
+    <!-- "équipe?" est décalé vers la droite en desktop seulement
+         (moins que "Folio" : le mot est plus large et sortirait de l'écran) -->
+    On fait <span class="text-rose md:ml-12">équipe</span><span class="text-jaune">?</span>
+    <Image slot="visuel" src={chibi} alt="" width={1024} class="size-full object-contain" loading="eager" />
+  </Hero>
 </Layout>

@@ -1,0 +1,121 @@
+---
+// Images du décor (le personnage est fourni par chaque page dans le slot "visuel")
+import { Image } from "astro:assets";
+import motif from "../assets/icons/motif-hero.svg";
+import vagues from "../assets/icons/vagues.svg";
+import exclamation from "../assets/icons/exclamation.svg";
+import fleche from "../assets/icons/fleche.svg";
+import flecheJaune from "../assets/icons/fleche-jaune.svg";
+
+// Textes et options passés par la page
+const {
+  surtitre,
+  sousTitre,
+  sousTitreLigne2,
+  flecheSousTitre = false,
+  texte,
+  boutonTexte,
+  boutonLien,
+  boutonTelecharger = false,
+} = Astro.props;
+
+// Coupe le surtitre autour du ✱ pour pouvoir le colorer en rose
+const morceaux = surtitre.split("✱");
+---
+
+<section class="relative w-full overflow-visible bg-bleu-fonce">
+  <!-- Vagues : les bosses dépassent sous la section, par-dessus la section suivante (z-10) -->
+  <Image
+    src={vagues}
+    alt=""
+    class="pointer-events-none absolute top-full left-0 z-10 h-auto w-full -translate-y-2/3"
+  />
+
+  <!-- Texture par-dessus le fond bleu (et par-dessus le haut des vagues) -->
+  <Image
+    src={motif}
+    alt=""
+    class="pointer-events-none absolute inset-0 z-10 size-full object-cover"
+  />
+
+  <!-- Texte vertical à gauche (se lit de bas en haut), z-20 : devant la texture -->
+  <p
+    class="absolute top-1/2 left-3 z-20 -translate-x-1/2 -translate-y-1/2 -rotate-90 font-texte font-normal uppercase text-intro-mobile tracking-normal whitespace-nowrap text-jaune md:left-10 md:text-h4 md:tracking-large"
+  >
+    <span class="text-rose">✱</span> Portfolio 2026
+  </p>
+
+  <!-- Contenu : 2 colonnes côte à côte (z-20 : au-dessus des vagues) -->
+  <div
+    class="relative z-20 flex min-h-60 items-center gap-2 py-6 pr-4 pl-6 md:h-175 md:items-start md:gap-0 md:py-0 md:pt-20 md:pr-15 md:pl-18"
+  >
+    <!-- Colonne gauche (moitié en desktop) -->
+    <div class="shrink-0 md:w-1/2">
+      <!-- ZONE 3D : chaque page y met son image ou son modèle 3D.
+           En desktop, calée à droite de sa colonne, à 60 px du texte -->
+      <div id="zone-3d" class="relative h-28 w-28 md:mr-15 md:ml-auto md:h-124 md:w-128">
+        <!-- Pas de rotation : chibi.png est déjà penché d'environ 6° dans le fichier -->
+        <div class="size-full">
+          <slot name="visuel" />
+        </div>
+        <!-- Point d'exclamation en haut à droite de la zone -->
+        <Image src={exclamation} alt="" class="absolute top-0 right-0 h-auto w-7 md:w-31" />
+      </div>
+    </div>
+
+    <!-- Colonne de texte (moitié en desktop) -->
+    <div class="min-w-0 flex-1 md:w-1/2 md:flex-none md:pt-16">
+      <!-- Surtitre : petit trait jaune + texte (le ✱ éventuel en rose), sur une seule ligne -->
+      <p class="flex items-center gap-2 font-texte font-normal uppercase text-jaune text-mini whitespace-nowrap md:ml-4 md:gap-2 md:text-small">
+        <span class="h-px w-4 shrink-0 bg-jaune md:w-12"></span>
+        <span>
+          {morceaux[0]}
+          {morceaux.length > 1 && <span class="text-rose">✱</span>}
+          {morceaux[1]}
+        </span>
+      </p>
+
+      <!-- Sous-titre, avec la petite flèche jaune si demandé -->
+      <p class="mt-5 uppercase text-blanc font-titre font-normal text-small-mobile md:mt-9 md:ml-5 md:font-titre md:font-normal md:text-xl">
+        {sousTitre}
+        <!-- 2e partie facultative : à la ligne en mobile, sur la même ligne en desktop -->
+        {sousTitreLigne2 && <>{" "}<br class="md:hidden" />{sousTitreLigne2}</>}
+        {flecheSousTitre && <Image src={flecheJaune} alt="" class="ml-1 inline-block size-3 align-baseline md:ml-2 md:size-5" />}
+      </p>
+
+      <!-- Grand titre : le contenu vient de la page (slot).
+           Hauteur de ligne plus petite que la police : la 2e ligne passe sur la 1re.
+           -skew-x-6 : penché comme un italique (la police n'en a pas) -->
+      <h1 class="mt-3 font-titre font-bold uppercase text-blanc -skew-x-6 text-display-mobile md:mt-6 md:text-display">
+        <slot />
+      </h1>
+
+      <!-- Paragraphe (seulement s'il existe) -->
+      {
+        texte && (
+          <p class="mt-3 font-texte text-blanc font-normal text-intro-mobile max-w-56 md:mt-13 md:font-normal md:text-xl md:leading-10 md:max-w-lg">
+            {texte}
+          </p>
+        )
+      }
+
+      <!-- Bouton (seulement si un texte et un lien sont donnés).
+           Espace au-dessus : petit après le paragraphe, grand directement sous le titre -->
+      {
+        boutonTexte && boutonLien && (
+          <a
+            href={boutonLien}
+            download={boutonTelecharger}
+            class:list={[
+              "mt-5 inline-flex items-center gap-2 rounded-xl bg-jaune text-noir hover:bg-jaune-clair font-texte font-semibold text-mini px-2.5 py-2 md:gap-3 md:font-bold md:text-button md:px-6 md:py-4",
+              texte ? "md:mt-8" : "md:mt-25",
+            ]}
+          >
+            {boutonTexte}
+            <Image src={fleche} alt="" class="size-3 md:size-6" />
+          </a>
+        )
+      }
+    </div>
+  </div>
+</section>

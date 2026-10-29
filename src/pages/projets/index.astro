@@ -1,7 +1,17 @@
 ---
+import { Image } from "astro:assets";
 import Layout from "../../layouts/Layout.astro";
+import Hero from "../../components/Hero.astro";
+import chibi from "../../assets/images/chibi.png";
 ---
 
 <Layout title="Projets" description="">
-  <h1>Projets</h1>
+  <Hero
+    surtitre="Découvrez mes réalisations"
+    sousTitre="Développement web & projets créatifs"
+    texte="Une sélection d'applications web et de projets créatifs conçus avec soin."
+  >
+    Mes <span class="text-rose">projets</span><span class="text-jaune">.</span>
+    <Image slot="visuel" src={chibi} alt="" width={1024} class="size-full object-contain" loading="eager" />
+  </Hero>
 </Layout>

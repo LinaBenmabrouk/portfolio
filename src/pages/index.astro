@@ -1,7 +1,22 @@
 ---
+import { Image } from "astro:assets";
 import Layout from "../layouts/Layout.astro";
+import Hero from "../components/Hero.astro";
+import chibi from "../assets/images/chibi.png";
 ---
 
 <Layout title="Accueil" description="">
-  <h1>Accueil</h1>
+  <Hero
+    surtitre="Étudiante en BUT MMI ✱ 2e année"
+    sousTitre="Salut! Je suis"
+    sousTitreLigne2="Lina Ben Mabrouk"
+    flecheSousTitre
+    texte="Intégration web et développement d'applications front-end."
+    boutonTexte="Voir mes projets"
+    boutonLien="/projets"
+  >
+    <!-- "Folio" est décalé vers la droite, comme sur la maquette -->
+    Port <span class="ml-7 text-rose md:ml-28">Folio</span><span class="text-jaune">.</span>
+    <Image slot="visuel" src={chibi} alt="" width={1024} class="size-full object-contain" loading="eager" />
+  </Hero>
 </Layout>
