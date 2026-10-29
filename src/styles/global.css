@@ -1,0 +1,62 @@
+@import "tailwindcss";
+
+@theme {
+  /* Couleurs */
+  --color-bleu: #1734DA;
+  --color-bleu-fonce: #0000BB;
+  --color-bleu-clair: #ECF2FF;
+  --color-jaune: #FED442;
+  --color-jaune-clair: #FFECA9;
+  --color-rose: #F34D85;
+  --color-rose-pale: #FEF3F7;
+  --color-rose-poudre: #FFD6E5;
+  --color-blanc: #FFFFFF;
+  --color-noir: #000000;
+
+  /* Polices */
+  --font-titre: "Space Grotesk", sans-serif;
+  --font-texte: "DM Sans", sans-serif;
+  --font-nunc: "Titan One", sans-serif;
+  --font-flying: "Anton", sans-serif;
+  --font-vtuber: "Micro 5", sans-serif;
+
+  /* Tailles de texte desktop */
+  --text-h1: 48px;
+  --text-h1--line-height: 50px;
+  --text-h2: 36px;
+  --text-h2--line-height: 40px;
+  --text-h3: 24px;
+  --text-h3--line-height: 30px;
+  --text-h4: 20px;
+  --text-h4--line-height: 25px;
+  --text-body: 18px;
+  --text-body--line-height: 25px;
+  --text-button: 15px;
+  --text-button--line-height: 20px;
+  --text-small: 15px;
+  --text-small--line-height: 20px;
+
+  /* Tailles de texte mobile */
+  --text-h1-mobile: 32px;
+  --text-h1-mobile--line-height: 30px;
+  --text-h2-mobile: 24px;
+  --text-h2-mobile--line-height: 20px;
+  --text-h4-mobile: 17px;
+  --text-h4-mobile--line-height: 22px;
+  --text-body-mobile: 16px;
+  --text-body-mobile--line-height: 20px;
+  --text-small-mobile: 13px;
+  --text-small-mobile--line-height: 15px;
+}
+
+@layer base {
+  body {
+    @apply font-texte bg-rose-pale;
+  }
+
+  h1,
+  h2,
+  h3 {
+    @apply font-titre;
+  }
+}

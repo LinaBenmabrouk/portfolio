@@ -1,0 +1,100 @@
+---
+// Images utilisées dans le header
+import { Image } from "astro:assets";
+import logo from "../assets/icons/logoicone.svg";
+import iconeMenu from "../assets/icons/menu.svg";
+import iconeClose from "../assets/icons/close.svg";
+---
+
+<header class="sticky top-0 z-50 w-full border-b border-blanc/20 bg-bleu-fonce">
+  <!-- Barre du header : 64 px en mobile, environ 90 px en desktop -->
+  <div class="flex h-16 items-center justify-between pr-6 md:h-22 md:pr-15 md:pl-8">
+    <!-- Logo : accroché en haut pour qu'il dépasse sous le header -->
+    <a href="/" class="relative z-10 mt-3 -ml-2 self-start md:mt-6 md:ml-0">
+      <Image
+        src={logo}
+        alt="Lina Ben Mabrouk, accueil"
+        class="h-auto w-27 md:w-43"
+        loading="eager"
+      />
+    </a>
+
+    <!-- Nav desktop -->
+    <nav aria-label="Navigation principale" class="hidden items-center gap-16 md:flex">
+      <a href="/a-propos" class="font-texte text-xl font-normal text-blanc hover:text-jaune">
+        À propos
+      </a>
+      <a href="/projets" class="font-texte text-xl font-normal text-blanc hover:text-jaune">
+        Projets
+      </a>
+      <a
+        href="/contact"
+        class="rounded-full bg-jaune px-6 py-3 font-texte text-button font-bold text-noir uppercase hover:bg-jaune-clair"
+      >
+        Contact
+      </a>
+    </nav>
+
+    <!-- Burger (mobile) : les deux icônes sont superposées dans le bouton -->
+    <button
+      id="burger"
+      type="button"
+      aria-label="Ouvrir le menu"
+      class="relative mt-2 size-6 md:hidden"
+    >
+      <Image
+        id="icone-menu"
+        src={iconeMenu}
+        alt=""
+        class="absolute inset-0 size-6 rotate-0 opacity-100 transition duration-300"
+      />
+      <Image
+        id="icone-close"
+        src={iconeClose}
+        alt=""
+        class="absolute inset-0 size-6 rotate-90 opacity-0 transition duration-300"
+      />
+    </button>
+  </div>
+
+  <!-- Menu mobile : caché par défaut, placé juste sous le header
+       (mt-px : il commence sous la ligne blanche au lieu de la recouvrir) -->
+  <nav
+    id="menu-mobile"
+    aria-label="Navigation mobile"
+    class="absolute top-full left-0 mt-px hidden w-full bg-bleu-fonce px-10 pt-16 pb-16 md:hidden"
+  >
+    <!-- Liens en colonne, avec une ligne sous chacun -->
+    <div class="flex flex-col gap-12">
+      <a href="/a-propos" class="border-b border-bleu pb-2.5 font-texte text-h4-mobile font-normal text-blanc">
+        À propos
+      </a>
+      <a href="/projets" class="border-b border-bleu pb-2.5 font-texte text-h4-mobile font-normal text-blanc">
+        Mes projets
+      </a>
+      <a href="/contact" class="border-b border-bleu pb-2.5 font-texte text-h4-mobile font-normal text-blanc">
+        Contact
+      </a>
+    </div>
+  </nav>
+</header>
+
+<script>
+  const burger = document.getElementById("burger");
+  const menu = document.getElementById("menu-mobile");
+  const iconeMenu = document.getElementById("icone-menu");
+  const iconeClose = document.getElementById("icone-close");
+
+  // Au clic : on affiche ou cache le menu, et on échange les deux icônes
+  burger.addEventListener("click", () => {
+    menu.classList.toggle("hidden");
+
+    // Chaque icône passe de "visible" à "tournée + invisible", ou l'inverse
+    for (const icone of [iconeMenu, iconeClose]) {
+      icone.classList.toggle("rotate-0");
+      icone.classList.toggle("opacity-100");
+      icone.classList.toggle("rotate-90");
+      icone.classList.toggle("opacity-0");
+    }
+  });
+</script>

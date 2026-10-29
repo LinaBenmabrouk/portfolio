@@ -1,0 +1,9 @@
+---
+import { Image } from "astro:assets";
+import { getImageUrl } from "../js/backend.mjs";
+
+const { record, recordImage, ...attrs } = Astro.props;
+const src = getImageUrl(record, recordImage);
+---
+
+<Image src={src} alt={record.titre} inferSize {...attrs} />

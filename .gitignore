@@ -1,0 +1,5 @@
+node_modules/
+dist/
+.astro/
+pocketbase/pb_data/
+pocketbase/pocketbase
