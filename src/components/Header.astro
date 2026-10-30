@@ -1,7 +1,7 @@
 ---
 // Images utilisées dans le header
 import { Image } from "astro:assets";
-import logo from "../assets/icons/logoicone.svg";
+import logo from "../assets/icons/logo-icon.svg";
 import iconeMenu from "../assets/icons/menu.svg";
 import iconeClose from "../assets/icons/close.svg";
 
@@ -19,14 +19,10 @@ const pageContact = chemin.startsWith("/contact") ? "page" : undefined;
 <header class="sticky top-0 z-50 w-full border-b border-blanc/20 bg-bleu-fonce">
   <!-- Barre du header : 64 px en mobile, environ 90 px en desktop -->
   <div class="flex h-16 items-center justify-between pr-6 md:h-22 md:pr-15 md:pl-8">
-    <!-- Logo : accroché en haut pour qu'il dépasse sous le header -->
-    <a href="/" class="relative z-10 mt-3 -ml-2 self-start focus-visible:outline-jaune md:mt-6 md:ml-0">
-      <Image
-        src={logo}
-        alt="Lina Ben Mabrouk, accueil"
-        class="h-auto w-27 md:w-43"
-        loading="eager"
-      />
+    <!-- Logo : centré verticalement dans la barre, il ne dépasse pas du header -->
+    <a href="/" aria-label="Accueil - Lina Ben Mabrouk" class="relative z-10 ml-6 focus-visible:outline-jaune md:ml-0">
+      <!-- 40 px de haut en mobile, 72 px en desktop ; alt vide : le lien porte déjà le texte -->
+      <Image src={logo} alt="" class="h-10 w-auto md:h-18" loading="eager" />
     </a>
 
     <!-- Nav desktop -->

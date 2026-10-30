@@ -13,7 +13,9 @@ const classeLigne = "flex flex-col gap-2 md:flex-row md:items-center md:gap-13";
 const classeLabel = "font-titre text-sm font-bold text-bleu-fonce uppercase md:w-25 md:text-right md:text-h3 md:text-noir md:normal-case";
 const classeLien = "group flex items-center gap-3 font-texte text-h4-mobile font-medium text-rose transition-colors hover:text-bleu-fonce md:text-h4";
 const classeFleche = "size-5 transition-transform group-hover:translate-x-1 group-hover:-translate-y-1 md:size-6";
-const classeChamp = "w-full border-b border-noir bg-transparent pb-1 font-texte text-body-mobile text-noir placeholder:text-rose placeholder:italic md:text-body";
+// Champ souligné : quand on clique dedans, la ligne devient bleue et plus épaisse (à la place du cadre).
+// focus:pb-0.75 compense le 1 px de bordure en plus, pour que le champ ne bouge pas
+const classeChamp = "w-full border-b border-noir bg-transparent pb-1 font-texte text-body-mobile text-noir transition-colors placeholder:text-rose placeholder:italic focus:border-b-2 focus:border-bleu-fonce focus:pb-0.75 focus-visible:outline-none md:text-body";
 ---
 
 <Layout title="Contact" description="Une proposition de stage, d'alternance ou un projet ? Écrivez à Lina Ben Mabrouk.">

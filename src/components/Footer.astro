@@ -1,7 +1,7 @@
 ---
 // Images utilisées dans le footer
 import { Image } from "astro:assets";
-import logo from "../assets/icons/logo.svg";
+import logo from "../assets/icons/logo-icon.svg";
 import linkedin from "../assets/icons/linkedIn.svg";
 import behance from "../assets/icons/behance.svg";
 import github from "../assets/icons/github.svg";
@@ -22,9 +22,10 @@ const classeReseau = "focus-visible:outline-jaune";
   <div
     class="relative z-10 flex flex-col items-start gap-9 px-10 py-8 md:flex-row md:gap-20 md:px-15 md:py-12"
   >
-    <!-- Logo (centré verticalement en desktop, comme sur la maquette) -->
-    <a href="/" class="focus-visible:outline-jaune md:self-center">
-      <Image src={logo} alt="Lina Ben Mabrouk, accueil" class="h-auto w-80 md:w-60" />
+    <!-- Logo : centré en haut en mobile, à gauche et centré verticalement en desktop -->
+    <a href="/" aria-label="Accueil - Lina Ben Mabrouk" class="self-center focus-visible:outline-jaune">
+      <!-- 160 px de haut en mobile, 176 px en desktop ; alt vide : le lien porte déjà le texte -->
+      <Image src={logo} alt="" class="h-40 w-auto md:h-44" />
     </a>
 
     <!-- Texte + bouton : 2e bloc en mobile, tout à droite en desktop -->
