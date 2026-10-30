@@ -11,7 +11,7 @@ const { titre, texte, outils } = Astro.props;
 <article class="flex flex-col rounded-3xl border-3 border-bleu-fonce bg-blanc p-6 md:p-7">
   <!-- Étoile + titre : côte à côte en mobile, l'un sous l'autre en desktop -->
   <div class="flex items-center gap-3 md:block">
-    <Image src={etoile} alt="" class="size-8 shrink-0 md:size-12" />
+    <Image src={etoile} alt="" aria-hidden="true" class="size-8 shrink-0 md:size-12" />
     <h3 class="font-titre text-h4 font-bold text-bleu-fonce md:mt-6 md:text-h3">
       {titre}
     </h3>

@@ -13,19 +13,22 @@ import { getProjets } from "../../js/backend.mjs";
 // Tous les projets de PocketBase, triés par ordre
 const projets = await getProjets();
 
+// Cache d'une minute : la page n'est pas recalculée à chaque visite
+Astro.response.headers.set("Cache-Control", "public, max-age=60");
+
 // Classes communes des boutons de filtre et de pagination
 const classeFiltre = "bouton-filtre rounded-xl border-2 border-jaune px-3 py-2 font-texte text-mini font-semibold text-noir md:border-3 md:px-7.5 md:py-2.5 md:text-button md:font-bold";
 const classePage = "group flex items-center gap-2 rounded-xl border-2 border-jaune px-3 py-2 font-texte text-mini font-normal text-noir hover:bg-jaune-clair disabled:opacity-40 disabled:hover:bg-transparent md:border-3 md:px-6 md:py-2.5 md:text-button";
 ---
 
-<Layout title="Projets" description="">
+<Layout title="Mes projets" description="Mes projets de développement web, de design et d'animation, réalisés en BUT MMI ou en autonomie.">
   <Hero
     surtitre="Découvrez mes réalisations"
     sousTitre="Développement web & projets créatifs"
     texte="Une sélection d'applications web et de projets créatifs conçus avec soin."
   >
     Mes <span class="text-rose">projets</span><span class="text-jaune">.</span>
-    <Image slot="visuel" src={chibi} alt="" width={1024} class="size-full object-contain" loading="eager" />
+    <Image slot="visuel" src={chibi} alt="" aria-hidden="true" widths={[256, 512, 1024]} sizes="(min-width: 768px) 512px, 140px" class="size-full object-contain" loading="eager" fetchpriority="high" />
   </Hero>
 
   <!-- Filtres : un bouton par catégorie (data-filtre), "Tout" actif au départ -->
@@ -48,7 +51,7 @@ const classePage = "group flex items-center gap-2 rounded-xl border-2 border-jau
         >
           <!-- Dossier : fond, image du projet, puis devant du dossier par-dessus (self-start : il garde sa taille) -->
           <div class="relative w-48 shrink-0 md:w-86 md:self-start">
-            <Image src={dossierFond} alt="" class="w-full" />
+            <Image src={dossierFond} alt="" aria-hidden="true" class="w-full" />
             <!-- La div donne la place de l'image (l'image seule en absolute garderait sa taille d'origine).
                  Au survol de la carte (desktop), ou quand la carte est au milieu de l'écran (mobile, data-ouvert),
                  l'image sort du dossier : elle monte, grandit un peu et penche -->
@@ -56,10 +59,11 @@ const classePage = "group flex items-center gap-2 rounded-xl border-2 border-jau
               <PbImage
                 record={projet}
                 recordImage={projet.image_couverture}
+                alt={"Couverture du projet " + projet.titre}
                 class="size-full rounded-xl object-cover transition-shadow duration-500 group-hover:shadow-xl max-md:group-data-ouvert:shadow-xl md:rounded-3xl"
               />
             </div>
-            <Image src={dossierDevant} alt="" class="absolute bottom-0 left-0 w-full" />
+            <Image src={dossierDevant} alt="" aria-hidden="true" class="absolute bottom-0 left-0 w-full" />
           </div>
 
           <!-- Texte (en desktop, il prend la hauteur de la carte : les tags vont en bas avec mt-auto) -->
@@ -148,7 +152,9 @@ const classePage = "group flex items-center gap-2 rounded-xl border-2 border-jau
   function changerPage(nouvellePage) {
     page = nouvellePage;
     afficher();
-    document.getElementById("liste-projets").scrollIntoView({ behavior: "smooth" });
+    // Défilement doux, sauf si la personne a demandé moins d'animations
+    const moinsAnimations = matchMedia("(prefers-reduced-motion: reduce)").matches;
+    document.getElementById("liste-projets").scrollIntoView({ behavior: moinsAnimations ? "auto" : "smooth" });
   }
   boutonPrecedent.addEventListener("click", () => changerPage(page - 1));
   boutonSuivant.addEventListener("click", () => changerPage(page + 1));

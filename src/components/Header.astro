@@ -5,16 +5,22 @@ import logo from "../assets/icons/logoicone.svg";
 import iconeMenu from "../assets/icons/menu.svg";
 import iconeClose from "../assets/icons/close.svg";
 
-// Classes communes des liens (nav desktop et menu mobile)
-const classeLien = "font-texte text-xl font-normal text-blanc hover:text-jaune";
-const classeLienMobile = "border-b border-bleu pb-2.5 font-texte text-h4-mobile font-normal text-blanc";
+// Classes communes des liens (nav desktop et menu mobile), contour jaune au clavier (fond bleu)
+const classeLien = "font-texte text-xl font-normal text-blanc hover:text-jaune focus-visible:outline-jaune";
+const classeLienMobile = "border-b border-bleu pb-2.5 font-texte text-h4-mobile font-normal text-blanc focus-visible:outline-jaune";
+
+// Lien de la page actuelle : aria-current="page" (les pages projet comptent pour "Projets")
+const chemin = Astro.url.pathname;
+const pageAPropos = chemin.startsWith("/a-propos") ? "page" : undefined;
+const pageProjets = chemin.startsWith("/projets") ? "page" : undefined;
+const pageContact = chemin.startsWith("/contact") ? "page" : undefined;
 ---
 
 <header class="sticky top-0 z-50 w-full border-b border-blanc/20 bg-bleu-fonce">
   <!-- Barre du header : 64 px en mobile, environ 90 px en desktop -->
   <div class="flex h-16 items-center justify-between pr-6 md:h-22 md:pr-15 md:pl-8">
     <!-- Logo : accroché en haut pour qu'il dépasse sous le header -->
-    <a href="/" class="relative z-10 mt-3 -ml-2 self-start md:mt-6 md:ml-0">
+    <a href="/" class="relative z-10 mt-3 -ml-2 self-start focus-visible:outline-jaune md:mt-6 md:ml-0">
       <Image
         src={logo}
         alt="Lina Ben Mabrouk, accueil"
@@ -25,15 +31,16 @@ const classeLienMobile = "border-b border-bleu pb-2.5 font-texte text-h4-mobile 
 
     <!-- Nav desktop -->
     <nav aria-label="Navigation principale" class="hidden items-center gap-16 md:flex">
-      <a href="/a-propos" class={classeLien}>
+      <a href="/a-propos" aria-current={pageAPropos} class={classeLien}>
         À propos
       </a>
-      <a href="/projets" class={classeLien}>
+      <a href="/projets" aria-current={pageProjets} class={classeLien}>
         Projets
       </a>
       <a
         href="/contact"
-        class="rounded-full bg-jaune px-6 py-3 font-texte text-button font-bold text-noir uppercase hover:bg-jaune-clair"
+        aria-current={pageContact}
+        class="rounded-full bg-jaune px-6 py-3 font-texte text-button font-bold text-noir uppercase hover:bg-jaune-clair focus-visible:outline-jaune"
       >
         Contact
       </a>
@@ -44,18 +51,20 @@ const classeLienMobile = "border-b border-bleu pb-2.5 font-texte text-h4-mobile 
       id="burger"
       type="button"
       aria-label="Ouvrir le menu"
-      class="relative mt-2 size-6 md:hidden"
+      aria-expanded="false"
+      aria-controls="menu-mobile"
+      class="relative mt-2 size-6 focus-visible:outline-jaune md:hidden"
     >
       <Image
         id="icone-menu"
         src={iconeMenu}
-        alt=""
+        alt="" aria-hidden="true"
         class="absolute inset-0 size-6 rotate-0 opacity-100 transition duration-300"
       />
       <Image
         id="icone-close"
         src={iconeClose}
-        alt=""
+        alt="" aria-hidden="true"
         class="absolute inset-0 size-6 rotate-90 opacity-0 transition duration-300"
       />
     </button>
@@ -71,13 +80,13 @@ const classeLienMobile = "border-b border-bleu pb-2.5 font-texte text-h4-mobile 
   >
     <!-- Liens en colonne, avec une ligne sous chacun -->
     <div class="flex flex-col gap-12">
-      <a href="/a-propos" class={classeLienMobile}>
+      <a href="/a-propos" aria-current={pageAPropos} class={classeLienMobile}>
         À propos
       </a>
-      <a href="/projets" class={classeLienMobile}>
+      <a href="/projets" aria-current={pageProjets} class={classeLienMobile}>
         Mes projets
       </a>
-      <a href="/contact" class={classeLienMobile}>
+      <a href="/contact" aria-current={pageContact} class={classeLienMobile}>
         Contact
       </a>
     </div>
@@ -92,6 +101,11 @@ const classeLienMobile = "border-b border-bleu pb-2.5 font-texte text-h4-mobile 
 
   // Au clic : on affiche ou cache le menu, et on échange les deux icônes
   burger.addEventListener("click", () => {
+    // Indique aux lecteurs d'écran si le menu est ouvert, et change le texte du bouton
+    const ouvert = burger.getAttribute("aria-expanded") === "true";
+    burger.setAttribute("aria-expanded", String(!ouvert));
+    burger.setAttribute("aria-label", ouvert ? "Ouvrir le menu" : "Fermer le menu");
+
     // Le menu apparaît ou disparaît en fondu (transition dans ses classes)
     menu.classList.toggle("invisible");
     menu.classList.toggle("opacity-0");

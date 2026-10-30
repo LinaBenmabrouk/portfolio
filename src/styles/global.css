@@ -12,6 +12,8 @@
   --color-rose: #F34D85;
   --color-rose-pale: #FEF3F7;
   --color-rose-poudre: #FFD6E5;
+  /* Jaune plus foncé pour les titres sur fond clair */
+  --color-jaune-fonce: #FFC600;
   --color-blanc: #FFFFFF;
   --color-noir: #000000;
 
@@ -132,6 +134,26 @@
   h3 {
     @apply font-titre;
   }
+
+  /* Contour visible quand on navigue au clavier (liens, boutons, champs).
+     Sur fond bleu, les liens ajoutent la classe focus-visible:outline-jaune */
+  :focus-visible {
+    outline: 2px solid var(--color-bleu-fonce);
+    outline-offset: 2px;
+  }
+}
+
+/* Moins d'animations si la personne l'a demandé dans son système :
+   transitions, animations et défilement doux deviennent instantanés */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  ::before,
+  ::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
 }
 
 /* Classe scrollbar-cache : cache la barre de défilement (le contenu défile toujours) */
@@ -197,6 +219,41 @@
   .fond-points-clair > * {
     position: relative;
     z-index: 1;
+  }
+
+  /* Motifs de points du hero et du footer (remplacent les SVG Figma de 5,7 Mo et 1,3 Mo).
+     Le fond porte le dégradé de couleur, le masque le découpe en petits points.
+     Mêmes valeurs que dans Figma : taille des points, espacement, opacité et dégradé */
+  /* Points identiques pour les deux motifs.
+     Mobile : points 2 fois plus petits, comme l'ancien SVG réduit dans un hero moins haut */
+  .motif-hero,
+  .motif-footer {
+    pointer-events: none;
+    mask-repeat: repeat;
+    mask-image: radial-gradient(0.9px 0.82px at 0.75px 0.68px, black 75%, transparent 100%);
+    mask-size: 4.7px 4.8px;
+  }
+
+  @media (min-width: 48rem) {
+    .motif-hero,
+    .motif-footer {
+      mask-image: radial-gradient(1.8px 1.65px at 1.5px 1.36px, black 75%, transparent 100%);
+      mask-size: 9.35px 9.6px;
+    }
+  }
+
+  /* Hero : rose au milieu, bleu en haut et en bas (dégradé en ellipse centré en haut).
+     Les tailles sont en % du hero : le dégradé reste centré quelle que soit la largeur de l'écran */
+  .motif-hero {
+    opacity: 0.7;
+    background-image: radial-gradient(128% 85% at 50% 0, var(--color-bleu-fonce) 30%, var(--color-rose) 65%, var(--color-rose) 78%, var(--color-bleu-fonce) 104%);
+  }
+
+  /* Footer : bleu en haut à droite, rose en bas à gauche, sur les 1274 premiers px (comme dans Figma), bleu après */
+  .motif-footer {
+    opacity: 0.6;
+    background: linear-gradient(195deg, var(--color-bleu-fonce) 38%, var(--color-rose) 100%) left bottom / 1274px 100% no-repeat,
+      var(--color-bleu-fonce);
   }
 
   /* Trait vertical en pointillés (frise du parcours) */

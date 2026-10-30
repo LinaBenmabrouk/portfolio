@@ -4,7 +4,7 @@ const { texte } = Astro.props;
 ---
 
 <!-- Bandeau jaune, avec un espace normal au-dessus -->
-<section class="mt-6 w-full overflow-hidden bg-jaune py-3 md:mt-9 md:py-5">
+<div class="mt-6 w-full overflow-hidden bg-jaune py-3 md:mt-9 md:py-5">
   <!-- Texte lu une seule fois par les lecteurs d'écran -->
   <p class="sr-only">{texte}</p>
 
@@ -36,4 +36,4 @@ const { texte } = Astro.props;
       <span>✱</span>
     </div>
   </div>
-</section>
+</div>

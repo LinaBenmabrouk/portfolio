@@ -21,7 +21,8 @@ const { titre, technologies } = Astro.props;
           <PbImage
             record={techno}
             recordImage={techno.icone}
-            alt={techno.nom}
+            alt=""
+            aria-hidden="true"
             class="size-15 shrink-0 object-contain"
           />
           <div class="flex flex-col gap-1">

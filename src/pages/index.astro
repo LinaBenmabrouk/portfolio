@@ -13,9 +13,12 @@ import { getProjetsEnAvant } from "../js/backend.mjs";
 
 // Projets cochés "en_avant" dans PocketBase, triés par ordre
 const projets = await getProjetsEnAvant();
+
+// Cache d'une minute : la page n'est pas recalculée à chaque visite
+Astro.response.headers.set("Cache-Control", "public, max-age=60");
 ---
 
-<Layout title="Accueil" description="">
+<Layout title="Accueil" description="Portfolio de Lina Ben Mabrouk, étudiante en BUT MMI : intégration web, développement front-end, design et animation 2D.">
   <Hero
     surtitre="Étudiante en BUT MMI ✱ 2e année"
     sousTitre="Salut! Je suis"
@@ -28,7 +31,7 @@ const projets = await getProjetsEnAvant();
   >
     <!-- "Folio" est décalé vers la droite, comme sur la maquette -->
     Port <span class="ml-7 text-rose md:ml-28">Folio</span><span class="text-jaune">.</span>
-    <Image slot="visuel" src={chibi} alt="" width={1024} class="size-full object-contain" loading="eager" />
+    <Image slot="visuel" src={chibi} alt="" aria-hidden="true" widths={[256, 512, 1024]} sizes="(min-width: 768px) 512px, 140px" class="size-full object-contain" loading="eager" fetchpriority="high" />
   </Hero>
 
   <!-- Bandeau qui défile sous le hero -->
@@ -36,7 +39,7 @@ const projets = await getProjetsEnAvant();
 
   <!-- Ce que je fais : 3 cartes (en colonne en mobile, sur une ligne en desktop) -->
   <section class="px-4 py-12 md:px-11 md:py-24">
-    <h2 class="font-titre text-h1-mobile font-bold text-jaune uppercase md:text-h1">Ce que je fais</h2>
+    <h2 class="font-titre text-h1-mobile font-bold text-jaune-fonce uppercase md:text-h1">Ce que je fais</h2>
 
     <div class="mt-6 grid gap-6 md:mt-12 md:grid-cols-3 md:gap-8">
       <CardCompetence
@@ -59,7 +62,7 @@ const projets = await getProjetsEnAvant();
 
   <!-- Projets sélectionnés : carrousel en mobile, 3 colonnes en desktop -->
   <section class="px-4 pb-12 md:px-11 md:pb-24">
-    <h2 class="mb-8 font-titre text-titre-section-mobile font-bold text-jaune uppercase md:mb-16 md:text-h1">Projets Sélectionnés</h2>
+    <h2 class="mb-8 font-titre text-titre-section-mobile font-bold text-jaune-fonce uppercase md:mb-16 md:text-h1">Projets Sélectionnés</h2>
 
     <div class="-mx-4 flex snap-x snap-mandatory scroll-px-4 gap-6 overflow-x-auto px-4 scrollbar-cache md:mx-0 md:grid md:grid-cols-3 md:gap-10 md:overflow-visible md:px-0">
       {
@@ -72,7 +75,7 @@ const projets = await getProjetsEnAvant();
   <!-- Qui je suis : texte + photo (côte à côte en desktop, l'un sous l'autre en mobile) -->
   <section class="flex flex-col gap-12 px-4 pb-16 md:flex-row md:items-center md:justify-between md:gap-16 md:px-11 md:pb-24">
     <div class="md:max-w-3xl">
-      <h2 class="font-titre text-h1-mobile font-bold text-jaune uppercase md:text-h1">Qui je suis</h2>
+      <h2 class="font-titre text-h1-mobile font-bold text-jaune-fonce uppercase md:text-h1">Qui je suis</h2>
 
       <p class="mt-8 font-texte text-body-mobile font-normal text-noir md:mt-12 md:text-body">
         Je m'appelle Lina, étudiante en BUT MMI passionnée par la création numérique.<br />
@@ -88,14 +91,14 @@ const projets = await getProjetsEnAvant();
         class="group mt-8 inline-flex items-center gap-3 rounded-xl bg-jaune px-4 py-3 font-texte text-mini font-medium text-noir hover:bg-jaune-clair md:mt-10 md:gap-4 md:text-button md:font-bold"
       >
         En savoir plus
-        <Image src={fleche} alt="" class="size-4 transition-transform group-hover:translate-x-1 group-hover:-translate-y-1 md:size-6" />
+        <Image src={fleche} alt="" aria-hidden="true" class="size-4 transition-transform group-hover:translate-x-1 group-hover:-translate-y-1 md:size-6" />
       </a>
     </div>
 
     <!-- PHOTO : image provisoire (image_emplacement.png), à remplacer par ma photo -->
     <Image
       src={imageEmplacement}
-      alt=""
+      alt="" aria-hidden="true"
       class="aspect-square w-full shrink-0 object-cover md:w-100"
     />
   </section>
@@ -123,17 +126,17 @@ const projets = await getProjetsEnAvant();
           <a
             href="/cv.pdf"
             download
-            class="group inline-flex items-center gap-3 rounded-xl bg-jaune px-4 py-3 font-texte text-small-mobile font-bold text-noir hover:bg-jaune-clair md:gap-4 md:text-button"
+            class="group inline-flex items-center gap-3 rounded-xl bg-jaune px-4 py-3 font-texte text-small-mobile font-bold text-noir hover:bg-jaune-clair focus-visible:outline-jaune md:gap-4 md:text-button"
           >
             Télécharger mon CV
             <!-- Flèche tournée vers le bas, comme dans la page contact -->
-            <Image src={fleche} alt="" class="size-4 rotate-135 transition-transform group-hover:translate-y-1 md:size-6" />
+            <Image src={fleche} alt="" aria-hidden="true" class="size-4 rotate-135 transition-transform group-hover:translate-y-1 md:size-6" />
           </a>
         </div>
       </div>
 
       <!-- Grande étoile décorative (cachée en mobile pour laisser la place au texte) -->
-      <Image src={etoile} alt="" class="hidden size-60 shrink-0 rotate-12 md:block" />
+      <Image src={etoile} alt="" aria-hidden="true" class="hidden size-60 shrink-0 rotate-12 md:block" />
     </div>
   </section>
 </Layout>

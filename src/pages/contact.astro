@@ -13,10 +13,10 @@ const classeLigne = "flex flex-col gap-2 md:flex-row md:items-center md:gap-13";
 const classeLabel = "font-titre text-sm font-bold text-bleu-fonce uppercase md:w-25 md:text-right md:text-h3 md:text-noir md:normal-case";
 const classeLien = "group flex items-center gap-3 font-texte text-h4-mobile font-medium text-rose transition-colors hover:text-bleu-fonce md:text-h4";
 const classeFleche = "size-5 transition-transform group-hover:translate-x-1 group-hover:-translate-y-1 md:size-6";
-const classeChamp = "w-full border-b border-noir bg-transparent pb-1 font-texte text-body-mobile text-noir placeholder:text-rose placeholder:italic focus:outline-none md:text-body";
+const classeChamp = "w-full border-b border-noir bg-transparent pb-1 font-texte text-body-mobile text-noir placeholder:text-rose placeholder:italic md:text-body";
 ---
 
-<Layout title="Contact" description="">
+<Layout title="Contact" description="Une proposition de stage, d'alternance ou un projet ? Écrivez à Lina Ben Mabrouk.">
   <Hero
     surtitre="Discutons"
     sousTitre="Un projet en tête ?"
@@ -25,7 +25,7 @@ const classeChamp = "w-full border-b border-noir bg-transparent pb-1 font-texte 
     <!-- "équipe?" est décalé vers la droite en desktop seulement
          (moins que "Folio" : le mot est plus large et sortirait de l'écran) -->
     On fait <span class="text-rose md:ml-12">équipe</span><span class="text-jaune">?</span>
-    <Image slot="visuel" src={chibi} alt="" width={1024} class="size-full object-contain" loading="eager" />
+    <Image slot="visuel" src={chibi} alt="" aria-hidden="true" widths={[256, 512, 1024]} sizes="(min-width: 768px) 512px, 140px" class="size-full object-contain" loading="eager" fetchpriority="high" />
   </Hero>
 
   <!-- Bande qui défile sous le hero (même composant que sur l'accueil) -->
@@ -50,7 +50,7 @@ const classeChamp = "w-full border-b border-noir bg-transparent pb-1 font-texte 
         <div class={classeLigne}>
           <p class={classeLabel}>Behance</p>
           <a href="https://www.behance.net/linabenmabrouk" target="_blank" rel="noopener" class={classeLien}>
-            Mes designs <Image src={fleche} alt="" class={classeFleche} />
+            Mes designs <span class="sr-only">(nouvel onglet)</span> <Image src={fleche} alt="" aria-hidden="true" class={classeFleche} />
           </a>
         </div>
 
@@ -58,7 +58,7 @@ const classeChamp = "w-full border-b border-noir bg-transparent pb-1 font-texte 
         <div class={classeLigne}>
           <p class={classeLabel}>LinkedIn</p>
           <a href="https://www.linkedin.com/in/lina-ben-mabrouk-b28564397/" target="_blank" rel="noopener" class={classeLien}>
-            Mon profil <Image src={fleche} alt="" class={classeFleche} />
+            Mon profil <span class="sr-only">(nouvel onglet)</span> <Image src={fleche} alt="" aria-hidden="true" class={classeFleche} />
           </a>
         </div>
 
@@ -66,7 +66,7 @@ const classeChamp = "w-full border-b border-noir bg-transparent pb-1 font-texte 
         <div class={classeLigne}>
           <p class={classeLabel}>GitHub</p>
           <a href="https://github.com/LinaBenmabrouk" target="_blank" rel="noopener" class={classeLien}>
-            Mes dépôts <Image src={fleche} alt="" class={classeFleche} />
+            Mes dépôts <span class="sr-only">(nouvel onglet)</span> <Image src={fleche} alt="" aria-hidden="true" class={classeFleche} />
           </a>
         </div>
 
@@ -74,7 +74,7 @@ const classeChamp = "w-full border-b border-noir bg-transparent pb-1 font-texte 
         <div class={classeLigne}>
           <p class={classeLabel}>CV</p>
           <a href="/cv.pdf" download class={classeLien}>
-            Télécharger <Image src={fleche} alt="" class="size-5 rotate-135 transition-transform group-hover:translate-y-1 md:size-6" />
+            Télécharger <Image src={fleche} alt="" aria-hidden="true" class="size-5 rotate-135 transition-transform group-hover:translate-y-1 md:size-6" />
           </a>
         </div>
       </div>
@@ -82,7 +82,7 @@ const classeChamp = "w-full border-b border-noir bg-transparent pb-1 font-texte 
       <!-- Personnage + bulle (en mobile : -mt-10 le remonte, mb-10 ajoute de l'espace avant le formulaire) -->
       <div class="-mt-10 mb-10 flex items-center justify-center gap-4 md:mt-0 md:mb-0 md:justify-start md:gap-3">
         <!-- Personnage (translate-y : seule l'image descend un peu, pas la bulle) -->
-        <Image src={perso} alt="" width={400} class="h-auto w-32 shrink-0 translate-y-10 md:w-48 md:translate-y-16" />
+        <Image src={perso} alt="" aria-hidden="true" width={400} class="h-auto w-32 shrink-0 translate-y-10 md:w-48 md:translate-y-16" />
         <p id="bulle" aria-live="polite" class="origin-bottom-left rounded-3xl rounded-bl-sm bg-rose px-4 py-3 font-texte text-sm font-medium text-blanc md:px-6.5 md:py-4 md:text-body">
           Je vous réponds sous 48 h !
         </p>
@@ -108,14 +108,14 @@ const classeChamp = "w-full border-b border-noir bg-transparent pb-1 font-texte 
         <label for="sujet" class="font-titre text-h4 font-bold text-noir">Sujet*</label>
         <!-- invalid: : tant qu'aucun sujet n'est choisi, le texte est rose et en italique -->
         <div class="relative">
-          <select id="sujet" name="sujet" required class="w-full appearance-none rounded-md bg-blanc px-4 py-2.5 font-texte text-body-mobile text-noir invalid:text-rose invalid:italic focus:outline-none md:text-body">
+          <select id="sujet" name="sujet" required class="w-full appearance-none rounded-md bg-blanc px-4 py-2.5 font-texte text-body-mobile text-noir invalid:text-rose invalid:italic md:text-body">
             <option value="" disabled selected class="text-rose italic">choisir votre sujet...</option>
             <option>Proposition de stage</option>
             <option>Projet ou collaboration</option>
             <option>Question</option>
             <option>Autre</option>
           </select>
-          <Image src={flecheBas} alt="" class="pointer-events-none absolute top-1/2 right-3 size-6 -translate-y-1/2" />
+          <Image src={flecheBas} alt="" aria-hidden="true" class="pointer-events-none absolute top-1/2 right-3 size-6 -translate-y-1/2" />
         </div>
         <!-- Champ caché, qui apparaît quand on choisit "Autre" -->
         <input id="sujet-autre" type="text" name="sujetAutre" placeholder="précisez votre sujet..." aria-label="Précisez votre sujet" class:list={["hidden", classeChamp]} />
@@ -125,13 +125,13 @@ const classeChamp = "w-full border-b border-noir bg-transparent pb-1 font-texte 
       <div class="flex flex-col gap-6">
         <!-- Fond blanc, la zone grandit quand on écrit (voir le script) -->
         <label for="message" class="font-titre text-h4 font-bold text-noir">Message*</label>
-        <textarea id="message" name="message" rows="3" placeholder="écrire votre message..." required class="w-full resize-none overflow-hidden rounded-md bg-blanc px-4 py-2.5 font-texte text-body-mobile text-noir placeholder:text-rose placeholder:italic focus:outline-none md:text-body"></textarea>
+        <textarea id="message" name="message" rows="3" placeholder="écrire votre message..." required class="w-full resize-none overflow-hidden rounded-md bg-blanc px-4 py-2.5 font-texte text-body-mobile text-noir placeholder:text-rose placeholder:italic md:text-body"></textarea>
       </div>
 
       <!-- Bouton + message de retour -->
       <div class="flex flex-col gap-3">
         <button type="submit" class="group relative flex w-full items-center justify-center gap-2.5 rounded-xl bg-jaune py-3 font-texte text-button font-bold text-noir hover:bg-jaune-clair disabled:opacity-50">
-          Envoyer le message <Image src={fleche} alt="" class="size-6 transition-transform group-enabled:group-hover:translate-x-1 group-enabled:group-hover:-translate-y-1" />
+          Envoyer le message <Image src={fleche} alt="" aria-hidden="true" class="size-6 transition-transform group-enabled:group-hover:translate-x-1 group-enabled:group-hover:-translate-y-1" />
         </button>
         <p id="message-retour" aria-live="polite" class="font-texte text-small text-bleu-fonce"></p>
       </div>

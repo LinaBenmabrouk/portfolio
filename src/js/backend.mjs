@@ -20,6 +20,11 @@ export async function getProjets() {
   return await pb.collection("projets").getFullList({ sort: "ordre" });
 }
 
+// Projets pour la navigation précédent / suivant : seulement le slug et le titre
+export async function getProjetsNav() {
+  return await getListe("projets", { sort: "ordre", fields: "slug,titre" });
+}
+
 // Projets cochés "en_avant" (section "Projets sélectionnés" de l'accueil)
 export async function getProjetsEnAvant() {
   return await getListe("projets", { filter: "en_avant = true", sort: "ordre" });
@@ -54,8 +59,9 @@ export async function getProjet(slug) {
   }
 }
 
-export function getImageUrl(record, fichier) {
-  return pb.files.getURL(record, fichier);
+// Adresse d'un fichier PocketBase. miniature (ex : "800x0") : version réduite de l'image
+export function getImageUrl(record, fichier, miniature) {
+  return pb.files.getURL(record, fichier, miniature ? { thumb: miniature } : {});
 }
 
 export async function envoyerMessage(data) {

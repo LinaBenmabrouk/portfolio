@@ -24,6 +24,9 @@ const typeProjet = projet.contexte.split(/ [·✱] /)[0];
   <PbImage
     record={projet}
     recordImage={projet.image_couverture}
+    alt={"Couverture du projet " + projet.titre}
+    widths={[400, 800]}
+    sizes="(min-width: 768px) 33vw, 320px"
     class="aspect-video w-full object-cover"
   />
 
