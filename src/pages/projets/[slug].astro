@@ -307,7 +307,7 @@ const etapes = projet.etapes || [];
       <a href={"/projets/" + precedent.slug} class="group max-w-1/2">
         <p class="font-titre text-xs font-bold text-rose uppercase md:text-sm">Projet précédent</p>
         <p class="mt-1.5 flex gap-1.5 font-titre text-sm font-bold text-bleu-fonce md:gap-3 md:text-2xl">
-          <FlecheGauche class="mt-0.5 size-4 shrink-0 md:mt-1 md:size-6" aria-hidden="true" />
+          <FlecheGauche class="mt-0.5 size-4 shrink-0 transition-transform group-hover:-translate-x-1 md:mt-1 md:size-6" aria-hidden="true" />
           <span class="text-balance group-hover:underline">{precedent.titre}</span>
         </p>
       </a>
@@ -315,7 +315,7 @@ const etapes = projet.etapes || [];
         <p class="font-titre text-xs font-bold text-rose uppercase md:text-sm">Projet suivant</p>
         <p class="mt-1.5 flex justify-end gap-1.5 font-titre text-sm font-bold text-bleu-fonce md:gap-3 md:text-2xl">
           <span class="text-balance group-hover:underline">{suivant.titre}</span>
-          <FlecheDroite class="mt-0.5 size-4 shrink-0 md:mt-1 md:size-6" aria-hidden="true" />
+          <FlecheDroite class="mt-0.5 size-4 shrink-0 transition-transform group-hover:translate-x-1 md:mt-1 md:size-6" aria-hidden="true" />
         </p>
       </a>
     </nav>

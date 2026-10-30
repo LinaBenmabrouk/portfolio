@@ -130,8 +130,8 @@ const classeChamp = "w-full border-b border-noir bg-transparent pb-1 font-texte 
 
       <!-- Bouton + message de retour -->
       <div class="flex flex-col gap-3">
-        <button type="submit" class="relative flex w-full items-center justify-center gap-2.5 rounded-xl bg-jaune py-3 font-texte text-button font-bold text-noir hover:bg-jaune-clair disabled:opacity-50">
-          Envoyer le message <Image src={fleche} alt="" class="size-6" />
+        <button type="submit" class="group relative flex w-full items-center justify-center gap-2.5 rounded-xl bg-jaune py-3 font-texte text-button font-bold text-noir hover:bg-jaune-clair disabled:opacity-50">
+          Envoyer le message <Image src={fleche} alt="" class="size-6 transition-transform group-enabled:group-hover:translate-x-1 group-enabled:group-hover:-translate-y-1" />
         </button>
         <p id="message-retour" aria-live="polite" class="font-texte text-small text-bleu-fonce"></p>
       </div>

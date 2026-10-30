@@ -85,10 +85,10 @@ const projets = await getProjetsEnAvant();
       <!-- Bouton vers la page À propos -->
       <a
         href="/a-propos"
-        class="mt-8 inline-flex items-center gap-3 rounded-xl bg-jaune px-4 py-3 font-texte text-mini font-medium text-noir hover:bg-jaune-clair md:mt-10 md:gap-4 md:text-button md:font-bold"
+        class="group mt-8 inline-flex items-center gap-3 rounded-xl bg-jaune px-4 py-3 font-texte text-mini font-medium text-noir hover:bg-jaune-clair md:mt-10 md:gap-4 md:text-button md:font-bold"
       >
         En savoir plus
-        <Image src={fleche} alt="" class="size-4 md:size-6" />
+        <Image src={fleche} alt="" class="size-4 transition-transform group-hover:translate-x-1 group-hover:-translate-y-1 md:size-6" />
       </a>
     </div>
 
@@ -123,10 +123,11 @@ const projets = await getProjetsEnAvant();
           <a
             href="/cv.pdf"
             download
-            class="inline-flex items-center gap-3 rounded-xl bg-jaune px-4 py-3 font-texte text-small-mobile font-bold text-noir hover:bg-jaune-clair md:gap-4 md:text-button"
+            class="group inline-flex items-center gap-3 rounded-xl bg-jaune px-4 py-3 font-texte text-small-mobile font-bold text-noir hover:bg-jaune-clair md:gap-4 md:text-button"
           >
             Télécharger mon CV
-            <Image src={fleche} alt="" class="size-4 md:size-6" />
+            <!-- Flèche tournée vers le bas, comme dans la page contact -->
+            <Image src={fleche} alt="" class="size-4 rotate-135 transition-transform group-hover:translate-y-1 md:size-6" />
           </a>
         </div>
       </div>

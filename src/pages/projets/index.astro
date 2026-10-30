@@ -15,7 +15,7 @@ const projets = await getProjets();
 
 // Classes communes des boutons de filtre et de pagination
 const classeFiltre = "bouton-filtre rounded-xl border-2 border-jaune px-3 py-2 font-texte text-mini font-semibold text-noir md:border-3 md:px-7.5 md:py-2.5 md:text-button md:font-bold";
-const classePage = "flex items-center gap-2 rounded-xl border-2 border-jaune px-3 py-2 font-texte text-mini font-normal text-noir hover:bg-jaune-clair disabled:opacity-40 disabled:hover:bg-transparent md:border-3 md:px-6 md:py-2.5 md:text-button";
+const classePage = "group flex items-center gap-2 rounded-xl border-2 border-jaune px-3 py-2 font-texte text-mini font-normal text-noir hover:bg-jaune-clair disabled:opacity-40 disabled:hover:bg-transparent md:border-3 md:px-6 md:py-2.5 md:text-button";
 ---
 
 <Layout title="Projets" description="">
@@ -91,9 +91,9 @@ const classePage = "flex items-center gap-2 rounded-xl border-2 border-jaune px-
   <!-- Pagination : toujours affichée (boutons grisés quand il n'y a qu'une page).
        Les flèches (fill="currentColor") prennent la couleur du texte -->
   <nav id="pagination" aria-label="Pagination des projets" class="mb-16 flex items-center justify-center gap-4 px-4 md:mb-24 md:gap-8">
-    <button type="button" id="page-precedente" class={classePage}><FlecheGauche class="size-4 md:size-5" aria-hidden="true" /> Précédent</button>
+    <button type="button" id="page-precedente" class={classePage}><FlecheGauche class="size-4 transition-transform group-enabled:group-hover:-translate-x-1 md:size-5" aria-hidden="true" /> Précédent</button>
     <p id="page-info" aria-live="polite" class="font-texte text-small-mobile font-normal text-noir md:text-body">Page 1 / 1</p>
-    <button type="button" id="page-suivante" class={classePage}>Suivant <FlecheDroite class="size-4 md:size-5" aria-hidden="true" /></button>
+    <button type="button" id="page-suivante" class={classePage}>Suivant <FlecheDroite class="size-4 transition-transform group-enabled:group-hover:translate-x-1 md:size-5" aria-hidden="true" /></button>
   </nav>
 </Layout>
 
