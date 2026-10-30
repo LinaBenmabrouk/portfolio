@@ -4,6 +4,10 @@ import { Image } from "astro:assets";
 import logo from "../assets/icons/logoicone.svg";
 import iconeMenu from "../assets/icons/menu.svg";
 import iconeClose from "../assets/icons/close.svg";
+
+// Classes communes des liens (nav desktop et menu mobile)
+const classeLien = "font-texte text-xl font-normal text-blanc hover:text-jaune";
+const classeLienMobile = "border-b border-bleu pb-2.5 font-texte text-h4-mobile font-normal text-blanc";
 ---
 
 <header class="sticky top-0 z-50 w-full border-b border-blanc/20 bg-bleu-fonce">
@@ -21,10 +25,10 @@ import iconeClose from "../assets/icons/close.svg";
 
     <!-- Nav desktop -->
     <nav aria-label="Navigation principale" class="hidden items-center gap-16 md:flex">
-      <a href="/a-propos" class="font-texte text-xl font-normal text-blanc hover:text-jaune">
+      <a href="/a-propos" class={classeLien}>
         À propos
       </a>
-      <a href="/projets" class="font-texte text-xl font-normal text-blanc hover:text-jaune">
+      <a href="/projets" class={classeLien}>
         Projets
       </a>
       <a
@@ -58,21 +62,22 @@ import iconeClose from "../assets/icons/close.svg";
   </div>
 
   <!-- Menu mobile : caché par défaut, placé juste sous le header
-       (mt-px : il commence sous la ligne blanche au lieu de la recouvrir) -->
+       (mt-px : il commence sous la ligne blanche au lieu de la recouvrir).
+       Fermé : invisible, transparent et un peu remonté ; il apparaît en fondu en glissant vers le bas -->
   <nav
     id="menu-mobile"
     aria-label="Navigation mobile"
-    class="absolute top-full left-0 mt-px hidden w-full bg-bleu-fonce px-10 pt-16 pb-16 md:hidden"
+    class="invisible absolute top-full left-0 mt-px w-full -translate-y-4 bg-bleu-fonce px-10 py-16 opacity-0 transition-all duration-300 ease-out motion-reduce:transition-none md:hidden"
   >
     <!-- Liens en colonne, avec une ligne sous chacun -->
     <div class="flex flex-col gap-12">
-      <a href="/a-propos" class="border-b border-bleu pb-2.5 font-texte text-h4-mobile font-normal text-blanc">
+      <a href="/a-propos" class={classeLienMobile}>
         À propos
       </a>
-      <a href="/projets" class="border-b border-bleu pb-2.5 font-texte text-h4-mobile font-normal text-blanc">
+      <a href="/projets" class={classeLienMobile}>
         Mes projets
       </a>
-      <a href="/contact" class="border-b border-bleu pb-2.5 font-texte text-h4-mobile font-normal text-blanc">
+      <a href="/contact" class={classeLienMobile}>
         Contact
       </a>
     </div>
@@ -87,7 +92,10 @@ import iconeClose from "../assets/icons/close.svg";
 
   // Au clic : on affiche ou cache le menu, et on échange les deux icônes
   burger.addEventListener("click", () => {
-    menu.classList.toggle("hidden");
+    // Le menu apparaît ou disparaît en fondu (transition dans ses classes)
+    menu.classList.toggle("invisible");
+    menu.classList.toggle("opacity-0");
+    menu.classList.toggle("-translate-y-4");
 
     // Chaque icône passe de "visible" à "tournée + invisible", ou l'inverse
     for (const icone of [iconeMenu, iconeClose]) {

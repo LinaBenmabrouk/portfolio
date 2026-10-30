@@ -7,6 +7,13 @@ import chibi from "../assets/images/chibi.png";
 import fleche from "../assets/icons/fleche.svg";
 import flecheBas from "../assets/icons/fleche_bas.svg";
 import perso from "../assets/images/perso.png";
+
+// Classes communes (réseaux et champs du formulaire)
+const classeLigne = "flex flex-col gap-2 md:flex-row md:items-center md:gap-13";
+const classeLabel = "font-titre text-sm font-bold text-bleu-fonce uppercase md:w-25 md:text-right md:text-h3 md:text-noir md:normal-case";
+const classeLien = "group flex items-center gap-3 font-texte text-h4-mobile font-medium text-rose transition-colors hover:text-bleu-fonce md:text-h4";
+const classeFleche = "size-5 transition-transform group-hover:translate-x-1 group-hover:-translate-y-1 md:size-6";
+const classeChamp = "w-full border-b border-noir bg-transparent pb-1 font-texte text-body-mobile text-noir placeholder:text-rose placeholder:italic focus:outline-none md:text-body";
 ---
 
 <Layout title="Contact" description="">
@@ -34,39 +41,39 @@ import perso from "../assets/images/perso.png";
         <div class="absolute top-0 bottom-0 left-31 hidden w-1.25 bg-bleu-fonce md:block"></div>
 
         <!-- E-mail (toute la largeur en mobile). Survol des liens : bleu foncé + la flèche glisse dans sa direction -->
-        <div class="col-span-2 flex flex-col gap-2 md:flex-row md:items-center md:gap-13">
-          <p class="font-titre text-sm font-bold text-bleu-fonce uppercase md:w-25 md:text-right md:text-h3 md:text-noir md:normal-case">E-mail</p>
+        <div class:list={["col-span-2", classeLigne]}>
+          <p class={classeLabel}>E-mail</p>
           <a href="mailto:linabenmabrouk23@gmail.com" class="font-texte text-h4-mobile font-medium text-rose underline-offset-4 transition-colors hover:text-bleu-fonce hover:underline md:text-h4">linabenmabrouk23@gmail.com</a>
         </div>
 
         <!-- Behance -->
-        <div class="flex flex-col gap-2 md:flex-row md:items-center md:gap-13">
-          <p class="font-titre text-sm font-bold text-bleu-fonce uppercase md:w-25 md:text-right md:text-h3 md:text-noir md:normal-case">Behance</p>
-          <a href="https://www.behance.net/linabenmabrouk" target="_blank" rel="noopener" class="group flex items-center gap-3 font-texte text-h4-mobile font-medium text-rose transition-colors hover:text-bleu-fonce md:text-h4">
-            Mes designs <Image src={fleche} alt="" class="size-5 transition-transform group-hover:translate-x-1 group-hover:-translate-y-1 md:size-6" />
+        <div class={classeLigne}>
+          <p class={classeLabel}>Behance</p>
+          <a href="https://www.behance.net/linabenmabrouk" target="_blank" rel="noopener" class={classeLien}>
+            Mes designs <Image src={fleche} alt="" class={classeFleche} />
           </a>
         </div>
 
         <!-- LinkedIn -->
-        <div class="flex flex-col gap-2 md:flex-row md:items-center md:gap-13">
-          <p class="font-titre text-sm font-bold text-bleu-fonce uppercase md:w-25 md:text-right md:text-h3 md:text-noir md:normal-case">LinkedIn</p>
-          <a href="https://www.linkedin.com/in/lina-ben-mabrouk-b28564397/" target="_blank" rel="noopener" class="group flex items-center gap-3 font-texte text-h4-mobile font-medium text-rose transition-colors hover:text-bleu-fonce md:text-h4">
-            Mon profil <Image src={fleche} alt="" class="size-5 transition-transform group-hover:translate-x-1 group-hover:-translate-y-1 md:size-6" />
+        <div class={classeLigne}>
+          <p class={classeLabel}>LinkedIn</p>
+          <a href="https://www.linkedin.com/in/lina-ben-mabrouk-b28564397/" target="_blank" rel="noopener" class={classeLien}>
+            Mon profil <Image src={fleche} alt="" class={classeFleche} />
           </a>
         </div>
 
         <!-- GitHub -->
-        <div class="flex flex-col gap-2 md:flex-row md:items-center md:gap-13">
-          <p class="font-titre text-sm font-bold text-bleu-fonce uppercase md:w-25 md:text-right md:text-h3 md:text-noir md:normal-case">GitHub</p>
-          <a href="https://github.com/LinaBenmabrouk" target="_blank" rel="noopener" class="group flex items-center gap-3 font-texte text-h4-mobile font-medium text-rose transition-colors hover:text-bleu-fonce md:text-h4">
-            Mes dépôts <Image src={fleche} alt="" class="size-5 transition-transform group-hover:translate-x-1 group-hover:-translate-y-1 md:size-6" />
+        <div class={classeLigne}>
+          <p class={classeLabel}>GitHub</p>
+          <a href="https://github.com/LinaBenmabrouk" target="_blank" rel="noopener" class={classeLien}>
+            Mes dépôts <Image src={fleche} alt="" class={classeFleche} />
           </a>
         </div>
 
         <!-- CV : la flèche est tournée vers le bas -->
-        <div class="flex flex-col gap-2 md:flex-row md:items-center md:gap-13">
-          <p class="font-titre text-sm font-bold text-bleu-fonce uppercase md:w-25 md:text-right md:text-h3 md:text-noir md:normal-case">CV</p>
-          <a href="/cv.pdf" download class="group flex items-center gap-3 font-texte text-h4-mobile font-medium text-rose transition-colors hover:text-bleu-fonce md:text-h4">
+        <div class={classeLigne}>
+          <p class={classeLabel}>CV</p>
+          <a href="/cv.pdf" download class={classeLien}>
             Télécharger <Image src={fleche} alt="" class="size-5 rotate-135 transition-transform group-hover:translate-y-1 md:size-6" />
           </a>
         </div>
@@ -87,23 +94,23 @@ import perso from "../assets/images/perso.png";
       <!-- Nom -->
       <div class="flex flex-col gap-6">
         <label for="nom" class="font-titre text-h4 font-bold text-noir">Nom & Prénom*</label>
-        <input id="nom" type="text" name="nom" placeholder="votre nom" required class="w-full border-b border-noir bg-transparent pb-1 font-texte text-body-mobile text-noir placeholder:text-rose placeholder:italic focus:outline-none md:text-body" />
+        <input id="nom" type="text" name="nom" placeholder="votre nom" required class={classeChamp} />
       </div>
 
       <!-- E-mail -->
       <div class="flex flex-col gap-6">
         <label for="email" class="font-titre text-h4 font-bold text-noir">E-mail*</label>
-        <input id="email" type="email" name="email" placeholder="exemple@gmail.com" required class="w-full border-b border-noir bg-transparent pb-1 font-texte text-body-mobile text-noir placeholder:text-rose placeholder:italic focus:outline-none md:text-body" />
+        <input id="email" type="email" name="email" placeholder="exemple@gmail.com" required class={classeChamp} />
       </div>
 
       <!-- Sujet : liste déroulante avec la flèche à droite -->
       <div class="flex flex-col gap-6">
         <label for="sujet" class="font-titre text-h4 font-bold text-noir">Sujet*</label>
+        <!-- invalid: : tant qu'aucun sujet n'est choisi, le texte est rose et en italique -->
         <div class="relative">
           <select id="sujet" name="sujet" required class="w-full appearance-none rounded-md bg-blanc px-4 py-2.5 font-texte text-body-mobile text-noir invalid:text-rose invalid:italic focus:outline-none md:text-body">
             <option value="" disabled selected class="text-rose italic">choisir votre sujet...</option>
-            <!-- invalid: : tant qu'aucun sujet n'est choisi, le texte est rose et en italique -->
-          <option>Proposition de stage</option>
+            <option>Proposition de stage</option>
             <option>Projet ou collaboration</option>
             <option>Question</option>
             <option>Autre</option>
@@ -111,7 +118,7 @@ import perso from "../assets/images/perso.png";
           <Image src={flecheBas} alt="" class="pointer-events-none absolute top-1/2 right-3 size-6 -translate-y-1/2" />
         </div>
         <!-- Champ caché, qui apparaît quand on choisit "Autre" -->
-        <input id="sujet-autre" type="text" name="sujetAutre" placeholder="précisez votre sujet..." aria-label="Précisez votre sujet" class="hidden w-full border-b border-noir bg-transparent pb-1 font-texte text-body-mobile text-noir placeholder:text-rose placeholder:italic focus:outline-none md:text-body" />
+        <input id="sujet-autre" type="text" name="sujetAutre" placeholder="précisez votre sujet..." aria-label="Précisez votre sujet" class:list={["hidden", classeChamp]} />
       </div>
 
       <!-- Message -->

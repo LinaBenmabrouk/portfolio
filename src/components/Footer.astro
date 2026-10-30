@@ -7,6 +7,10 @@ import linkedin from "../assets/icons/linkedIn.svg";
 import behance from "../assets/icons/behance.svg";
 import github from "../assets/icons/github.svg";
 import fleche from "../assets/icons/fleche.svg";
+
+// Classes communes des titres de colonne et des liens "Le site"
+const classeTitre = "font-texte text-h4-mobile font-medium text-jaune/70 md:text-xl md:leading-11";
+const classeLien = "font-titre text-body-mobile font-medium text-blanc hover:text-jaune md:text-xl md:leading-11";
 ---
 
 <footer class="relative w-full overflow-hidden border-t border-blanc/20 bg-bleu-fonce">
@@ -19,7 +23,7 @@ import fleche from "../assets/icons/fleche.svg";
 
   <!-- Contenu : en colonne en mobile, sur une ligne en desktop -->
   <div
-    class="relative z-10 flex flex-col items-start gap-9 px-10 pt-8 pb-8 md:flex-row md:gap-20 md:px-15 md:pt-12 md:pb-12"
+    class="relative z-10 flex flex-col items-start gap-9 px-10 py-8 md:flex-row md:gap-20 md:px-15 md:py-12"
   >
     <!-- Logo (centré verticalement en desktop, comme sur la maquette) -->
     <a href="/" class="md:self-center">
@@ -43,23 +47,23 @@ import fleche from "../assets/icons/fleche.svg";
 
     <!-- Colonne "Le site" : alignée à droite en desktop -->
     <nav aria-label="Plan du site" class="flex flex-col gap-4 md:w-41 md:gap-0 md:text-right">
-      <h2 class="font-texte text-h4-mobile font-medium text-jaune/70 md:text-xl md:leading-11">
+      <h2 class={classeTitre}>
         Le site
       </h2>
-      <a href="/a-propos" class="font-titre text-body-mobile font-medium text-blanc hover:text-jaune md:text-xl md:leading-11">
+      <a href="/a-propos" class={classeLien}>
         À propos
       </a>
-      <a href="/projets" class="font-titre text-body-mobile font-medium text-blanc hover:text-jaune md:text-xl md:leading-11">
+      <a href="/projets" class={classeLien}>
         Projets
       </a>
-      <a href="/contact" class="font-titre text-body-mobile font-medium text-blanc hover:text-jaune md:text-xl md:leading-11">
+      <a href="/contact" class={classeLien}>
         Contact
       </a>
     </nav>
 
     <!-- Colonne "Mes réseaux" -->
     <div class="flex flex-col gap-6 md:gap-1">
-      <h2 class="font-texte text-h4-mobile font-medium text-jaune/70 md:text-xl md:leading-11">
+      <h2 class={classeTitre}>
         Mes réseaux
       </h2>
       <div class="flex items-center gap-5">

@@ -1,5 +1,7 @@
+/* Tailwind CSS */
 @import "tailwindcss";
 
+/* Variables du site : couleurs, polices, tailles de texte et animations */
 @theme {
   /* Couleurs */
   --color-bleu: #1734DA;
@@ -39,11 +41,9 @@
   /* Tailles de texte mobile */
   --text-h1-mobile: 32px;
   --text-h1-mobile--line-height: 30px;
-
   /* Titre de section qui doit tenir sur une ligne en mobile (ex : Projets sélectionnés) */
   --text-titre-section-mobile: 28px;
   --text-titre-section-mobile--line-height: 30px;
-
   --text-h2-mobile: 24px;
   --text-h2-mobile--line-height: 20px;
   --text-h4-mobile: 17px;
@@ -68,12 +68,12 @@
   --text-display-mobile--letter-spacing: -0.05em;
 
   /* Grand titre du hero quand un mot est long (ex : SURCHAUFFE), pour qu'il ne sorte pas du cadre */
-  --text-titre-long: 116px;
-  --text-titre-long--line-height: 69px; /* même rapport que le grand titre (95 / 160) */
+  --text-titre-long: 90px;
+  --text-titre-long--line-height: 60px; /* même rapport que le grand titre (95 / 160) */
   --text-titre-long--letter-spacing: -0.05em;
   /* Même titre, plus grand sur les grands écrans (2xl : 1536 px et plus) */
-  --text-titre-long-grand: 112px;
-  --text-titre-long-grand--line-height: 67px;
+  --text-titre-long-grand: 104px;
+  --text-titre-long-grand--line-height: 62px;
   --text-titre-long-grand--letter-spacing: -0.05em;
 
   /* Espacement des lettres */
@@ -121,77 +121,7 @@
   }
 }
 
-/* Classe scrollbar-cache : cache la barre de défilement (le contenu défile toujours) */
-@utility scrollbar-cache {
-  scrollbar-width: none;
-
-  &::-webkit-scrollbar {
-    display: none;
-  }
-}
-
-/* Classe .details : texte riche venu de PocketBase (on remet les puces des listes) */
-@layer components {
-  .details ul {
-    list-style: disc;
-    padding-left: 1.5rem;
-  }
-
-  /* Fond à points bleus (section Mon parcours) : nets en haut, flous en bas.
-     Deux calques de points identiques : ::before net qui s'efface vers le bas,
-     ::after flou qui apparaît vers le bas. Le contenu passe devant (relative z-10). */
-  .fond-points::before,
-  .fond-points::after {
-    content: "";
-    position: absolute;
-    inset: 0;
-    pointer-events: none;
-    background-image: radial-gradient(circle, rgb(23 52 218 / 0.12) 5px, transparent 6px);
-    background-size: 30px 30px;
-  }
-
-  /* Même fond à points, plus clair (formulaire de contact) : opacité 0.05 */
-  .fond-points-clair::before,
-  .fond-points-clair::after {
-    content: "";
-    position: absolute;
-    inset: 0;
-    border-radius: inherit;
-    pointer-events: none;
-    background-image: radial-gradient(circle, rgb(23 52 218 / 0.05) 5px, transparent 6px);
-    background-size: 30px 30px;
-  }
-
-  .fond-points-clair::before {
-    mask-image: linear-gradient(to bottom, black 5%, transparent 45%);
-  }
-
-  .fond-points-clair::after {
-    filter: blur(6px);
-    mask-image: linear-gradient(to bottom, transparent 5%, black 45%);
-  }
-
-  /* Le contenu passe devant les points */
-  .fond-points-clair > * {
-    position: relative;
-    z-index: 1;
-  }
-
-  .fond-points::before {
-    mask-image: linear-gradient(to bottom, black 5%, transparent 45%);
-  }
-
-  .fond-points::after {
-    filter: blur(6px);
-    mask-image: linear-gradient(to bottom, transparent 5%, black 45%);
-  }
-
-  /* Trait vertical en pointillés (frise du parcours) */
-  .trait-pointille {
-    background-image: repeating-linear-gradient(to bottom, var(--color-bleu-fonce) 0 10px, transparent 10px 20px);
-  }
-}
-
+/* Styles de base : police et fond de la page, police des titres */
 @layer base {
   body {
     @apply font-texte bg-rose-pale;
@@ -201,5 +131,76 @@
   h2,
   h3 {
     @apply font-titre;
+  }
+}
+
+/* Classe scrollbar-cache : cache la barre de défilement (le contenu défile toujours) */
+@utility scrollbar-cache {
+  scrollbar-width: none;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+/* Classes du site */
+@layer components {
+  /* .details : texte riche venu de PocketBase (on remet les puces des listes) */
+  .details ul {
+    list-style: disc;
+    padding-left: 1.5rem;
+  }
+
+  /* Liens dans le texte riche : roses, soulignés et en gras */
+  .details a {
+    color: var(--color-rose);
+    text-decoration: underline;
+    font-weight: 700;
+  }
+
+  /* Fonds à points bleus : nets en haut, flous en bas.
+     .fond-points (section Mon parcours) et .fond-points-clair (formulaire de contact, plus clair).
+     Deux calques de points identiques : ::before net qui s'efface vers le bas,
+     ::after flou qui apparaît vers le bas */
+  .fond-points::before,
+  .fond-points::after,
+  .fond-points-clair::before,
+  .fond-points-clair::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    pointer-events: none;
+    background-image: radial-gradient(circle, rgb(23 52 218 / 0.12) 5px, transparent 6px);
+    background-size: 30px 30px;
+  }
+
+  /* Version claire : points à 0.05 d'opacité */
+  .fond-points-clair::before,
+  .fond-points-clair::after {
+    background-image: radial-gradient(circle, rgb(23 52 218 / 0.05) 5px, transparent 6px);
+  }
+
+  .fond-points::before,
+  .fond-points-clair::before {
+    mask-image: linear-gradient(to bottom, black 5%, transparent 45%);
+  }
+
+  .fond-points::after,
+  .fond-points-clair::after {
+    filter: blur(6px);
+    mask-image: linear-gradient(to bottom, transparent 5%, black 45%);
+  }
+
+  /* Le contenu du formulaire passe devant les points
+     (pour Mon parcours, c'est la div relative z-10 de la page) */
+  .fond-points-clair > * {
+    position: relative;
+    z-index: 1;
+  }
+
+  /* Trait vertical en pointillés (frise du parcours) */
+  .trait-pointille {
+    background-image: repeating-linear-gradient(to bottom, var(--color-bleu-fonce) 0 10px, transparent 10px 20px);
   }
 }

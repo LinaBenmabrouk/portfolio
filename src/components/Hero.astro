@@ -36,7 +36,7 @@ const BaliseSousTitre = sousTitreLien ? "a" : "span";
 const morceaux = surtitre.split("✱");
 ---
 
-<section class="relative w-full overflow-visible bg-bleu-fonce">
+<section class="relative w-full bg-bleu-fonce">
   <!-- Texture par-dessus le fond bleu -->
   <Image
     src={motif}
@@ -46,7 +46,7 @@ const morceaux = surtitre.split("✱");
 
   <!-- Texte vertical à gauche (se lit de bas en haut), z-20 : devant la texture -->
   <p
-    class="absolute top-1/2 left-3 z-20 -translate-x-1/2 -translate-y-1/2 -rotate-90 font-texte font-normal uppercase text-intro-mobile tracking-normal whitespace-nowrap text-jaune md:left-10 md:text-h4 md:tracking-large"
+    class="absolute top-1/2 left-3 z-20 -translate-x-1/2 -translate-y-1/2 -rotate-90 font-texte font-normal uppercase text-intro-mobile whitespace-nowrap text-jaune md:left-10 md:text-h4 md:tracking-large"
   >
     <span class="text-rose">✱</span> Portfolio 2026
   </p>
@@ -74,11 +74,7 @@ const morceaux = surtitre.split("✱");
     <!-- Colonne de texte (moitié en desktop) -->
     <div class="min-w-0 flex-1 md:w-1/2 md:flex-none md:pt-16">
       <!-- Surtitre : petit trait jaune + texte (le ✱ éventuel en rose). Sur une ligne en desktop ; en mobile, il passe à la ligne s'il est trop long -->
-      <p
-        class:list={[
-          "flex items-center gap-2 font-texte font-normal uppercase text-jaune text-mini md:ml-4 md:whitespace-nowrap md:gap-2 md:text-small",
-        ]}
-      >
+      <p class="flex items-center gap-2 font-texte font-normal uppercase text-jaune text-mini md:ml-4 md:whitespace-nowrap md:text-small">
         <span class="h-px w-4 shrink-0 bg-jaune md:w-12"></span>
         <span>
           {morceaux[0]}
@@ -90,7 +86,7 @@ const morceaux = surtitre.split("✱");
       <!-- Sous-titre (seulement s'il existe), avec la petite flèche jaune si demandé.
            relative z-10 : devant le grand titre, dont les lettres débordent vers le haut (sinon le lien ne se clique pas) -->
       {sousTitre && (
-        <p class="relative z-10 mt-5 uppercase text-blanc font-titre font-normal text-small-mobile md:mt-9 md:ml-5 md:font-titre md:font-normal md:text-xl">
+        <p class="relative z-10 mt-5 uppercase text-blanc font-titre font-normal text-small-mobile md:mt-9 md:ml-5 md:text-xl">
           <BaliseSousTitre href={sousTitreLien} class:list={[sousTitreLien && "transition-colors hover:text-jaune"]}>
             {sousTitre}
             <!-- 2e partie facultative : à la ligne en mobile, sur la même ligne en desktop -->
@@ -118,7 +114,7 @@ const morceaux = surtitre.split("✱");
       <!-- Paragraphe (seulement s'il existe) -->
       {
         texte && (
-          <p class="mt-3 font-texte text-blanc font-normal text-intro-mobile max-w-56 md:mt-13 md:font-normal md:text-xl md:leading-10 md:max-w-lg">
+          <p class="mt-3 font-texte text-blanc font-normal text-intro-mobile max-w-56 md:mt-13 md:text-xl md:leading-10 md:max-w-lg">
             {texte}
           </p>
         )

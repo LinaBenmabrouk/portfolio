@@ -1,6 +1,4 @@
 ---
-import "@fontsource/dm-sans/200.css";
-import "@fontsource/dm-sans/300.css";
 import "@fontsource/dm-sans/400.css";
 import "@fontsource/dm-sans/400-italic.css";
 import "@fontsource/dm-sans/500.css";
@@ -17,7 +15,8 @@ import "../styles/global.css";
 import Header from "../components/Header.astro";
 import Footer from "../components/Footer.astro";
 
-const { title, description = "" } = Astro.props;
+// centre : le main devient flex, pour qu'une page puisse remplir et centrer la hauteur libre (page 404)
+const { title, description = "", centre = false } = Astro.props;
 ---
 
 <!doctype html>
@@ -31,7 +30,7 @@ const { title, description = "" } = Astro.props;
   <!-- Au moins la hauteur de l'écran : main prend la place libre, le footer reste en bas -->
   <body class="flex min-h-dvh flex-col">
     <Header />
-    <main class="grow">
+    <main class:list={["grow", centre && "flex flex-col"]}>
       <slot />
     </main>
     <Footer />
