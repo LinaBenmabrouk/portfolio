@@ -13,6 +13,11 @@ import { getProjets } from "../../js/backend.mjs";
 // Tous les projets de PocketBase, triés par ordre
 const projets = await getProjets();
 
+// Nombre de projets par catégorie, affiché entre parenthèses sur les filtres
+const nbDev = projets.filter((projet) => projet.categorie === "dev").length;
+const nbDesign = projets.filter((projet) => projet.categorie === "design").length;
+const nbAnimation = projets.filter((projet) => projet.categorie === "animation").length;
+
 // Cache d'une minute : la page n'est pas recalculée à chaque visite
 Astro.response.headers.set("Cache-Control", "public, max-age=60");
 
@@ -33,10 +38,10 @@ const classePage = "group flex items-center gap-2 rounded-xl border-2 border-jau
 
   <!-- Filtres : un bouton par catégorie (data-filtre), "Tout" actif au départ -->
   <div class="mx-auto mt-9 mb-9 flex flex-wrap gap-5 px-4 md:mt-15 md:mb-14 md:gap-9 md:px-11">
-    <button type="button" data-filtre="tout" aria-pressed="true" class:list={[classeFiltre, "bg-jaune"]}>Tout</button>
-    <button type="button" data-filtre="dev" aria-pressed="false" class={classeFiltre}>Développement</button>
-    <button type="button" data-filtre="design" aria-pressed="false" class={classeFiltre}>Design</button>
-    <button type="button" data-filtre="animation" aria-pressed="false" class={classeFiltre}>Animation</button>
+    <button type="button" data-filtre="tout" aria-pressed="true" class:list={[classeFiltre, "bg-jaune"]}>Tout ({projets.length})</button>
+    <button type="button" data-filtre="dev" aria-pressed="false" class={classeFiltre}>Développement ({nbDev})</button>
+    <button type="button" data-filtre="design" aria-pressed="false" class={classeFiltre}>Design ({nbDesign})</button>
+    <button type="button" data-filtre="animation" aria-pressed="false" class={classeFiltre}>Animation ({nbAnimation})</button>
   </div>
 
   <!-- Liste des projets -->

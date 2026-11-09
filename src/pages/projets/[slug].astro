@@ -31,17 +31,22 @@ const motLePlusLong = Math.max(...projet.titre.split(" ").map((mot) => mot.lengt
 const titreLong = motLePlusLong > 7;
 
 // Couleurs selon la catégorie (classes écrites en entier pour Tailwind) :
-// titres de section, fond des cartes du processus, rond du numéro des étapes
+// titres de section et numéros des étapes, traits du processus
 const couleursParCategorie = {
-  dev: { titre: "text-jaune-fonce", etape: "bg-jaune-clair", rond: "bg-jaune text-noir" },
-  animation: { titre: "text-rose", etape: "bg-rose-poudre", rond: "bg-rose text-blanc" },
-  design: { titre: "text-bleu-fonce", etape: "bg-bleu-clair", rond: "bg-bleu-fonce text-blanc" },
+  dev: { titre: "text-jaune-fonce", trait: "border-jaune" },
+  animation: { titre: "text-rose", trait: "border-rose" },
+  design: { titre: "text-bleu-fonce", trait: "border-bleu-fonce" },
 };
 const couleurs = couleursParCategorie[categorie] || couleursParCategorie.dev;
 
 // Classes communes à tous les titres de section, et aux petits titres roses du rendu
 const classeTitre = "font-titre text-h1-mobile font-bold uppercase md:text-h1";
 const classeSousTitre = "mb-3 font-titre text-small-mobile font-bold text-rose uppercase md:mb-4 md:text-base";
+
+// Fiche projet : un trait fin entre les blocs en desktop (sauf après le dernier)
+const classeBloc = "flex flex-col gap-2.5 md:min-h-30 md:border-r md:border-noir/20 md:px-7 md:first:pl-0 md:last:border-r-0 md:last:pr-0";
+const classeLabel = "font-titre text-xs font-bold tracking-wider text-bleu-fonce uppercase md:text-sm";
+const classeValeur = "font-texte text-body-mobile leading-normal font-medium text-noir md:text-body";
 
 // Surtitre du hero : "Projet étudiant ✱ BUT MMI 1" -> "Projet étudiant", puis " ✱ " + l'année
 const typeProjet = projet.contexte.split(/ [·✱] /)[0];
@@ -72,38 +77,45 @@ const etapes = projet.etapes || [];
   </Hero>
 
   <div class="mx-auto mt-10 mb-20 flex max-w-7xl flex-col gap-16 px-4 md:mt-15 md:gap-20 md:px-9">
-    <!-- FICHE PROJET : un dossier cartonné jaune (onglet + corps collés) -->
+    <!-- FICHE PROJET : un dossier cartonné jaune (onglet + fond du dossier + panneau avant) -->
     <section class="relative">
+      <!-- Bouton retour vers la liste des projets (mobile seulement) -->
+      <a href="/projets" class="mb-6 flex w-fit items-center gap-2 rounded-xl border-2 border-bleu-fonce px-3 py-2 font-texte text-mini font-normal text-bleu-fonce md:hidden">
+        <FlecheGauche class="size-4" aria-hidden="true" /> Retour aux projets
+      </a>
+
       <!-- Onglet du dossier (titre de la section) -->
-      <h2 class="w-fit rounded-t-2xl bg-jaune px-5 pt-3 pb-2 font-titre text-sm font-bold tracking-widest text-bleu-fonce uppercase md:px-8 md:text-body">
+      <h2 class="w-fit rounded-t-2xl bg-jaune px-5 pt-3 pb-2 font-titre text-sm font-bold tracking-widest text-bleu-fonce uppercase md:w-75 md:rounded-t-3xl md:px-8 md:text-body">
         Fiche projet
       </h2>
-      <!-- Corps du dossier : ombre légère + pli du carton en haut -->
-      <div class="grid grid-cols-2 gap-4 rounded-2xl rounded-tl-none border-t-2 border-noir/10 bg-jaune px-5.5 py-6.5 shadow-lg shadow-noir/10 md:grid-cols-4 md:gap-8 md:px-12 md:py-11">
-        <div class="flex flex-col gap-2 md:gap-3">
-          <p class="font-titre text-xs font-bold text-bleu-fonce uppercase md:text-sm">Contexte</p>
-          <p class="font-titre text-base font-medium text-noir md:text-body">{projet.contexte_fiche}</p>
+      <!-- Fond du dossier : il dépasse au-dessus du panneau, assombri vers le bas (ombre du panneau) -->
+      <div class="h-12 rounded-tr-3xl bg-jaune bg-linear-to-b from-transparent to-noir/10 to-35% md:h-16 md:rounded-tr-4xl"></div>
+      <!-- Panneau avant : posé sur le fond (marge négative), arrondi aux 4 coins -->
+      <div class="relative -mt-8 grid grid-cols-2 gap-4 rounded-3xl bg-jaune px-5.5 py-6.5 shadow-lg shadow-noir/10 md:-mt-10 md:grid-cols-4 md:gap-0 md:rounded-4xl md:px-12 md:py-9">
+        <div class={classeBloc}>
+          <p class={classeLabel}>Contexte</p>
+          <p class={classeValeur}>{projet.contexte_fiche}</p>
         </div>
-        <div class="flex flex-col gap-2 md:gap-3">
-          <p class="font-titre text-xs font-bold text-bleu-fonce uppercase md:text-sm">Format</p>
-          <p class="font-titre text-base font-medium text-noir md:text-body">{projet.format}</p>
+        <div class={classeBloc}>
+          <p class={classeLabel}>Format</p>
+          <p class={classeValeur}>{projet.format}</p>
         </div>
-        <div class="flex flex-col gap-2 md:gap-3">
-          <p class="font-titre text-xs font-bold text-bleu-fonce uppercase md:text-sm">Mon rôle</p>
-          <p class="font-titre text-base font-medium text-noir md:text-body">{projet.role}</p>
+        <div class={classeBloc}>
+          <p class={classeLabel}>Mon rôle</p>
+          <p class={classeValeur}>{projet.role}</p>
         </div>
-        <div class="flex flex-col gap-2 md:gap-3">
-          <p class="font-titre text-xs font-bold text-bleu-fonce uppercase md:text-sm">{labelOutils}</p>
-          <p class="font-titre text-base font-medium text-noir md:text-body">{projet.technologies}</p>
+        <div class={classeBloc}>
+          <p class={classeLabel}>{labelOutils}</p>
+          <p class={classeValeur}>{projet.technologies}</p>
         </div>
       </div>
     </section>
 
     <!-- L'INTENTION : texte à gauche, visuel à droite -->
-    <section class="flex flex-col gap-5.5 md:flex-row md:items-center md:gap-16">
-      <div class="md:flex-1">
+    <section class="flex flex-col gap-5.5 md:flex-row md:items-start md:gap-20">
+      <div class="flex flex-col gap-8 md:flex-1">
         <h2 class:list={[classeTitre, couleurs.titre]}>L'intention.</h2>
-        <div class="details mt-5 space-y-5 font-texte text-body-mobile text-noir md:mt-8 md:text-body" set:html={projet.intention} />
+        <div class="details space-y-5 font-texte text-body-mobile leading-7 text-noir md:text-body" set:html={projet.intention} />
       </div>
 
       {
@@ -129,24 +141,19 @@ const etapes = projet.etapes || [];
       }
     </section>
 
-    <!-- LE PROCESSUS : une carte par étape -->
+    <!-- LE PROCESSUS : 3 colonnes avec un trait de couleur en haut -->
     {
       etapes.length > 0 && (
         <section>
           <h2 class:list={[classeTitre, couleurs.titre]}>Le processus.</h2>
-          <div class="mt-8 flex flex-col gap-7.5 md:mt-12 md:grid md:grid-cols-3 md:gap-5">
+          <div class="mt-8 flex flex-col gap-10 md:mt-12 md:grid md:grid-cols-3 md:gap-12">
             {
-              // Pour chaque étape (JSON de PocketBase) : une carte numérotée
+              // Pour chaque étape (JSON de PocketBase) : un numéro, un titre et un texte
               etapes.map((etape, index) => (
-                <article class:list={["rounded-2xl px-6 py-5", couleurs.etape]}>
-                  <div class="flex items-center gap-5">
-                    <span class:list={["flex size-12.5 shrink-0 items-center justify-center rounded-full font-texte text-3xl font-bold md:size-16 md:text-5xl", couleurs.rond]}>
-                      {index + 1}
-                    </span>
-                    <h3 class="font-titre text-h4 font-bold text-noir md:text-h3">{etape.titre}</h3>
-                  </div>
-                  <div class="my-4 h-0.5 bg-noir" />
-                  <p class="font-texte text-body-mobile text-noir md:text-body">{etape.texte}</p>
+                <article class:list={["border-t-3 pt-6", couleurs.trait]}>
+                  <p class:list={["font-titre text-5xl leading-none font-bold", couleurs.titre]}>{"0" + (index + 1)}</p>
+                  <h3 class="mt-4 font-titre text-h4 font-bold text-noir md:text-h3">{etape.titre}</h3>
+                  <p class="mt-3 font-texte text-body-mobile leading-7 text-noir/70 md:text-body">{etape.texte}</p>
                 </article>
               ))
             }
