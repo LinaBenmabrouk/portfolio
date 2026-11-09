@@ -6,7 +6,8 @@ import chibi from "../assets/images/chibi.png";
 import imageEmplacement from "../assets/images/image_emplacement.png";
 import GroupeTechno from "../components/GroupeTechno.astro";
 import etoile from "../assets/icons/etoile.svg";
-import rond from "../assets/icons/round.svg";
+import etoileContour from "../assets/icons/etoile-contour.svg";
+import fleche from "../assets/icons/fleche.svg";
 import { getCompetences, getSavoirEtre, getTechnologies, getParcours } from "../js/backend.mjs";
 
 // Données de PocketBase : les 6 demandes partent en même temps (plus rapide que l'une après l'autre).
@@ -40,7 +41,7 @@ Astro.response.headers.set("Cache-Control", "public, max-age=60");
   </Hero>
 
   <!-- Qui je suis : texte à gauche, photo à droite (l'un sous l'autre en mobile) -->
-  <section class="grid gap-10 px-4 py-12 md:grid-cols-2 md:gap-24 md:px-11 md:py-16">
+  <section class="grid gap-10 px-4 pt-12 pb-20 md:grid-cols-2 md:gap-24 md:px-11 md:pt-16 md:pb-32">
     <div>
       <h2 class="font-titre text-h1-mobile font-bold text-jaune-fonce uppercase md:text-h1">Qui je suis.</h2>
 
@@ -71,38 +72,36 @@ Astro.response.headers.set("Cache-Control", "public, max-age=60");
   </section>
 
   <!-- Mes compétences : les 5 compétences du BUT MMI + les savoir-être -->
-  <section class="flex flex-col gap-4 px-4 pb-16 md:gap-6 md:px-11 md:pb-24">
+  <section class="px-4 pb-20 md:px-11 md:pb-32">
     <h2 class="font-titre text-h1-mobile font-bold text-jaune-fonce uppercase md:text-h1">Mes compétences.</h2>
 
-    <p class="font-texte text-body-mobile font-normal text-noir md:text-body">
-      Les 5 compétences du BUT MMI, et les projets dans lesquels je les ai mises en pratique.
+    <p class="mt-4 font-texte text-body-mobile font-normal text-noir md:mt-6 md:text-body">
+      Ce que je sais faire, et que je mets en pratique dans mes projets.
     </p>
 
-    <!-- Cartes : l'une sous l'autre en mobile, 5 côte à côte en desktop -->
-    <div class="flex flex-col gap-4 md:grid md:grid-cols-5 md:gap-4.5">
+    <!-- Liste : numéro, nom et description sur une ligne en desktop, l'un sous l'autre en mobile.
+         Au survol d'une ligne, le nom glisse un peu et devient rose -->
+    <div class="mt-8">
       {
-        // Pour chaque compétence venue de PocketBase, on affiche une carte
-        competences.map((competence) => (
-          <article class="flex flex-col gap-2 rounded-3xl border-3 border-bleu bg-blanc px-5 py-4.5 md:gap-3 md:px-5.5 md:py-6">
-            <!-- Numéro + nom : sur la même ligne en mobile, l'un sous l'autre en desktop -->
-            <div class="flex items-center gap-2.5 md:flex-col md:items-start md:gap-3">
-              <p class="font-texte text-sm font-bold text-rose md:text-base">{"0" + competence.numero}</p>
-              <h3 class="font-titre text-h4 font-bold text-noir md:text-h3">{competence.nom}</h3>
-            </div>
-            <p class="font-texte text-small font-normal text-noir md:text-body-mobile">{competence.description}</p>
+        // Pour chaque compétence venue de PocketBase, on affiche une ligne
+        competences.map((competence, index) => (
+          <article class:list={["group flex flex-col items-start gap-2 border-b border-bleu-fonce/20 py-6 md:flex-row md:items-center md:gap-8", index === 0 && "border-t"]}>
+            <p class="w-10 shrink-0 font-texte text-base font-bold text-rose">{"0" + competence.numero}</p>
+            <h3 class="w-75 shrink-0 font-titre text-h3 font-bold text-bleu-fonce uppercase transition duration-300 group-hover:translate-x-2 group-hover:text-rose">{competence.nom}</h3>
+            <p class="font-texte text-body font-normal text-noir/70">{competence.description}</p>
           </article>
         ))
       }
     </div>
 
-    <!-- Savoir-être : label + pastilles jaunes -->
-    <div class="mt-2 flex flex-col gap-3 md:mt-4 md:gap-4">
-      <p class="font-texte text-body-mobile font-normal text-noir md:text-body">Savoir-être</p>
-      <ul class="flex flex-wrap gap-2 md:gap-3">
+    <!-- Savoir-être : le label puis les pastilles jaunes à la suite -->
+    <div class="mt-8 flex flex-wrap items-center gap-3">
+      <p class="font-texte text-body-mobile font-bold text-noir md:text-body">Savoir-être</p>
+      <ul class="flex flex-wrap items-center gap-3">
         {
           // Pour chaque savoir-être venu de PocketBase, on affiche une pastille
           savoirEtre.map((qualite) => (
-            <li class="rounded-full bg-jaune px-4 py-2 font-texte text-sm font-bold text-noir md:px-5 md:py-2.5 md:text-base">
+            <li class="rounded-full bg-jaune px-4 py-2 font-texte text-sm font-bold text-noir transition duration-300 hover:-translate-y-1 md:px-5 md:py-2.5 md:text-base">
               {qualite.nom}
             </li>
           ))
@@ -111,56 +110,46 @@ Astro.response.headers.set("Cache-Control", "public, max-age=60");
     </div>
   </section>
 
-  <!-- Technologies & outils : 3 groupes de cartes -->
-  <section class="px-4 pb-16 md:px-11 md:pb-24">
-    <div class="mb-8">
-      <h2 class="font-titre text-h1-mobile font-bold text-jaune-fonce uppercase md:text-h1">Technologies & outils.</h2>
-      <p class="mt-4 font-texte text-body-mobile font-normal text-noir md:text-h4">
-        Compétences développées à travers mes projets personnels et universitaires.
-      </p>
-    </div>
+  <!-- Code, création et outils : 3 colonnes à partir de lg (trop étroites sur tablette), sinon l'une sous l'autre -->
+  <section class="px-4 pb-20 md:px-11 md:pb-32">
+    <h2 class="font-titre text-h1-mobile font-bold text-jaune-fonce uppercase md:text-h1">Code, création et outils.</h2>
 
-    <div class="flex flex-col gap-10 md:gap-8">
-      <GroupeTechno titre="Développement Web" technologies={techDev} />
-      <GroupeTechno titre="Design & Création" technologies={techDesign} />
-      <GroupeTechno titre="Outils" technologies={techOutils} />
+    <div class="mt-10 flex flex-col gap-12 lg:grid lg:grid-cols-3">
+      <GroupeTechno couleur="bleu" numero="01" titre="Développement Web" sousTitre="Langages et frameworks" technologies={techDev} />
+      <GroupeTechno couleur="rose" numero="02" titre="Design & Création" sousTitre="Interfaces, dessin et 3D" technologies={techDesign} />
+      <GroupeTechno couleur="jaune" numero="03" titre="Outils" sousTitre="Pour travailler au quotidien" technologies={techOutils} />
     </div>
   </section>
 
-  <!-- Mon parcours : frise verticale sur fond bleu clair à points -->
-  <section class="fond-points relative w-full overflow-hidden bg-bleu-clair px-4 pt-10 pb-20 md:px-9 md:pt-15 md:pb-15">
+  <!-- Ma formation : frise verticale sur fond bleu clair à points -->
+  <section class="fond-points relative w-full overflow-hidden bg-bleu-clair px-4 pt-12 pb-25 md:px-9">
     <!-- z-10 : le contenu passe devant les points (fond-points) -->
-    <div class="relative z-10">
-      <h2 class="mb-15 font-titre text-h1-mobile font-bold text-bleu-fonce uppercase md:mb-20 md:text-h1">Mon parcours.</h2>
+    <div class="relative z-10 flex flex-col gap-15">
+      <h2 class="font-titre text-h1-mobile font-bold text-bleu-fonce uppercase md:text-h1">Ma formation.</h2>
 
-      <!-- Frise (pt : le trait commence un peu au-dessus de la 1re carte) -->
-      <div class="relative mx-auto max-w-5xl pt-10 md:pt-8">
-        <!-- Trait vertical en pointillés, du haut de la frise jusqu'au milieu de l'étoile -->
-        <div class="trait-pointille absolute top-0 bottom-14 left-1/2 w-1.25 -translate-x-1/2 md:bottom-20"></div>
+      <!-- Frise -->
+      <div class="relative mx-auto w-full max-w-270">
+        <!-- Trait pointillé, du haut de la frise jusqu'au milieu de l'étoile -->
+        <div class="absolute top-0 bottom-14 left-1/2 -translate-x-1/2 border-l-4 border-dashed border-bleu-fonce md:bottom-16"></div>
 
-        <div class="flex flex-col gap-20 md:gap-12">
+        <div class="flex flex-col gap-15 md:gap-0">
           {
             // Pour chaque étape du parcours : une carte, à gauche puis à droite en desktop
             parcours.map((etape, index) => (
-              <!-- En desktop, chaque carte prend la moitié de la largeur (moins 48 px vers le trait) -->
-              <div class:list={["md:w-1/2", index % 2 === 0 ? "md:pr-12" : "md:self-end md:pl-12"]}>
-                <article class="relative rounded-3xl border-3 border-bleu bg-blanc p-5 md:p-7.5">
-                  <h3 class="font-titre text-h3 font-bold text-noir">
-                    {etape.titre}
-                    <span class="block md:inline"> ✱ {etape.lieu}</span>
-                  </h3>
-                  <p class="mt-4 font-texte text-h4 font-bold text-noir">{etape.dates}</p>
-                  <div class="details mt-4 font-texte text-body-mobile font-normal text-noir md:text-body" set:html={etape.details} />
+              <!-- En desktop, chaque carte prend la moitié de la frise, moins 40 px vers le trait.
+                   Les cartes de droite remontent un peu (md:-mt-10) -->
+              <div class:list={["md:w-1/2", index % 2 === 0 ? "md:self-start md:pr-10" : "md:-mt-10 md:self-end md:pl-10"]}>
+                <article class="relative flex flex-col gap-3.5 rounded-4xl border-3 border-bleu bg-blanc px-6 py-6 shadow-rose/50 transition duration-300 hover:-translate-y-2 hover:shadow-xl md:px-9 md:py-7.5">
+                  <p class="w-fit rounded-full bg-rose px-3.5 py-1 font-texte text-sm font-bold text-blanc">{etape.dates}</p>
+                  <h3 class="font-titre text-h3 font-bold text-noir">{etape.titre} ✱ {etape.lieu}</h3>
+                  <div class="details font-texte text-body-mobile text-noir md:text-body" set:html={etape.details} />
 
-                  <!-- Rond rose sur le trait : en bas de la carte en mobile, à mi-hauteur sur le trait en desktop -->
-                  <Image
-                    src={rond}
-                    alt="" aria-hidden="true"
-                    class:list={[
-                      "absolute -bottom-3.5 left-1/2 size-7 -translate-x-1/2 md:top-1/2 md:bottom-auto md:translate-x-0 md:-translate-y-1/2",
-                      index % 2 === 0 ? "md:left-auto md:-right-16" : "md:-left-16",
-                    ]}
-                  />
+                  <!-- Petit trait entre la carte et le rond (caché en mobile) -->
+                  <div class:list={["absolute top-1/2 hidden h-0.75 w-10 -translate-y-1/2 bg-bleu md:block", index % 2 === 0 ? "-right-10" : "-left-10"]}></div>
+
+                  <!-- Rond rose sur le trait : sur le bas de la carte en mobile, à mi-hauteur à côté de la carte en desktop
+                       (14.75 : 56 px + les 3 px de bordure de la carte) -->
+                  <div class:list={["absolute -bottom-3.5 left-1/2 size-6 -translate-x-1/2 rounded-full border-3 border-blanc bg-rose md:top-1/2 md:bottom-auto md:size-8 md:translate-x-0 md:-translate-y-1/2 md:border-4", index % 2 === 0 ? "md:left-auto md:-right-14.75" : "md:-left-14.75"]}></div>
                 </article>
               </div>
             ))
@@ -168,8 +157,43 @@ Astro.response.headers.set("Cache-Control", "public, max-age=60");
         </div>
 
         <!-- Étoile au bout de la frise (z-10 : devant le trait) -->
-        <Image src={etoile} alt="" aria-hidden="true" class="relative z-10 mx-auto mt-20 block size-28 md:mt-6 md:size-40" />
+        <Image src={etoile} alt="" aria-hidden="true" class="relative z-10 mx-auto mt-8 block size-28 md:size-32" />
       </div>
+    </div>
+  </section>
+
+  <!-- En ce moment : même encadré bleu que sur l'accueil, avec un bouton vers le contact -->
+  <section class="px-4 pt-20 pb-16 md:px-7 md:pt-32 md:pb-24">
+    <div class="flex items-center justify-between gap-8 rounded-3xl bg-bleu-fonce px-6 py-10 md:rounded-4xl md:px-17 md:py-17">
+      <div class="md:max-w-4xl">
+        <!-- Petit surtitre -->
+        <p class="font-texte text-small-mobile font-normal tracking-widest text-jaune uppercase md:text-small">✱ En ce moment</p>
+
+        <h2 class="mt-3 font-titre text-h2-mobile leading-7 font-bold text-blanc md:mt-4 md:text-h2 md:leading-10">Je cherche un stage ou une alternance</h2>
+
+        <p class="mt-4 font-texte text-body-mobile font-normal text-blanc md:text-body">
+          En développement web front-end, et idéalement dans un studio de jeux vidéo. Je continue aussi à me former en autonomie sur de nouveaux outils.
+        </p>
+
+        <!-- Dates du stage, dans une pastille jaune -->
+        <p class="mt-5 inline-block rounded-full bg-jaune px-4 py-2 font-texte text-small-mobile text-bleu-fonce md:mt-6 md:px-6 md:py-3 md:text-button">
+          ✱ Stage : <span class="ml-1 font-bold md:text-small">du 29 mars au 4 juin 2027</span>
+        </p>
+
+        <!-- Bouton vers la page contact -->
+        <div class="mt-4 md:mt-5">
+          <a
+            href="/contact"
+            class="group inline-flex items-center gap-3 rounded-xl bg-jaune px-4 py-3 font-texte text-small-mobile font-bold text-noir hover:bg-jaune-clair focus-visible:outline-jaune md:gap-4 md:text-button"
+          >
+            Me contacter
+            <Image src={fleche} alt="" aria-hidden="true" class="size-4 transition-transform group-hover:translate-x-1 group-hover:-translate-y-1 md:size-6" />
+          </a>
+        </div>
+      </div>
+
+      <!-- Grande étoile décorative (cachée en mobile pour laisser la place au texte) -->
+      <Image src={etoileContour} alt="" aria-hidden="true" class="hidden size-60 shrink-0 rotate-12 md:block" />
     </div>
   </section>
 </Layout>

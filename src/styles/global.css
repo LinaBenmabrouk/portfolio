@@ -167,10 +167,16 @@
 
 /* Classes du site */
 @layer components {
-  /* .details : texte riche venu de PocketBase (on remet les puces des listes) */
+  /* .details : texte riche venu de PocketBase (les puces des listes deviennent des étoiles roses) */
   .details ul {
-    list-style: disc;
-    padding-left: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .details li::before {
+    content: "✱ ";
+    color: var(--color-rose);
   }
 
   /* Liens dans le texte riche : roses, soulignés et en gras */
@@ -193,7 +199,8 @@
     inset: 0;
     border-radius: inherit;
     pointer-events: none;
-    background-image: radial-gradient(circle, rgb(23 52 218 / 0.12) 5px, transparent 6px);
+    /* Ma couleur bleu à 6 % */
+    background-image: radial-gradient(circle, color-mix(in srgb, var(--color-bleu) 6%, transparent) 5px, transparent 6px);
     background-size: 30px 30px;
   }
 
@@ -203,7 +210,10 @@
     background-image: radial-gradient(circle, rgb(23 52 218 / 0.05) 5px, transparent 6px);
   }
 
-  .fond-points::before,
+  .fond-points::before {
+    mask-image: linear-gradient(to bottom, black 40%, transparent);
+  }
+
   .fond-points-clair::before {
     mask-image: linear-gradient(to bottom, black 5%, transparent 45%);
   }
@@ -254,10 +264,5 @@
     opacity: 0.6;
     background: linear-gradient(195deg, var(--color-bleu-fonce) 38%, var(--color-rose) 100%) left bottom / 1274px 100% no-repeat,
       var(--color-bleu-fonce);
-  }
-
-  /* Trait vertical en pointillés (frise du parcours) */
-  .trait-pointille {
-    background-image: repeating-linear-gradient(to bottom, var(--color-bleu-fonce) 0 10px, transparent 10px 20px);
   }
 }

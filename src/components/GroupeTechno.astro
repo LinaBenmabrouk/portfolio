@@ -1,34 +1,35 @@
 ---
-// Un groupe de technologies (ex : "Développement Web") avec ses cartes
+// Une colonne de technologies (ex : "Développement Web") : trait de couleur, titre, puis une ligne par techno
+// Au survol d'une ligne, l'icône grossit un peu
 import PbImage from "./PbImage.astro";
 
-const { titre, technologies } = Astro.props;
+// couleur : "bleu", "rose" ou "jaune" ; numero : "01", "02"... ; sousTitre : petite phrase sous le titre
+const { couleur, numero, titre, sousTitre, technologies } = Astro.props;
+
+// Couleurs selon le groupe (classes écrites en entier pour Tailwind)
+const couleursParGroupe = {
+  bleu: { trait: "border-bleu-fonce", titre: "text-bleu-fonce", pastille: "bg-bleu-fonce/15 text-bleu-fonce" },
+  rose: { trait: "border-rose", titre: "text-rose", pastille: "bg-rose/15 text-rose" },
+  jaune: { trait: "border-jaune-fonce", titre: "text-noir", pastille: "bg-jaune/15 text-noir" },
+};
+const couleurs = couleursParGroupe[couleur];
 ---
 
-<div>
-  <!-- Titre du groupe + trait bleu -->
-  <h3 class="font-texte text-body-mobile font-normal text-noir md:text-body">{titre}</h3>
-  <div class="mt-2.5 h-px w-72 bg-bleu-fonce"></div>
+<div class:list={["border-t-3 pt-6", couleurs.trait]}>
+  <p class="font-texte text-sm font-medium text-noir/60">{numero}</p>
+  <h3 class:list={["font-titre text-h3 font-bold uppercase", couleurs.titre]}>{titre}</h3>
+  <p class="font-texte text-base text-noir/60">{sousTitre}</p>
 
-  <!-- Cartes : carrousel en mobile, sur une ligne en desktop -->
-  <div
-    class="-mx-4 mt-5 flex snap-x snap-mandatory scroll-px-4 gap-5 overflow-x-auto px-4 scrollbar-cache md:mx-0 md:flex-wrap md:gap-4 md:overflow-visible md:px-0"
-  >
+  <div class="mt-5">
     {
-      // Pour chaque technologie venue de PocketBase, on affiche une carte
+      // Pour chaque technologie venue de PocketBase, on affiche une ligne
       technologies.map((techno) => (
-        <div class="flex w-56 shrink-0 snap-start items-center gap-6 rounded-2xl bg-rose px-4 py-3">
-          <PbImage
-            record={techno}
-            recordImage={techno.icone}
-            alt=""
-            aria-hidden="true"
-            class="size-15 shrink-0 object-contain"
-          />
-          <div class="flex flex-col gap-1">
-            <p class="font-texte text-h4 font-bold text-blanc">{techno.nom}</p>
-            <p class="font-texte text-small font-normal text-noir">{techno.niveau}</p>
+        <div class="group flex items-center justify-between gap-3 border-b border-bleu-fonce/20 py-3.5">
+          <div class="flex items-center gap-3.5">
+            <PbImage record={techno} recordImage={techno.icone} alt={techno.nom} class="size-7.5 shrink-0 object-contain transition-transform duration-300 group-hover:scale-125" />
+            <p class="font-texte text-body font-medium text-noir">{techno.nom}</p>
           </div>
+          <p class:list={["shrink-0 rounded-full px-3 py-1 font-texte text-sm font-semibold", couleurs.pastille]}>{techno.niveau}</p>
         </div>
       ))
     }
