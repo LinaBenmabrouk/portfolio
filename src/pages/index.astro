@@ -37,22 +37,25 @@ Astro.response.headers.set("Cache-Control", "public, max-age=60");
   <!-- Bandeau qui défile sous le hero -->
   <Bandeau texte="Je recherche un stage du 29 mars au 4 juin" />
 
-  <!-- Ce que je fais : 3 cartes (en colonne en mobile, sur une ligne en desktop) -->
-  <section class="px-4 py-12 md:px-11 md:py-24">
-    <h2 class="font-titre text-h1-mobile font-bold text-jaune-fonce uppercase md:text-h1">Ce que je fais</h2>
+  <!-- Ce que je fais : 3 domaines (en colonne en mobile, sur une ligne en desktop) -->
+  <section class="px-4 pt-12 pb-20 md:px-11 md:pt-24 md:pb-32">
+    <h2 class="font-titre text-h1-mobile font-bold text-jaune-fonce uppercase md:text-h1">Ce que je fais.</h2>
 
-    <div class="mt-6 grid gap-6 md:mt-12 md:grid-cols-3 md:gap-8">
+    <div class="mt-6 grid gap-12 md:mt-12 md:grid-cols-3 md:gap-8">
       <CardCompetence
+        couleur="border-jaune"
         titre="Développement web"
         texte="J'intègre des maquettes en sites responsives et je développe des applications web interactives."
         outils="HTML · CSS · JavaScript · Astro · Tailwind"
       />
       <CardCompetence
+        couleur="border-bleu-fonce"
         titre="Design UI / UX"
         texte="Je conçois l'arborescence, les parcours utilisateur et les interfaces, de la maquette au prototype."
         outils="Figma · Arborescence · Prototypage"
       />
       <CardCompetence
+        couleur="border-rose"
         titre="Animation & personnages"
         texte="Je dessine et j'anime des personnages 2D, et je découvre la modélisation 3D."
         outils="IbisPaint X · Live2D · Blender"
@@ -61,8 +64,12 @@ Astro.response.headers.set("Cache-Control", "public, max-age=60");
   </section>
 
   <!-- Projets sélectionnés : carrousel en mobile, 3 colonnes en desktop -->
-  <section class="px-4 pb-12 md:px-11 md:pb-24">
-    <h2 class="mb-8 font-titre text-titre-section-mobile font-bold text-jaune-fonce uppercase md:mb-16 md:text-h1">Projets Sélectionnés</h2>
+  <section class="px-4 pb-20 md:px-11 md:pb-32">
+    <!-- Titre + lien : l'un sous l'autre en mobile, sur la même ligne en desktop -->
+    <div class="mb-8 flex flex-col gap-4 md:mb-16 md:flex-row md:items-end md:justify-between">
+      <h2 class="font-titre text-titre-section-mobile font-bold text-jaune-fonce uppercase md:text-h1">Projets sélectionnés.</h2>
+      <a href="/projets" class="font-texte text-body font-bold text-bleu-fonce underline">Voir tous les projets →</a>
+    </div>
 
     <div class="-mx-4 flex snap-x snap-mandatory scroll-px-4 gap-6 overflow-x-auto px-4 scrollbar-cache md:mx-0 md:grid md:grid-cols-3 md:gap-10 md:overflow-visible md:px-0">
       {
@@ -72,10 +79,10 @@ Astro.response.headers.set("Cache-Control", "public, max-age=60");
     </div>
   </section>
 
-  <!-- Qui je suis : texte + photo (côte à côte en desktop, l'un sous l'autre en mobile) -->
-  <section class="flex flex-col gap-12 px-4 pb-16 md:flex-row md:items-center md:justify-between md:gap-16 md:px-11 md:pb-24">
+  <!-- Qui je suis : photo à gauche et texte à droite en desktop, texte puis photo en mobile -->
+  <section class="flex flex-col gap-12 px-4 pb-20 md:flex-row md:gap-24 md:px-11 md:pb-32">
     <div class="md:max-w-3xl">
-      <h2 class="font-titre text-h1-mobile font-bold text-jaune-fonce uppercase md:text-h1">Qui je suis</h2>
+      <h2 class="font-titre text-h1-mobile font-bold text-jaune-fonce uppercase md:text-h1">Qui je suis.</h2>
 
       <p class="mt-8 font-texte text-body-mobile font-normal text-noir md:mt-12 md:text-body">
         Je m'appelle Lina, étudiante en BUT MMI passionnée par la création numérique.<br />
@@ -95,12 +102,15 @@ Astro.response.headers.set("Cache-Control", "public, max-age=60");
       </a>
     </div>
 
-    <!-- PHOTO : image provisoire (image_emplacement.png), à remplacer par ma photo -->
-    <Image
-      src={imageEmplacement}
-      alt="" aria-hidden="true"
-      class="aspect-square w-full shrink-0 object-cover md:w-100"
-    />
+    <!-- PHOTO : image provisoire (image_emplacement.png), à remplacer par ma photo.
+         En desktop, la photo prend la hauteur du texte : du haut du titre au bas du bouton -->
+    <div class="relative w-full shrink-0 md:order-first md:w-100">
+      <Image
+        src={imageEmplacement}
+        alt="" aria-hidden="true"
+        class="aspect-square w-full object-cover md:absolute md:inset-0 md:aspect-auto md:h-full"
+      />
+    </div>
   </section>
 
   <!-- En ce moment : encadré bleu, je cherche un stage ou une alternance -->

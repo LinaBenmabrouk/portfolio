@@ -9,10 +9,10 @@ const { projet } = Astro.props;
 const typeProjet = projet.contexte.split(/ [·✱] /)[0];
 ---
 
-<!-- Toute la card est un lien vers la page du projet -->
+<!-- Toute la card est un lien vers la page du projet. Au survol, elle monte un peu avec une ombre rose et l'image zoome -->
 <a
   href={"/projets/" + projet.slug}
-  class="flex w-80 shrink-0 snap-start flex-col overflow-hidden rounded-2xl bg-rose md:w-full"
+  class="group flex w-80 shrink-0 snap-start flex-col overflow-hidden rounded-2xl bg-rose shadow-rose/50 transition duration-300 hover:-translate-y-2 hover:shadow-xl md:w-full"
 >
   <!-- Barre du haut : petit trait blanc + type de projet -->
   <div class="flex items-center gap-3 px-4 py-3 md:gap-4 md:px-6 md:py-4">
@@ -21,14 +21,17 @@ const typeProjet = projet.contexte.split(/ [·✱] /)[0];
   </div>
 
   <!-- Image de couverture (PocketBase) : on donne le nom du fichier enregistré -->
-  <PbImage
-    record={projet}
-    recordImage={projet.image_couverture}
-    alt={"Couverture du projet " + projet.titre}
-    widths={[400, 800]}
-    sizes="(min-width: 768px) 33vw, 320px"
-    class="aspect-video w-full object-cover"
-  />
+  <!-- overflow-hidden : l'image zoome sans déborder sur le reste de la card -->
+  <div class="overflow-hidden">
+    <PbImage
+      record={projet}
+      recordImage={projet.image_couverture}
+      alt={"Couverture du projet " + projet.titre}
+      widths={[400, 800]}
+      sizes="(min-width: 768px) 33vw, 320px"
+      class="aspect-video w-full object-cover transition-transform duration-500 group-hover:scale-105"
+    />
+  </div>
 
   <!-- Titre, résumé et tags (grow : le bloc remplit la card jusqu'en bas) -->
   <div class="flex grow flex-col gap-2 px-4 pt-4 pb-5 md:gap-3 md:px-6 md:py-6">

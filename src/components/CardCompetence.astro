@@ -1,20 +1,21 @@
 ---
-// Carte de la section "Ce que je fais"
+// Domaine de la section "Ce que je fais" : un trait de couleur en haut
 import { Image } from "astro:assets";
 import etoile from "../assets/icons/etoile-contour.svg";
 
-// titre, texte, et la liste des outils (texte simple, ex : "HTML · CSS")
-const { titre, texte, outils } = Astro.props;
+// couleur : classe du trait (ex : "border-jaune"), titre, texte,
+// et la liste des outils (texte simple, ex : "HTML · CSS")
+const { couleur, titre, texte, outils } = Astro.props;
 ---
 
-<!-- flex flex-col : permet de pousser les outils tout en bas de la carte -->
-<article class="flex flex-col rounded-3xl border-3 border-bleu-fonce bg-blanc p-6 md:p-7">
-  <!-- Étoile + titre : côte à côte en mobile, l'un sous l'autre en desktop -->
-  <div class="flex items-center gap-3 md:block">
-    <Image src={etoile} alt="" aria-hidden="true" class="size-8 shrink-0 md:size-12" />
-    <h3 class="font-titre text-h4 font-bold text-bleu-fonce md:mt-6 md:text-h3">
+<!-- flex flex-col : permet de pousser les outils tout en bas de la colonne -->
+<article class:list={["flex flex-col border-t-4 pt-8", couleur]}>
+  <!-- Titre à gauche, étoile tout à droite, sur la même ligne -->
+  <div class="flex items-center justify-between gap-3">
+    <h3 class="font-titre text-h4 font-bold text-bleu-fonce md:text-h3">
       {titre}
     </h3>
+    <Image src={etoile} alt="" aria-hidden="true" class="size-8 shrink-0 md:size-12" />
   </div>
 
   <!-- Description -->
