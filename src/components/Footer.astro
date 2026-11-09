@@ -10,8 +10,8 @@ import fleche from "../assets/icons/fleche.svg";
 // Classes communes des titres de colonne et des liens "Le site"
 const classeTitre = "font-texte text-h4-mobile font-medium text-jaune/70 md:text-xl md:leading-11";
 const classeLien = "font-titre text-body-mobile font-medium text-blanc hover:text-jaune focus-visible:outline-jaune md:text-xl md:leading-11";
-// Liens des réseaux : contour jaune au clavier
-const classeReseau = "focus-visible:outline-jaune";
+// Liens des réseaux : contour jaune au clavier, et au survol l'icône monte et grossit un peu
+const classeReseau = "transition-transform duration-300 hover:-translate-y-1 hover:scale-110 focus-visible:outline-jaune";
 ---
 
 <footer class="relative w-full overflow-hidden border-t border-blanc/20 bg-bleu-fonce">
