@@ -81,6 +81,9 @@
   /* Espacement des lettres */
   --tracking-large: 0.3em;
 
+  /* Arrondi du bas de l'arche (classe rounded-b-arche) */
+  --radius-arche: 2.5rem;
+
   /* Étoiles qui jaillissent du bouton après l'envoi du formulaire (classe animate-etincelle).
      --x, --y et --r (direction et rotation) sont donnés par le script pour chaque étoile */
   --animate-etincelle: etincelle 0.9s ease-out forwards;
@@ -263,6 +266,12 @@
   .motif-hero {
     opacity: 0.7;
     background-image: radial-gradient(128% 85% at 50% 0, var(--color-bleu-fonce) 30%, var(--color-rose) 65%, var(--color-rose) 78%, var(--color-bleu-fonce) 104%);
+  }
+
+  /* Arche de la photo : demi-cercle en haut, coins arrondis en bas.
+     50 % de la largeur et 45,6 % de la hauteur font un vrai demi-cercle avec les proportions de l'arche */
+  .arche {
+    border-radius: 50% 50% var(--radius-arche) var(--radius-arche) / 45.6% 45.6% var(--radius-arche) var(--radius-arche);
   }
 
   /* Fond qui bouge : des étoiles flottent dans les marges gauche et droite, jamais derrière le texte.

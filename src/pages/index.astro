@@ -5,10 +5,10 @@ import Hero from "../components/Hero.astro";
 import Bandeau from "../components/Bandeau.astro";
 import CardCompetence from "../components/CardCompetence.astro";
 import CardProjet from "../components/CardProjet.astro";
+import PhotoArche from "../components/PhotoArche.astro";
 import chibi from "../assets/images/chibi.png";
 import fleche from "../assets/icons/fleche.svg";
-import imageEmplacement from "../assets/images/image_emplacement.png";
-import etoile from "../assets/icons/etoile-contour.svg";
+import persoEtoile from "../assets/icons/perso_etoile.svg";
 import { getProjetsEnAvant } from "../js/backend.mjs";
 
 // Projets cochés "en_avant" dans PocketBase, triés par ordre
@@ -47,18 +47,24 @@ Astro.response.headers.set("Cache-Control", "public, max-age=60");
         titre="Développement web"
         texte="J'intègre des maquettes en sites responsives et je développe des applications web interactives."
         outils="HTML · CSS · JavaScript · Astro · Tailwind"
+        fond="fill-jaune"
+        contour="stroke-rose"
       />
       <CardCompetence
         couleur="border-bleu-fonce"
         titre="Design UI / UX"
         texte="Je conçois l'arborescence, les parcours utilisateur et les interfaces, de la maquette au prototype."
         outils="Figma · Arborescence · Prototypage"
+        fond="fill-bleu-fonce"
+        contour="stroke-jaune"
       />
       <CardCompetence
         couleur="border-rose"
         titre="Animation & personnages"
         texte="Je dessine et j'anime des personnages 2D, et je découvre la modélisation 3D."
         outils="IbisPaint X · Live2D · Blender"
+        fond="fill-rose"
+        contour="stroke-jaune"
       />
     </div>
   </section>
@@ -79,9 +85,10 @@ Astro.response.headers.set("Cache-Control", "public, max-age=60");
     </div>
   </section>
 
-  <!-- Qui je suis : photo à gauche et texte à droite en desktop, texte puis photo en mobile -->
-  <section class="flex flex-col gap-12 px-4 pb-20 md:flex-row md:gap-24 md:px-11 md:pb-32">
-    <div class="md:max-w-3xl">
+  <!-- Qui je suis : photo puis texte en mobile. En desktop, même grille que les projets :
+       photo dans la 1re colonne, texte aligné sur la 2e card -->
+  <section class="flex flex-col gap-12 px-4 pb-20 md:grid md:grid-cols-3 md:gap-10 md:px-11 md:pb-32">
+    <div class="md:col-span-2 md:max-w-3xl">
       <h2 class="font-titre text-h1-mobile font-bold text-jaune-fonce uppercase md:text-h1">Qui je suis.</h2>
 
       <p class="mt-8 font-texte text-body-mobile font-normal text-noir md:mt-12 md:text-body">
@@ -102,14 +109,10 @@ Astro.response.headers.set("Cache-Control", "public, max-age=60");
       </a>
     </div>
 
-    <!-- PHOTO : image provisoire (image_emplacement.png), à remplacer par ma photo.
-         En desktop, la photo prend la hauteur du texte : du haut du titre au bas du bouton -->
-    <div class="relative w-full shrink-0 md:order-first md:w-100">
-      <Image
-        src={imageEmplacement}
-        alt="" aria-hidden="true"
-        class="aspect-square w-full object-cover md:absolute md:inset-0 md:aspect-auto md:h-full"
-      />
+    <!-- Ma photo dans l'arche : au-dessus du texte en mobile, à gauche en desktop.
+         À partir de xl, elle va du haut du titre au bas du bouton (même méthode que la page À propos) -->
+    <div class="order-first xl:relative">
+      <PhotoArche class="mx-auto w-full max-w-xs md:mx-0 xl:absolute xl:bottom-0 xl:left-8 xl:h-27/25 xl:w-auto xl:max-w-none" />
     </div>
   </section>
 
@@ -120,19 +123,19 @@ Astro.response.headers.set("Cache-Control", "public, max-age=60");
         <!-- Petit surtitre -->
         <p class="font-texte text-small-mobile font-normal tracking-widest text-jaune uppercase md:text-small">✱ En ce moment</p>
 
-        <h2 class="mt-3 font-titre text-h2-mobile leading-7 font-bold text-blanc md:mt-4 md:text-h2 md:leading-10">Je cherche un stage ou une alternance</h2>
+        <h2 class="mt-4 font-titre text-h2-mobile leading-7 font-bold text-blanc md:mt-6 md:text-h2 md:leading-10">Je cherche un stage ou une alternance</h2>
 
-        <p class="mt-4 font-texte text-body-mobile font-normal text-blanc md:text-body">
+        <p class="mt-5 font-texte text-body-mobile font-normal text-blanc md:mt-8 md:text-body">
           En développement web front-end, et idéalement dans un studio de jeux vidéo. Je continue aussi à me former en autonomie sur de nouveaux outils.
         </p>
 
         <!-- Dates du stage, dans une pastille jaune -->
-        <p class="mt-5 inline-block rounded-full bg-jaune px-4 py-2 font-texte text-small-mobile text-bleu-fonce md:mt-6 md:px-6 md:py-3 md:text-button">
+        <p class="mt-6 inline-block rounded-full bg-jaune px-4 py-2 font-texte text-small-mobile text-bleu-fonce md:mt-10 md:px-6 md:py-3 md:text-button">
           ✱ Stage : <span class="ml-1 font-bold md:text-small">du 29 mars au 4 juin 2027</span>
         </p>
 
         <!-- Bouton : télécharge le CV (fichier public/cv.pdf) -->
-        <div class="mt-4 md:mt-5">
+        <div class="mt-5 md:mt-8">
           <a
             href="/cv.pdf"
             download
@@ -145,8 +148,8 @@ Astro.response.headers.set("Cache-Control", "public, max-age=60");
         </div>
       </div>
 
-      <!-- Grande étoile décorative (cachée en mobile pour laisser la place au texte) -->
-      <Image src={etoile} alt="" aria-hidden="true" class="hidden size-60 shrink-0 rotate-12 md:block" />
+      <!-- Mon personnage étoile (caché en mobile pour laisser la place au texte) -->
+      <Image src={persoEtoile} alt="" aria-hidden="true" class="hidden h-72 w-auto shrink-0 md:block xl:h-96" />
     </div>
   </section>
 </Layout>

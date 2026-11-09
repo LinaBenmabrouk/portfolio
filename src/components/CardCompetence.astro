@@ -1,11 +1,11 @@
 ---
 // Domaine de la section "Ce que je fais" : un trait de couleur en haut
-import { Image } from "astro:assets";
-import etoile from "../assets/icons/etoile-contour.svg";
+import Etoile from "./Etoile.astro";
 
 // couleur : classe du trait (ex : "border-jaune"), titre, texte,
-// et la liste des outils (texte simple, ex : "HTML · CSS")
-const { couleur, titre, texte, outils } = Astro.props;
+// la liste des outils (texte simple, ex : "HTML · CSS"),
+// fond et contour : couleurs de l'étoile
+const { couleur, titre, texte, outils, fond, contour } = Astro.props;
 ---
 
 <!-- flex flex-col : permet de pousser les outils tout en bas de la colonne -->
@@ -15,7 +15,7 @@ const { couleur, titre, texte, outils } = Astro.props;
     <h3 class="font-titre text-h4 font-bold text-bleu-fonce md:text-h3">
       {titre}
     </h3>
-    <Image src={etoile} alt="" aria-hidden="true" class="size-8 shrink-0 md:size-12" />
+    <Etoile fond={fond} contour={contour} class="size-8 shrink-0 md:size-12" />
   </div>
 
   <!-- Description -->

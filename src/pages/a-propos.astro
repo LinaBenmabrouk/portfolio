@@ -3,11 +3,11 @@ import { Image } from "astro:assets";
 import Layout from "../layouts/Layout.astro";
 import Hero from "../components/Hero.astro";
 import chibi from "../assets/images/chibi.png";
-import imageEmplacement from "../assets/images/image_emplacement.png";
 import GroupeTechno from "../components/GroupeTechno.astro";
-import etoile from "../assets/icons/etoile.svg";
-import etoileContour from "../assets/icons/etoile-contour.svg";
+import Etoile from "../components/Etoile.astro";
+import PhotoArche from "../components/PhotoArche.astro";
 import fleche from "../assets/icons/fleche.svg";
+import persoEtoile from "../assets/icons/perso_etoile.svg";
 import { getCompetences, getSavoirEtre, getTechnologies, getParcours } from "../js/backend.mjs";
 
 // Données de PocketBase : les 6 demandes partent en même temps (plus rapide que l'une après l'autre).
@@ -56,18 +56,11 @@ Astro.response.headers.set("Cache-Control", "public, max-age=60");
       </div>
     </div>
 
-    <!-- PHOTO : image provisoire (image_emplacement.png), à remplacer par ma photo.
-         En desktop : commence au 1er paragraphe (pt-24), finit avec le texte, un peu plus étroite (pl-12) -->
-    <div class="md:pt-24 md:pl-12">
-      <!-- En desktop, l'image est en absolute : elle remplit cette zone sans l'agrandir,
-           c'est donc le texte qui décide de la hauteur -->
-      <div class="md:relative md:h-full">
-        <Image
-          src={imageEmplacement}
-          alt="" aria-hidden="true"
-          class="aspect-square w-full object-cover md:absolute md:inset-0 md:aspect-auto md:size-full"
-        />
-      </div>
+    <!-- Ma photo dans l'arche. À partir de xl, elle va du haut du titre à la fin du texte :
+         en absolute, elle suit la hauteur de la colonne sans l'agrandir, sa largeur suit ses proportions.
+         108 % de hauteur (h-27/25) car l'image a une marge vide au-dessus des cheveux -->
+    <div class="md:pt-24 xl:relative xl:pt-0">
+      <PhotoArche class="mx-auto w-full max-w-md xl:absolute xl:-right-6 xl:bottom-0 xl:h-27/25 xl:w-auto xl:max-w-none" />
     </div>
   </section>
 
@@ -157,7 +150,7 @@ Astro.response.headers.set("Cache-Control", "public, max-age=60");
         </div>
 
         <!-- Étoile au bout de la frise (z-10 : devant le trait) -->
-        <Image src={etoile} alt="" aria-hidden="true" class="relative z-10 mx-auto mt-8 block size-28 md:size-32" />
+        <Etoile class="relative z-10 mx-auto mt-8 block size-28 md:size-32" />
       </div>
     </div>
   </section>
@@ -169,19 +162,19 @@ Astro.response.headers.set("Cache-Control", "public, max-age=60");
         <!-- Petit surtitre -->
         <p class="font-texte text-small-mobile font-normal tracking-widest text-jaune uppercase md:text-small">✱ En ce moment</p>
 
-        <h2 class="mt-3 font-titre text-h2-mobile leading-7 font-bold text-blanc md:mt-4 md:text-h2 md:leading-10">Je cherche un stage ou une alternance</h2>
+        <h2 class="mt-4 font-titre text-h2-mobile leading-7 font-bold text-blanc md:mt-6 md:text-h2 md:leading-10">Je cherche un stage ou une alternance</h2>
 
-        <p class="mt-4 font-texte text-body-mobile font-normal text-blanc md:text-body">
+        <p class="mt-5 font-texte text-body-mobile font-normal text-blanc md:mt-8 md:text-body">
           En développement web front-end, et idéalement dans un studio de jeux vidéo. Je continue aussi à me former en autonomie sur de nouveaux outils.
         </p>
 
         <!-- Dates du stage, dans une pastille jaune -->
-        <p class="mt-5 inline-block rounded-full bg-jaune px-4 py-2 font-texte text-small-mobile text-bleu-fonce md:mt-6 md:px-6 md:py-3 md:text-button">
+        <p class="mt-6 inline-block rounded-full bg-jaune px-4 py-2 font-texte text-small-mobile text-bleu-fonce md:mt-10 md:px-6 md:py-3 md:text-button">
           ✱ Stage : <span class="ml-1 font-bold md:text-small">du 29 mars au 4 juin 2027</span>
         </p>
 
         <!-- Bouton vers la page contact -->
-        <div class="mt-4 md:mt-5">
+        <div class="mt-5 md:mt-8">
           <a
             href="/contact"
             class="group inline-flex items-center gap-3 rounded-xl bg-jaune px-4 py-3 font-texte text-small-mobile font-bold text-noir hover:bg-jaune-clair focus-visible:outline-jaune md:gap-4 md:text-button"
@@ -192,8 +185,8 @@ Astro.response.headers.set("Cache-Control", "public, max-age=60");
         </div>
       </div>
 
-      <!-- Grande étoile décorative (cachée en mobile pour laisser la place au texte) -->
-      <Image src={etoileContour} alt="" aria-hidden="true" class="hidden size-60 shrink-0 rotate-12 md:block" />
+      <!-- Mon personnage étoile (caché en mobile pour laisser la place au texte) -->
+      <Image src={persoEtoile} alt="" aria-hidden="true" class="hidden h-72 w-auto shrink-0 md:block xl:h-96" />
     </div>
   </section>
 </Layout>

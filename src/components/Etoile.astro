@@ -1,0 +1,15 @@
+---
+// Étoile décorative en SVG : ses couleurs se changent avec des classes Tailwind
+// fond : classe du remplissage, contour : classe du trait, class : taille, position, rotation
+const { fond = "fill-jaune", contour = "stroke-rose", class: classe } = Astro.props;
+---
+
+<svg viewBox="0 0 415 396" aria-hidden="true" class:list={["overflow-visible", classe]}>
+  <!-- non-scaling-stroke : le contour garde la même épaisseur quelle que soit la taille -->
+  <path
+    class:list={[fond, contour]}
+    stroke-width="3"
+    vector-effect="non-scaling-stroke"
+    d="M5.06158 168.436C17.8949 183.269 52.6616 221.336 89.0616 254.936C80.7282 277.436 59.5157 330.13 63.0615 362.436C67.5615 403.436 94.0615 393.602 105.062 388.936L207.062 336.936L295.062 384.936C308.895 394.102 338.162 403.436 344.562 367.436C350.962 331.436 335.228 277.436 326.562 254.936C342.895 239.102 381.062 200.736 403.062 173.936C425.062 147.136 400.895 133.102 386.062 129.436L279.062 113.436C273.062 97.6024 255.562 57.1357 233.562 21.9357C211.562 -13.2643 189.395 7.26907 181.062 21.9357L134.062 113.436C103.395 117.269 37.2616 127.236 18.0616 136.436C-1.13842 145.636 1.39492 161.602 5.06158 168.436Z"
+  />
+</svg>
