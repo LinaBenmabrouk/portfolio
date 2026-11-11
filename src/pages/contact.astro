@@ -6,7 +6,8 @@ import Bandeau from "../components/Bandeau.astro";
 import chibi from "../assets/images/chibi.png";
 import fleche from "../assets/icons/fleche.svg";
 import flecheBas from "../assets/icons/fleche_bas.svg";
-import perso from "../assets/images/perso.png";
+import chibiContact from "../assets/images/chibi_contact1.png";
+import chibiContact2 from "../assets/images/chibi_contact2.png";
 
 // Classes communes (réseaux et champs du formulaire)
 const classeLigne = "flex flex-col gap-2 md:flex-row md:items-center md:gap-13";
@@ -34,13 +35,13 @@ const classeChamp = "w-full border-b border-noir bg-transparent pb-1 font-texte 
   <Bandeau texte="Je recherche un stage du 29 mars au 4 juin" />
 
   <!-- Réseaux + personnage à gauche, formulaire à droite (l'un sous l'autre en mobile) -->
-  <div class="mt-10 mb-24 flex flex-col gap-14 px-4 md:mt-20 md:flex-row md:justify-between md:gap-20 md:px-11">
+  <div class="mt-10 mb-24 flex flex-col gap-14 px-4 md:mt-20 md:flex-row md:justify-between md:gap-20 md:px-20">
     <!-- Colonne de gauche -->
     <div class="flex flex-col gap-14 md:gap-15">
       <!-- Réseaux : grille de 2 colonnes en mobile, une colonne avec un trait au milieu en desktop -->
       <div class="relative grid grid-cols-2 gap-x-3 gap-y-6 md:flex md:flex-col md:gap-13">
-        <!-- Trait vertical entre les labels et les liens (desktop) -->
-        <div class="absolute top-0 bottom-0 left-31 hidden w-1.25 bg-bleu-fonce md:block"></div>
+        <!-- Trait vertical en tirets entre les labels et les liens (desktop) : bordure gauche de 5 px en pointillés -->
+        <div class="absolute top-0 bottom-0 left-31 hidden border-l-5 border-dashed border-bleu-fonce md:block"></div>
 
         <!-- E-mail (toute la largeur en mobile). Survol des liens : bleu foncé + la flèche glisse dans sa direction -->
         <div class:list={["col-span-2", classeLigne]}>
@@ -81,13 +82,22 @@ const classeChamp = "w-full border-b border-noir bg-transparent pb-1 font-texte 
         </div>
       </div>
 
-      <!-- Personnage + bulle (en mobile : -mt-10 le remonte, mb-10 ajoute de l'espace avant le formulaire) -->
-      <div class="-mt-10 mb-10 flex items-center justify-center gap-4 md:mt-0 md:mb-0 md:justify-start md:gap-3">
-        <!-- Personnage (translate-y : seule l'image descend un peu, pas la bulle) -->
-        <Image src={perso} alt="" aria-hidden="true" width={400} class="h-auto w-32 shrink-0 translate-y-10 md:w-48 md:translate-y-16" />
-        <p id="bulle" aria-live="polite" class="origin-bottom-left rounded-3xl rounded-bl-sm bg-rose px-4 py-3 font-texte text-sm font-medium text-blanc md:px-6.5 md:py-4 md:text-body">
-          Je vous réponds sous 48 h !
-        </p>
+      <!-- Personnage + bulle (en mobile : mb-10 ajoute de l'espace avant le formulaire ; à partir de xl, translate-x-12 le décale à droite sans pousser le formulaire : en dessous, pas assez de place) -->
+      <div class="flex items-start justify-center gap-4 md:mt-0 md:mb-0 md:justify-start xl:translate-x-12 md:gap-3">
+        <!-- Chibi affiché au départ, penché (width : image chargée en 480 px de large, pas en taille d'origine) -->
+        <Image id="chibi-attente" src={chibiContact} alt="Lina en chibi qui fait le signe peace" width="480" class="h-auto w-55 shrink-0 -rotate-14 md:w-60" />
+        <!-- Chibi affiché après l'envoi du message (caché au départ).
+             À remplacer par chibi_contact2.png quand le dessin sera prêt -->
+        <Image id="chibi-merci" src={chibiContact2} alt="Lina en chibi qui vous remercie" width="480" class="hidden h-auto w-55 shrink-0 -rotate-6 md:w-60" />
+        <!-- Bulle : mt pour qu'elle soit au niveau des yeux.
+             md:whitespace-pre-line : en desktop, le retour à la ligne écrit dans le texte est gardé ;
+             en mobile, le texte passe à la ligne tout seul selon la largeur de la bulle.
+             w-40 en mobile : même largeur pour les deux textes, le chibi ne bouge pas quand le texte change.
+             md:min-w-48 en desktop : au moins 192 px, la bulle s'élargit si une ligne est plus longue.
+             shrink-0 : la bulle n'est jamais écrasée, chaque ligne reste entière.
+             -ml-6 en mobile : la bulle mord un peu sur le bord transparent du chibi, pour tenir à côté -->
+        <p id="bulle" aria-live="polite" class="-ml-6 mt-25 w-40 shrink-0 origin-bottom-left rounded-3xl rounded-bl-none bg-rose px-4 py-3 font-texte text-sm font-normal text-blanc md:whitespace-pre-line md:mt-14 md:ml-0 md:w-auto md:min-w-48 md:px-6.5 md:py-4 md:text-body">Je vous réponds
+          sous 48 h !</p>
       </div>
     </div>
 
@@ -151,8 +161,10 @@ const classeChamp = "w-full border-b border-noir bg-transparent pb-1 font-texte 
   const sujetAutre = document.getElementById("sujet-autre");
   const zoneMessage = document.getElementById("message");
   const bulle = document.getElementById("bulle");
+  const chibiAttente = document.getElementById("chibi-attente");
+  const chibiMerci = document.getElementById("chibi-merci");
   const contenuBouton = bouton.innerHTML;
-  const texteBulle = bulle.textContent.trim(); // "Je vous réponds sous 48 h !"
+  const texteBulle = bulle.textContent.trim(); // "Je vous réponds" puis "sous 48 h !"
 
   // Animation de réussite : des étoiles jaillissent du bouton
   function lancerEtoiles() {
@@ -190,6 +202,15 @@ const classeChamp = "w-full border-b border-noir bg-transparent pb-1 font-texte 
     bulle.classList.remove("animate-rebond");
     void bulle.offsetWidth; // relance l'animation même si elle a déjà eu lieu
     bulle.classList.add("animate-rebond");
+  }
+
+  // Échange de chibi : on cache l'un, on montre l'autre avec un petit coucou (animate-coucou)
+  function changerChibi(chibiACacher, chibiAMontrer) {
+    chibiACacher.classList.add("hidden");
+    chibiAMontrer.classList.remove("hidden");
+    chibiAMontrer.classList.remove("animate-coucou");
+    void chibiAMontrer.offsetWidth; // relance l'animation même si elle a déjà eu lieu
+    chibiAMontrer.classList.add("animate-coucou");
   }
 
   // "Autre" choisi : on affiche le champ pour écrire son sujet (et il devient obligatoire)
@@ -237,13 +258,18 @@ const classeChamp = "w-full border-b border-noir bg-transparent pb-1 font-texte 
       bouton.innerHTML = "Message envoyé ✱";
       bouton.classList.replace("bg-jaune", "bg-rose");
       bouton.classList.replace("text-noir", "text-blanc");
-      faireParlerPerso("Merci ! Je reviens vers vous très vite ✱");
+      // \n : retour à la ligne après "réponds"
+      faireParlerPerso("Merci ! Je vous réponds\ntrès vite.");
 
-      // Après 4 secondes, le bouton et la bulle redeviennent normaux
+      // On échange les chibis : celui qui remercie remplace celui du départ
+      changerChibi(chibiAttente, chibiMerci);
+
+      // Après 4 secondes, le bouton, le chibi et la bulle redeviennent normaux
       setTimeout(() => {
         bouton.innerHTML = contenuBouton;
         bouton.classList.replace("bg-rose", "bg-jaune");
         bouton.classList.replace("text-blanc", "text-noir");
+        changerChibi(chibiMerci, chibiAttente);
         faireParlerPerso(texteBulle);
       }, 4000);
     } catch (erreur) {

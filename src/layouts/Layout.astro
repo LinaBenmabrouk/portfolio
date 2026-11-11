@@ -14,9 +14,19 @@ import "../styles/global.css";
 
 import Header from "../components/Header.astro";
 import Footer from "../components/Footer.astro";
+import { getImage } from "astro:assets";
+import chibi from "../assets/images/chibi.png";
 
 // centre : le main devient flex, pour qu'une page puisse remplir et centrer la hauteur libre (page 404)
 const { title, description = "", centre = false } = Astro.props;
+
+// Titre de l'onglet : on ajoute mon nom, sauf s'il est déjà dans le titre (page d'accueil)
+const titrePage = title.includes("Lina Ben Mabrouk") ? title : title + " – Lina Ben Mabrouk";
+
+// Image de la carte de partage (LinkedIn, Discord…) : mon chibi en 1200 px de large.
+// Les réseaux veulent une adresse complète : on la construit avec l'adresse de la page visitée
+const imagePartage = await getImage({ src: chibi, width: 1200, format: "png" });
+const urlImage = new URL(imagePartage.src, Astro.url).href;
 ---
 
 <!doctype html>
@@ -27,7 +37,22 @@ const { title, description = "", centre = false } = Astro.props;
     <meta name="description" content={description} />
     <!-- Favicon : le logo étoile -->
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <title>{title} | Lina Ben Mabrouk</title>
+    <title>{titrePage}</title>
+
+    <!-- Open Graph : la carte affichée quand on partage le lien du site -->
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Lina Ben Mabrouk" />
+    <meta property="og:locale" content="fr_FR" />
+    <meta property="og:title" content={titrePage} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={Astro.url.href} />
+    <meta property="og:image" content={urlImage} />
+    <meta property="og:image:alt" content="Lina en chibi" />
+    <!-- Même carte, en grand, pour X (Twitter) -->
+    <meta name="twitter:card" content="summary_large_image" />
+
+    <!-- Emplacement pour ce qu'une page veut ajouter dans le head (ex : la fiche "Personne" de l'accueil) -->
+    <slot name="head" />
   </head>
   <!-- Au moins la hauteur de l'écran : main prend la place libre, le footer reste en bas -->
   <body class="flex min-h-dvh flex-col">

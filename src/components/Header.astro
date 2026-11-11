@@ -68,11 +68,12 @@ const pageContact = chemin.startsWith("/contact") ? "page" : undefined;
 
   <!-- Menu mobile : caché par défaut, placé juste sous le header
        (mt-px : il commence sous la ligne blanche au lieu de la recouvrir).
-       Fermé : invisible, transparent et un peu remonté ; il apparaît en fondu en glissant vers le bas -->
+       Fermé : invisible et écrasé en hauteur (scale-y-0). Il se déroule depuis le haut (origin-top)
+       et rebondit un peu à la fin (ease-rebond) -->
   <nav
     id="menu-mobile"
     aria-label="Navigation mobile"
-    class="invisible absolute top-full left-0 mt-px w-full -translate-y-4 bg-bleu-fonce px-10 py-16 opacity-0 transition-all duration-300 ease-out motion-reduce:transition-none md:hidden"
+    class="invisible absolute top-full left-0 mt-px w-full origin-top scale-y-0 bg-bleu-fonce px-10 py-16 transition-all duration-500 ease-rebond motion-reduce:transition-none md:hidden"
   >
     <!-- Liens en colonne, avec une ligne sous chacun -->
     <div class="flex flex-col gap-12">
@@ -102,10 +103,9 @@ const pageContact = chemin.startsWith("/contact") ? "page" : undefined;
     burger.setAttribute("aria-expanded", String(!ouvert));
     burger.setAttribute("aria-label", ouvert ? "Ouvrir le menu" : "Fermer le menu");
 
-    // Le menu apparaît ou disparaît en fondu (transition dans ses classes)
+    // Le menu se déroule depuis le haut, ou se replie (transition dans ses classes)
     menu.classList.toggle("invisible");
-    menu.classList.toggle("opacity-0");
-    menu.classList.toggle("-translate-y-4");
+    menu.classList.toggle("scale-y-0");
 
     // Chaque icône passe de "visible" à "tournée + invisible", ou l'inverse
     for (const icone of [iconeMenu, iconeClose]) {

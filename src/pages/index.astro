@@ -16,9 +16,28 @@ const projets = await getProjetsEnAvant();
 
 // Cache d'une minute : la page n'est pas recalculée à chaque visite
 Astro.response.headers.set("Cache-Control", "public, max-age=60");
+
+// Fiche "Personne" pour Google (données structurées) : elle relie mon nom à ce site et à mes profils.
+// Invisible sur la page, elle est lue par les moteurs de recherche
+const fichePersonne = {
+  "@context": "https://schema.org",
+  "@type": "Person",
+  name: "Lina Ben Mabrouk",
+  jobTitle: "Développeuse front-end",
+  description: "Étudiante en BUT MMI : intégration web, développement front-end, design et animation 2D.",
+  url: Astro.url.origin,
+  sameAs: [
+    "https://www.linkedin.com/in/lina-ben-mabrouk-b28564397/",
+    "https://github.com/LinaBenmabrouk",
+    "https://www.behance.net/linabenmabrouk",
+  ],
+};
 ---
 
-<Layout title="Accueil" description="Portfolio de Lina Ben Mabrouk, étudiante en BUT MMI : intégration web, développement front-end, design et animation 2D.">
+<Layout title="Lina Ben Mabrouk – Portfolio développeuse front-end" description="Portfolio de Lina Ben Mabrouk, étudiante en BUT MMI : intégration web, développement front-end, design et animation 2D.">
+  <!-- La fiche "Personne" va dans le head (emplacement "head" du Layout) -->
+  <script type="application/ld+json" slot="head" set:html={JSON.stringify(fichePersonne)} />
+
   <Hero
     surtitre="Étudiante en BUT MMI ✱ 2e année"
     sousTitre="Salut! Je suis"
@@ -102,7 +121,7 @@ Astro.response.headers.set("Cache-Control", "public, max-age=60");
       <!-- Bouton vers la page À propos -->
       <a
         href="/a-propos"
-        class="group mt-8 inline-flex items-center gap-3 rounded-xl bg-jaune px-4 py-3 font-texte text-mini font-medium text-noir hover:bg-jaune-clair md:mt-10 md:gap-4 md:text-button md:font-bold"
+        class="group mt-8 inline-flex items-center gap-3 rounded-xl bg-jaune px-4 py-3 font-texte text-small-mobile font-bold text-noir hover:bg-jaune-clair md:mt-10 md:gap-4 md:text-button"
       >
         En savoir plus
         <Image src={fleche} alt="" aria-hidden="true" class="size-4 transition-transform group-hover:translate-x-1 group-hover:-translate-y-1 md:size-6" />
