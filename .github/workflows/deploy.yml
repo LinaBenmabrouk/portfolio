@@ -48,6 +48,7 @@ jobs:
             sudo systemctl status portfolio
 
             echo "Health check..."
+            sleep 5
             curl --fail http://localhost:3010/
 
             echo "======================================"
