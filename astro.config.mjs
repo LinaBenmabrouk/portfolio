@@ -10,9 +10,10 @@ export default defineConfig({
   adapter: node({ mode: "standalone" }),
 
   image: {
-    // Autorise les images servies par PocketBase en local
+    // Autorise les images servies par PocketBase (en local et en ligne)
     remotePatterns: [
       { protocol: "http", hostname: "127.0.0.1", port: "8090" },
+      { protocol: "https", hostname: "pb.linabenmabrouk.fr" },
     ],
   },
   vite: {

@@ -6,8 +6,8 @@ import chibi from "../assets/images/chibi.png";
 import GroupeTechno from "../components/GroupeTechno.astro";
 import Etoile from "../components/Etoile.astro";
 import PhotoArche from "../components/PhotoArche.astro";
+import EnCeMoment from "../components/EnCeMoment.astro";
 import fleche from "../assets/icons/fleche.svg";
-import ChibiEtoile from "../assets/images/chibi_stage.png";
 import { getCompetences, getSavoirEtre, getTechnologies, getParcours } from "../js/backend.mjs";
 
 // Données de PocketBase : les 6 demandes partent en même temps (plus rapide que l'une après l'autre).
@@ -128,11 +128,35 @@ Astro.response.headers.set("Cache-Control", "public, max-age=60");
         <div class="flex flex-col gap-15 md:gap-0">
           {
             // Pour chaque étape du parcours : une carte, à gauche puis à droite en desktop
-            parcours.map((etape, index) => (
-              <!-- En desktop, chaque carte prend la moitié de la frise, moins 40 px vers le trait.
-                   Les cartes de droite remontent un peu (md:-mt-10) -->
+            parcours.map((etape, index) => {
+              // Si l'étape a une url (PocketBase), la carte est un lien vers l'école ou l'entreprise.
+              // Sinon, c'est une simple carte, non cliquable
+              const Balise = etape.url ? "a" : "article";
+
+              // En desktop, chaque carte prend la moitié de la frise, moins 40 px vers le trait.
+              // Les cartes de droite remontent un peu (md:-mt-10)
+              return (
               <div class:list={["md:w-1/2", index % 2 === 0 ? "md:self-start md:pr-10" : "md:-mt-10 md:self-end md:pl-10"]}>
-                <article class="relative flex flex-col gap-3.5 rounded-4xl border-3 border-bleu bg-blanc px-6 py-6 shadow-rose/50 transition duration-300 hover:-translate-y-2 hover:shadow-xl md:px-9 md:py-7.5">
+                <!-- Carte avec lien : elle monte un peu au survol (avec une ombre), et le focus clavier est visible -->
+                <Balise
+                  href={etape.url}
+                  target={etape.url ? "_blank" : undefined}
+                  rel={etape.url ? "noopener" : undefined}
+                  class:list={[
+                    "relative flex flex-col gap-3.5 rounded-4xl border-3 border-bleu bg-blanc px-6 py-6 shadow-rose/50 md:px-9 md:py-7.5",
+                    etape.url && "group transition duration-300 hover:-translate-y-1 hover:shadow-xl focus-visible:outline-3 focus-visible:outline-offset-4 focus-visible:outline-rose",
+                  ]}
+                >
+                  {
+                    // Flèche en haut à droite pour montrer que c'est un lien (elle tourne au survol),
+                    // et texte caché pour les lecteurs d'écran
+                    etape.url && (
+                      <>
+                        <Image src={fleche} alt="" aria-hidden="true" class="absolute top-6 right-6 size-6 transition-transform duration-300 group-hover:rotate-45" />
+                        <span class="sr-only">(Voir le site de {etape.lieu}, nouvel onglet)</span>
+                      </>
+                    )
+                  }
                   <p class="w-fit rounded-full bg-rose px-3.5 py-1 font-texte text-sm font-bold text-blanc">{etape.dates}</p>
                   <h3 class="font-titre text-h3 font-bold text-noir">{etape.titre} ✱ {etape.lieu}</h3>
                   <div class="details font-texte text-body-mobile text-noir md:text-body" set:html={etape.details} />
@@ -143,9 +167,10 @@ Astro.response.headers.set("Cache-Control", "public, max-age=60");
                   <!-- Rond rose sur le trait : sur le bas de la carte en mobile, à mi-hauteur à côté de la carte en desktop
                        (14.75 : 56 px + les 3 px de bordure de la carte) -->
                   <div class:list={["absolute -bottom-3.5 left-1/2 size-6 -translate-x-1/2 rounded-full border-3 border-blanc bg-rose md:top-1/2 md:bottom-auto md:size-8 md:translate-x-0 md:-translate-y-1/2 md:border-4", index % 2 === 0 ? "md:left-auto md:-right-14.75" : "md:-left-14.75"]}></div>
-                </article>
+                </Balise>
               </div>
-            ))
+              );
+            })
           }
         </div>
 
@@ -156,44 +181,5 @@ Astro.response.headers.set("Cache-Control", "public, max-age=60");
   </section>
 
   <!-- En ce moment : même encadré bleu que sur l'accueil, avec un bouton vers le contact -->
-  <section class="px-4 pt-20 pb-16 md:px-7 md:pt-32 md:pb-24">
-    <div class="flex items-center justify-between gap-8 rounded-3xl bg-bleu-fonce px-6 py-10 md:rounded-4xl md:px-17 md:py-17">
-      <div class="md:max-w-4xl">
-        <!-- Petit surtitre -->
-        <p class="font-texte text-small-mobile font-normal tracking-widest text-jaune uppercase md:text-small">✱ En ce moment</p>
-
-        <h2 class="mt-4 font-titre text-h2-mobile leading-7 font-bold text-blanc md:mt-6 md:text-h2 md:leading-10">Je cherche un stage ou une alternance</h2>
-
-        <p class="mt-5 font-texte text-body-mobile font-normal text-blanc md:mt-8 md:text-body">
-          En développement web front-end, et idéalement dans un studio de jeux vidéo. Je continue aussi à me former en autonomie sur de nouveaux outils.
-        </p>
-
-        <!-- Dates du stage, dans une pastille jaune -->
-        <p class="mt-6 inline-block rounded-full bg-jaune px-4 py-2 font-texte text-small-mobile text-bleu-fonce md:mt-10 md:px-6 md:py-3 md:text-button">
-          ✱ Stage : <span class="ml-1 font-bold md:text-small">du 29 mars au 4 juin 2027</span>
-        </p>
-
-        <!-- Bouton vers la page contact -->
-        <div class="mt-5 md:mt-8">
-          <a
-            href="/contact"
-            class="group inline-flex items-center gap-3 rounded-xl bg-jaune px-4 py-3 font-texte text-small-mobile font-bold text-noir hover:bg-jaune-clair focus-visible:outline-jaune md:gap-4 md:text-button"
-          >
-            Me contacter
-            <Image src={fleche} alt="" aria-hidden="true" class="size-4 transition-transform group-hover:translate-x-1 group-hover:-translate-y-1 md:size-6" />
-          </a>
-        </div>
-      </div>
-
-      <!-- Mon personnage étoile (caché en mobile pour laisser la place au texte),
-           avec des ✱ qui scintillent autour (animate-scintille, chacun avec un petit retard différent) -->
-      <div aria-hidden="true" class="relative hidden shrink-0 md:block">
-        <Image src={ChibiEtoile} alt="" class="h-72 w-auto xl:h-96" />
-        <span class="absolute top-4 left-0 animate-scintille text-2xl text-jaune">✱</span>
-        <span class="absolute top-1/4 -right-4 animate-scintille text-xl text-rose" style="animation-delay: 0.8s">✱</span>
-        <span class="absolute bottom-1/4 -left-6 animate-scintille text-lg text-rose" style="animation-delay: 1.4s">✱</span>
-        <span class="absolute right-2 bottom-6 animate-scintille text-2xl text-jaune" style="animation-delay: 0.4s">✱</span>
-      </div>
-    </div>
-  </section>
+  <EnCeMoment boutonTexte="Me contacter" boutonLien="/contact" class="pt-20 md:pt-32" />
 </Layout>

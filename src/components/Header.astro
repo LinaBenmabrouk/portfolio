@@ -27,12 +27,8 @@ const pageContact = chemin.startsWith("/contact") ? "page" : undefined;
 
     <!-- Nav desktop -->
     <nav aria-label="Navigation principale" class="hidden items-center gap-16 md:flex">
-      <a href="/a-propos" aria-current={pageAPropos} class={classeLien}>
-        À propos
-      </a>
-      <a href="/projets" aria-current={pageProjets} class={classeLien}>
-        Projets
-      </a>
+      <a href="/a-propos" aria-current={pageAPropos} class={classeLien}>À propos</a>
+      <a href="/projets" aria-current={pageProjets} class={classeLien}>Projets</a>
       <a
         href="/contact"
         aria-current={pageContact}
@@ -77,15 +73,9 @@ const pageContact = chemin.startsWith("/contact") ? "page" : undefined;
   >
     <!-- Liens en colonne, avec une ligne sous chacun -->
     <div class="flex flex-col gap-12">
-      <a href="/a-propos" aria-current={pageAPropos} class={classeLienMobile}>
-        À propos
-      </a>
-      <a href="/projets" aria-current={pageProjets} class={classeLienMobile}>
-        Mes projets
-      </a>
-      <a href="/contact" aria-current={pageContact} class={classeLienMobile}>
-        Contact
-      </a>
+      <a href="/a-propos" aria-current={pageAPropos} class={classeLienMobile}>À propos</a>
+      <a href="/projets" aria-current={pageProjets} class={classeLienMobile}>Mes projets</a>
+      <a href="/contact" aria-current={pageContact} class={classeLienMobile}>Contact</a>
     </div>
   </nav>
 </header>

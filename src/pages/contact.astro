@@ -17,6 +17,7 @@ const classeFleche = "size-5 transition-transform group-hover:translate-x-1 grou
 // Champ souligné : quand on clique dedans, la ligne devient bleue et plus épaisse (à la place du cadre).
 // focus:pb-0.75 compense le 1 px de bordure en plus, pour que le champ ne bouge pas
 const classeChamp = "w-full border-b border-noir bg-transparent pb-1 font-texte text-body-mobile text-noir transition-colors placeholder:text-rose placeholder:italic focus:border-b-2 focus:border-bleu-fonce focus:pb-0.75 focus-visible:outline-none md:text-body";
+const classeLabelChamp = "font-titre text-h4 font-bold text-noir";
 ---
 
 <Layout title="Contact" description="Une proposition de stage, d'alternance ou un projet ? Écrivez à Lina Ben Mabrouk.">
@@ -82,20 +83,15 @@ const classeChamp = "w-full border-b border-noir bg-transparent pb-1 font-texte 
         </div>
       </div>
 
-      <!-- Personnage + bulle (en mobile : mb-10 ajoute de l'espace avant le formulaire ; à partir de xl, translate-x-12 le décale à droite sans pousser le formulaire : en dessous, pas assez de place) -->
-      <div class="flex items-start justify-center gap-4 md:mt-0 md:mb-0 md:justify-start xl:translate-x-12 md:gap-3">
+      <!-- Personnage + bulle (à partir de xl, translate-x-12 les décale à droite sans pousser le formulaire) -->
+      <div class="flex items-start justify-center gap-4 md:justify-start md:gap-3 xl:translate-x-12">
         <!-- Chibi affiché au départ, penché (width : image chargée en 480 px de large, pas en taille d'origine) -->
         <Image id="chibi-attente" src={chibiContact} alt="Lina en chibi qui fait le signe peace" width="480" class="h-auto w-55 shrink-0 -rotate-14 md:w-60" />
-        <!-- Chibi affiché après l'envoi du message (caché au départ).
-             À remplacer par chibi_contact2.png quand le dessin sera prêt -->
+        <!-- Chibi affiché après l'envoi du message (caché au départ) -->
         <Image id="chibi-merci" src={chibiContact2} alt="Lina en chibi qui vous remercie" width="480" class="hidden h-auto w-55 shrink-0 -rotate-6 md:w-60" />
-        <!-- Bulle : mt pour qu'elle soit au niveau des yeux.
-             md:whitespace-pre-line : en desktop, le retour à la ligne écrit dans le texte est gardé ;
-             en mobile, le texte passe à la ligne tout seul selon la largeur de la bulle.
-             w-40 en mobile : même largeur pour les deux textes, le chibi ne bouge pas quand le texte change.
-             md:min-w-48 en desktop : au moins 192 px, la bulle s'élargit si une ligne est plus longue.
-             shrink-0 : la bulle n'est jamais écrasée, chaque ligne reste entière.
-             -ml-6 en mobile : la bulle mord un peu sur le bord transparent du chibi, pour tenir à côté -->
+        <!-- Bulle au niveau des yeux. Mobile : largeur fixe (le chibi ne bouge pas quand le texte change)
+             et -ml-6 pour mordre sur le bord transparent du chibi. Desktop : au moins 192 px,
+             et le retour à la ligne écrit dans le texte est gardé (whitespace-pre-line) -->
         <p id="bulle" aria-live="polite" class="-ml-6 mt-25 w-40 shrink-0 origin-bottom-left rounded-3xl rounded-bl-none bg-rose px-4 py-3 font-texte text-sm font-normal text-blanc md:whitespace-pre-line md:mt-14 md:ml-0 md:w-auto md:min-w-48 md:px-6.5 md:py-4 md:text-body">Je vous réponds
           sous 48 h !</p>
       </div>
@@ -105,19 +101,19 @@ const classeChamp = "w-full border-b border-noir bg-transparent pb-1 font-texte 
     <form id="form-contact" class="fond-points-clair relative flex flex-col gap-17 rounded-2xl bg-bleu-clair p-5 md:w-1/2 md:p-7.5">
       <!-- Nom -->
       <div class="flex flex-col gap-6">
-        <label for="nom" class="font-titre text-h4 font-bold text-noir">Nom & Prénom*</label>
+        <label for="nom" class={classeLabelChamp}>Nom & Prénom*</label>
         <input id="nom" type="text" name="nom" placeholder="votre nom" required class={classeChamp} />
       </div>
 
       <!-- E-mail -->
       <div class="flex flex-col gap-6">
-        <label for="email" class="font-titre text-h4 font-bold text-noir">E-mail*</label>
+        <label for="email" class={classeLabelChamp}>E-mail*</label>
         <input id="email" type="email" name="email" placeholder="exemple@gmail.com" required class={classeChamp} />
       </div>
 
       <!-- Sujet : liste déroulante avec la flèche à droite -->
       <div class="flex flex-col gap-6">
-        <label for="sujet" class="font-titre text-h4 font-bold text-noir">Sujet*</label>
+        <label for="sujet" class={classeLabelChamp}>Sujet*</label>
         <!-- invalid: : tant qu'aucun sujet n'est choisi, le texte est rose et en italique -->
         <div class="relative">
           <select id="sujet" name="sujet" required class="w-full appearance-none rounded-md bg-blanc px-4 py-2.5 font-texte text-body-mobile text-noir invalid:text-rose invalid:italic md:text-body">
@@ -136,7 +132,7 @@ const classeChamp = "w-full border-b border-noir bg-transparent pb-1 font-texte 
       <!-- Message -->
       <div class="flex flex-col gap-6">
         <!-- Fond blanc, la zone grandit quand on écrit (voir le script) -->
-        <label for="message" class="font-titre text-h4 font-bold text-noir">Message*</label>
+        <label for="message" class={classeLabelChamp}>Message*</label>
         <textarea id="message" name="message" rows="3" placeholder="écrire votre message..." required class="w-full resize-none overflow-hidden rounded-md bg-blanc px-4 py-2.5 font-texte text-body-mobile text-noir placeholder:text-rose placeholder:italic md:text-body"></textarea>
       </div>
 
@@ -196,21 +192,24 @@ const classeChamp = "w-full border-b border-noir bg-transparent pb-1 font-texte 
     }
   }
 
+  // Relance une animation sur un élément, même si elle a déjà eu lieu
+  function relancerAnimation(element, classe) {
+    element.classList.remove(classe);
+    void element.offsetWidth;
+    element.classList.add(classe);
+  }
+
   // La bulle du personnage change de texte avec un petit rebond
   function faireParlerPerso(texte) {
     bulle.textContent = texte;
-    bulle.classList.remove("animate-rebond");
-    void bulle.offsetWidth; // relance l'animation même si elle a déjà eu lieu
-    bulle.classList.add("animate-rebond");
+    relancerAnimation(bulle, "animate-rebond");
   }
 
-  // Échange de chibi : on cache l'un, on montre l'autre avec un petit coucou (animate-coucou)
+  // Échange de chibi : on cache l'un, on montre l'autre avec un petit coucou
   function changerChibi(chibiACacher, chibiAMontrer) {
     chibiACacher.classList.add("hidden");
     chibiAMontrer.classList.remove("hidden");
-    chibiAMontrer.classList.remove("animate-coucou");
-    void chibiAMontrer.offsetWidth; // relance l'animation même si elle a déjà eu lieu
-    chibiAMontrer.classList.add("animate-coucou");
+    relancerAnimation(chibiAMontrer, "animate-coucou");
   }
 
   // "Autre" choisi : on affiche le champ pour écrire son sujet (et il devient obligatoire)

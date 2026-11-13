@@ -12,19 +12,13 @@ const { couleur, titre, texte, outils, fond, contour } = Astro.props;
 <article class:list={["flex flex-col border-t-4 pt-8", couleur]}>
   <!-- Titre à gauche, étoile tout à droite, sur la même ligne -->
   <div class="flex items-center justify-between gap-3">
-    <h3 class="font-titre text-h4 font-bold text-bleu-fonce md:text-h3">
-      {titre}
-    </h3>
+    <h3 class="font-titre text-h4 font-bold text-bleu-fonce md:text-h3">{titre}</h3>
     <Etoile fond={fond} contour={contour} class="size-8 shrink-0 md:size-12" />
   </div>
 
   <!-- Description -->
-  <p class="mt-3 font-texte text-body-mobile font-normal text-noir md:mt-4 md:text-body">
-    {texte}
-  </p>
+  <p class="mt-3 font-texte text-body-mobile font-normal text-noir md:mt-4 md:text-body">{texte}</p>
 
   <!-- Outils utilisés : mt-auto les pousse en bas, pt garde l'espace sous le texte -->
-  <p class="mt-auto pt-3 font-texte text-small-mobile font-semibold text-rose md:pt-4 md:text-small">
-    {outils}
-  </p>
+  <p class="mt-auto pt-3 font-texte text-small-mobile font-semibold text-rose md:pt-4 md:text-small">{outils}</p>
 </article>
