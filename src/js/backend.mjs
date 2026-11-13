@@ -1,6 +1,6 @@
 import PocketBase from "pocketbase";
 
-export const pb = new PocketBase("http://127.0.0.1:8090");
+export const pb = new PocketBase("https://pb.linabenmabrouk.fr");
 
 // Évite que deux requêtes simultanées s'annulent
 pb.autoCancellation(false);
