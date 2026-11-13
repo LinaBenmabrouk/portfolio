@@ -145,6 +145,21 @@
     }
   }
 
+  /* ✱ qui scintillent autour du chibi de l'encadré "En ce moment" (classe animate-scintille) :
+     ils grandissent et s'allument, puis rapetissent et pâlissent, en aller-retour fluide (alternate) */
+  --animate-scintille: scintille 1.6s ease-in-out infinite alternate;
+
+  @keyframes scintille {
+    from {
+      scale: 0.5;
+      opacity: 0.2;
+    }
+    to {
+      scale: 1;
+      opacity: 1;
+    }
+  }
+
   /* Animation du bandeau qui défile (classe animate-defile) */
   --animate-defile: defile 30s linear infinite;
 

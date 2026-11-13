@@ -7,7 +7,7 @@ import GroupeTechno from "../components/GroupeTechno.astro";
 import Etoile from "../components/Etoile.astro";
 import PhotoArche from "../components/PhotoArche.astro";
 import fleche from "../assets/icons/fleche.svg";
-import persoEtoile from "../assets/icons/perso_etoile.svg";
+import ChibiEtoile from "../assets/images/chibi_stage.png";
 import { getCompetences, getSavoirEtre, getTechnologies, getParcours } from "../js/backend.mjs";
 
 // Données de PocketBase : les 6 demandes partent en même temps (plus rapide que l'une après l'autre).
@@ -185,8 +185,15 @@ Astro.response.headers.set("Cache-Control", "public, max-age=60");
         </div>
       </div>
 
-      <!-- Mon personnage étoile (caché en mobile pour laisser la place au texte) -->
-      <Image src={persoEtoile} alt="" aria-hidden="true" class="hidden h-72 w-auto shrink-0 md:block xl:h-96" />
+      <!-- Mon personnage étoile (caché en mobile pour laisser la place au texte),
+           avec des ✱ qui scintillent autour (animate-scintille, chacun avec un petit retard différent) -->
+      <div aria-hidden="true" class="relative hidden shrink-0 md:block">
+        <Image src={ChibiEtoile} alt="" class="h-72 w-auto xl:h-96" />
+        <span class="absolute top-4 left-0 animate-scintille text-2xl text-jaune">✱</span>
+        <span class="absolute top-1/4 -right-4 animate-scintille text-xl text-rose" style="animation-delay: 0.8s">✱</span>
+        <span class="absolute bottom-1/4 -left-6 animate-scintille text-lg text-rose" style="animation-delay: 1.4s">✱</span>
+        <span class="absolute right-2 bottom-6 animate-scintille text-2xl text-jaune" style="animation-delay: 0.4s">✱</span>
+      </div>
     </div>
   </section>
 </Layout>
