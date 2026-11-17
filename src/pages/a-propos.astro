@@ -2,7 +2,7 @@
 import { Image } from "astro:assets";
 import Layout from "../layouts/Layout.astro";
 import Hero from "../components/Hero.astro";
-import chibi from "../assets/images/chibi.png";
+import chibi from "../assets/images/chibi-timide.png";
 import GroupeTechno from "../components/GroupeTechno.astro";
 import Etoile from "../components/Etoile.astro";
 import PhotoArche from "../components/PhotoArche.astro";
@@ -37,7 +37,8 @@ Astro.response.headers.set("Cache-Control", "public, max-age=60");
          (un peu moins que "Folio" pour ne pas sortir de l'écran à 1280 px) -->
     <!-- <br /> : "profil." toujours sur la 2e ligne -->
     Mon<br /><span class="text-rose md:ml-24">profil</span><span class="text-jaune">.</span>
-    <Image slot="visuel" src={chibi} alt="" aria-hidden="true" widths={[256, 512, 1024]} sizes="(min-width: 768px) 512px, 140px" class="size-full object-contain" loading="eager" fetchpriority="high" />
+    <!-- Chibi agrandi (le PNG a de grandes marges transparentes) : 1,2 fois en mobile, 1,5 fois en desktop, et penché de 6°. sizes : taille affichée après agrandissement -->
+    <Image slot="visuel" src={chibi} alt="Chibi de Lina, l'air timide" widths={[256, 512, 1024]} sizes="(min-width: 768px) 768px, 170px" class="size-full scale-120 rotate-6 md:scale-150 object-contain" loading="eager" fetchpriority="high" />
   </Hero>
 
   <!-- Qui je suis : texte à gauche, photo à droite (l'un sous l'autre en mobile) -->

@@ -3,7 +3,7 @@ import { Image } from "astro:assets";
 import Layout from "../layouts/Layout.astro";
 import Hero from "../components/Hero.astro";
 import Bandeau from "../components/Bandeau.astro";
-import chibi from "../assets/images/chibi.png";
+import chibi from "../assets/images/chibi-enthousiaste.png";
 import fleche from "../assets/icons/fleche.svg";
 import flecheBas from "../assets/icons/fleche_bas.svg";
 import chibiContact from "../assets/images/chibi_contact1.png";
@@ -29,7 +29,8 @@ const classeLabelChamp = "font-titre text-h4 font-bold text-noir";
     <!-- "équipe?" est décalé vers la droite en desktop seulement
          (moins que "Folio" : le mot est plus large et sortirait de l'écran) -->
     On fait <span class="text-rose md:ml-12">équipe</span><span class="text-jaune">?</span>
-    <Image slot="visuel" src={chibi} alt="" aria-hidden="true" widths={[256, 512, 1024]} sizes="(min-width: 768px) 512px, 140px" class="size-full object-contain" loading="eager" fetchpriority="high" />
+    <!-- Chibi agrandi (le PNG a de grandes marges transparentes) : 1,2 fois en mobile, 1,5 fois en desktop, et penché de 6°. sizes : taille affichée après agrandissement -->
+    <Image slot="visuel" src={chibi} alt="Chibi de Lina, l'air enthousiaste" widths={[256, 512, 1024]} sizes="(min-width: 768px) 768px, 170px" class="size-full scale-120 rotate-6 md:scale-150 object-contain" loading="eager" fetchpriority="high" />
   </Hero>
 
   <!-- Bande qui défile sous le hero (même composant que sur l'accueil) -->

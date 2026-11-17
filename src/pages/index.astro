@@ -7,7 +7,7 @@ import CardCompetence from "../components/CardCompetence.astro";
 import CardProjet from "../components/CardProjet.astro";
 import PhotoArche from "../components/PhotoArche.astro";
 import EnCeMoment from "../components/EnCeMoment.astro";
-import chibi from "../assets/images/chibi.png";
+import chibi from "../assets/images/chibi-contente.png";
 import fleche from "../assets/icons/fleche.svg";
 import { getProjetsEnAvant } from "../js/backend.mjs";
 
@@ -50,7 +50,8 @@ const fichePersonne = {
   >
     <!-- "Folio" est décalé vers la droite, comme sur la maquette -->
     Port <span class="ml-7 text-rose md:ml-28">Folio</span><span class="text-jaune">.</span>
-    <Image slot="visuel" src={chibi} alt="" aria-hidden="true" widths={[256, 512, 1024]} sizes="(min-width: 768px) 512px, 140px" class="size-full object-contain" loading="eager" fetchpriority="high" />
+    <!-- Chibi agrandi (le PNG a de grandes marges transparentes) : 1,2 fois en mobile, 1,5 fois en desktop, et penché de 6°. sizes : taille affichée après agrandissement -->
+    <Image slot="visuel" src={chibi} alt="Chibi de Lina, l'air content" widths={[256, 512, 1024]} sizes="(min-width: 768px) 768px, 170px" class="size-full scale-120 rotate-6 md:scale-150 object-contain" loading="eager" fetchpriority="high" />
   </Hero>
 
   <!-- Bandeau qui défile sous le hero -->

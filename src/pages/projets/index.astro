@@ -3,7 +3,7 @@ import { Image } from "astro:assets";
 import Layout from "../../layouts/Layout.astro";
 import Hero from "../../components/Hero.astro";
 import PbImage from "../../components/PbImage.astro";
-import chibi from "../../assets/images/chibi.png";
+import chibi from "../../assets/images/chibi-fiere.png";
 import dossierFond from "../../assets/icons/dossier-fond.svg";
 import dossierDevant from "../../assets/icons/dossier-devant.svg";
 import FlecheGauche from "../../assets/icons/fleche_gauche.svg";
@@ -33,7 +33,8 @@ const classePage = "group flex items-center gap-2 rounded-xl border-2 border-jau
     texte="Une sélection d'applications web et de projets créatifs conçus avec soin."
   >
     Mes <span class="text-rose">projets</span><span class="text-jaune">.</span>
-    <Image slot="visuel" src={chibi} alt="" aria-hidden="true" widths={[256, 512, 1024]} sizes="(min-width: 768px) 512px, 140px" class="size-full object-contain" loading="eager" fetchpriority="high" />
+    <!-- Chibi agrandi (le PNG a de grandes marges transparentes) : 1,2 fois en mobile, 1,5 fois en desktop, et penché de 6°. sizes : taille affichée après agrandissement -->
+    <Image slot="visuel" src={chibi} alt="Chibi de Lina, l'air fier" widths={[256, 512, 1024]} sizes="(min-width: 768px) 768px, 170px" class="size-full scale-120 rotate-6 md:scale-150 object-contain" loading="eager" fetchpriority="high" />
   </Hero>
 
   <!-- Filtres : un bouton par catégorie (data-filtre), "Tout" actif au départ -->
