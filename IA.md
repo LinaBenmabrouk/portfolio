@@ -2,8 +2,6 @@
 
 Ce fichier déclare, pour chaque outil d'IA utilisé dans le projet : à quelle étape, pour quoi faire, et ce que j'ai modifié, corrigé ou rejeté dans ce qu'il a produit.
 
-> Les lignes marquées **[à vérifier]** sont à confirmer ou corriger avant le rendu. Elles concernent des choses dont je ne suis pas sûre du détail.
-
 ## Ce qui a été fait sans IA
 
 - **Positionnement, cible et sélection des trois projets** : rédigés par moi.
@@ -17,13 +15,13 @@ Ce fichier déclare, pour chaque outil d'IA utilisé dans le projet : à quelle 
 
 ### Après la soutenance maquette : analyse des commentaires des profs
 - **Pour quoi faire** : j'ai donné ma maquette et les commentaires de Xavier et Pascal, et j'ai demandé des idées pour y répondre. Les commentaires portaient sur le logo dans le logo, les compétences limitées aux logiciels, et le manque de détails dans la liste des projets.
-- **Ce que j'ai gardé ou rejeté** : c'est moi qui ai choisi les changements et qui les ai faits dans Figma. **[à vérifier : liste ce que tu as changé suite aux commentaires (nouveau logo, compétences, détails des cartes projets…) et les idées que tu as rejetées]**
+- **Ce que j'ai gardé ou rejeté** : c'est moi qui ai choisi les changements et qui les ai faits dans Figma. Les changements : un nouveau logo (une étoile avec mes initiales), une section « Mes compétences » séparée de « Code, création et outils », et des cartes projets enrichies (année, contexte, rôle).
 
 ### PocketBase : organisation des contenus
 - **Pour quoi faire** :
   - les schémas des collections PocketBase (projets, messages, à propos) ;
   - des fiches pour recopier mes textes de la maquette dans les champs PocketBase.
-- **Ce que j'ai modifié** : **[à vérifier : les champs que tu as ajoutés, enlevés ou renommés]**
+- **Ce que j'ai modifié** : d'après les migrations PocketBase du dépôt : dans projets, j'ai ajouté `categorie` (liste de choix), `mise_en_situation` (images) et `contexte_fiche` ; dans competences, j'ai enlevé `exemple` ; dans technologies, j'ai ajouté `niveau` et transformé `categorie` en liste de choix ; dans parcours, j'ai ajouté `url` (13/11).
 
 ### Développement : rédaction des prompts pour Claude Code
 - **Pour quoi faire** : rédiger, à partir de ma maquette, les consignes de chaque étape. Les prompts sont gardés dans le dossier `prompts/` :
@@ -33,7 +31,7 @@ Ce fichier déclare, pour chaque outil d'IA utilisé dans le projet : à quelle 
 - **Mes règles dans chaque prompt** :
   - Claude Code doit lire le code et me proposer un plan, et je valide avant qu'il modifie quoi que ce soit ;
   - une vérification à 402px et 1280px.
-- **Ce que j'ai corrigé ou rejeté** : à chaque fois, je comparais le résultat avec ma maquette et je redemandais des corrections quand ce n'était pas pareil. **[à vérifier : ajoute un ou deux exemples précis]**
+- **Ce que j'ai corrigé ou rejeté** : à chaque fois, je comparais le résultat avec ma maquette et je redemandais des corrections quand ce n'était pas pareil. Par exemple : la page Mentions légales avait des textes gris, alors que ma maquette est en noir, donc j'ai demandé « que du noir » ; le chibi du hero était trop grand en mobile, donc j'ai fait réduire son agrandissement. Pour le chibi, j'ai aussi rejeté la version 3D affichée avec model-viewer : le cadrage et l'éclairage ne ressemblaient pas à mon rendu Blender, donc je suis passée à des images PNG.
 
 ### Mise en ligne
 - **Pour quoi faire** : adapter les TP de R215 (DNS, PocketBase, Astro, certificat HTTPS, GitHub Actions) à mon portfolio, dans le fichier `guide-deploiement-portfolio.md`. Ce travail a aussi servi à comprendre une erreur du déploiement automatique.
@@ -77,7 +75,7 @@ Ce fichier déclare, pour chaque outil d'IA utilisé dans le projet : à quelle 
 
 ## 3. Autres outils
 
-**[à vérifier : ajoute tout autre outil d'IA utilisé, par exemple pour générer ou retoucher une image, un mockup, le rendu 3D du chibi, une traduction ou une correction d'orthographe. Si tu n'en as utilisé aucun, écris-le.]**
+Je n'ai utilisé aucun autre outil d'IA. Claude Code a aussi servi, avec le connecteur Figma, à mettre à jour la maquette pour qu'elle corresponde au site, et à faire les captures d'écran du site en mobile.
 
 ## Ce que je peux expliquer en soutenance
 
@@ -89,4 +87,3 @@ Je peux expliquer :
 - le formulaire de contact et son hook ;
 - le déploiement avec GitHub Actions.
 
-**[à vérifier : relis les parties du code que tu maîtrises le moins avant la soutenance]**
