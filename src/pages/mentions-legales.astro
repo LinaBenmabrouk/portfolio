@@ -1,0 +1,104 @@
+---
+// Page Mentions légales : contenu écrit à la main (pas de PocketBase), pas de hero
+import Layout from "../layouts/Layout.astro";
+
+// Classes communes aux 6 parties
+// Section : trait lavande en haut ; en desktop, numéro + titre à gauche, texte à droite
+const classeSection = "flex flex-col gap-4 border-t border-bleu-fonce/20 py-9 md:flex-row md:gap-10";
+const classeColonne = "md:w-90 md:shrink-0";
+const classeNumero = "font-texte text-button font-bold text-rose md:text-small";
+const classeTitre = "mt-2 font-titre text-h3 font-bold text-bleu-fonce uppercase md:text-3xl";
+const classeTexte = "flex flex-col gap-3 font-texte text-body-mobile font-normal text-noir md:text-body";
+// Liens du texte : soulignés, et contour visible au clavier
+const classeLien = "text-bleu-fonce underline underline-offset-4 hover:text-rose";
+---
+
+<Layout
+  title="Mentions légales"
+  description="Qui édite et héberge le portfolio de Lina Ben Mabrouk, et ce qui est fait des données envoyées par le formulaire de contact."
+>
+  <div class="px-4 pt-12 pb-20 md:px-11 md:pt-20 md:pb-32">
+    <!-- Haut de page -->
+    <p class="font-texte text-small-mobile font-bold text-rose uppercase md:text-small">✱ Infos légales</p>
+    <h1 class="mt-4 font-titre text-5xl leading-none font-bold text-bleu-fonce uppercase md:text-8xl">
+      Mentions légales<span class="text-jaune">.</span>
+    </h1>
+    <p class="mt-4 font-texte text-body-mobile font-normal text-noir md:text-xl">Qui édite et héberge ce site, et ce que je fais de vos données.</p>
+    <p class="mt-8 mb-8 font-texte text-sm font-normal text-noir md:mt-12 md:text-small">Dernière mise à jour : novembre 2026</p>
+
+    <!-- 01 -->
+    <section class={classeSection}>
+      <div class={classeColonne}>
+        <p class={classeNumero}>01</p>
+        <h2 class={classeTitre}>Éditeur du site</h2>
+      </div>
+      <div class={classeTexte}>
+        <p>Ce site est édité par Lina Ben Mabrouk, étudiante en BUT MMI à l'IUT de Montbéliard, à titre personnel et non commercial.</p>
+        <p>Directrice de la publication : Lina Ben Mabrouk.</p>
+        <p>Contact : <a href="mailto:linabenmabrouk23@gmail.com" class={classeLien}>linabenmabrouk23@gmail.com</a></p>
+      </div>
+    </section>
+
+    <!-- 02 -->
+    <section class={classeSection}>
+      <div class={classeColonne}>
+        <p class={classeNumero}>02</p>
+        <h2 class={classeTitre}>Hébergement</h2>
+      </div>
+      <div class={classeTexte}>
+        <p>Le site et sa base de données sont hébergés par Infomaniak Network SA, Rue Eugène-Marziano 25, 1227 Les Acacias (GE), Suisse.</p>
+        <p>
+          <a href="https://www.infomaniak.com" target="_blank" rel="noopener" class={classeLien}>www.infomaniak.com<span class="sr-only"> (nouvel onglet)</span></a>
+        </p>
+      </div>
+    </section>
+
+    <!-- 03 -->
+    <section class={classeSection}>
+      <div class={classeColonne}>
+        <p class={classeNumero}>03</p>
+        <h2 class={classeTitre}>Propriété intellectuelle</h2>
+      </div>
+      <div class={classeTexte}>
+        <p>Les textes, illustrations, personnages, modèles 3D, maquettes et le logo de ce site appartiennent à Lina Ben Mabrouk, sauf mention contraire. Toute reproduction sans autorisation est interdite.</p>
+        <p>Les logos des logiciels présentés appartiennent à leurs propriétaires. Les projets de groupe sont présentés avec l'accord de l'équipe.</p>
+      </div>
+    </section>
+
+    <!-- 04 -->
+    <section class={classeSection}>
+      <div class={classeColonne}>
+        <p class={classeNumero}>04</p>
+        <h2 class={classeTitre}>Données personnelles</h2>
+      </div>
+      <div class={classeTexte}>
+        <p>Les informations envoyées avec le formulaire de contact (nom, e-mail, sujet et message) sont enregistrées dans la base de données du site. Elles servent uniquement à vous répondre et ne sont jamais transmises à des tiers.</p>
+        <p>Conformément au RGPD, vous pouvez demander à consulter, modifier ou supprimer vos données en me contactant.</p>
+      </div>
+    </section>
+
+    <!-- 05 -->
+    <section class={classeSection}>
+      <div class={classeColonne}>
+        <p class={classeNumero}>05</p>
+        <h2 class={classeTitre}>Cookies</h2>
+      </div>
+      <div class={classeTexte}>
+        <p>Ce site n'utilise aucun cookie publicitaire ni outil de mesure d'audience.</p>
+      </div>
+    </section>
+
+    <!-- 06 -->
+    <section class={classeSection}>
+      <div class={classeColonne}>
+        <p class={classeNumero}>06</p>
+        <h2 class={classeTitre}>Crédits</h2>
+      </div>
+      <div class={classeTexte}>
+        <p>Design et développement : Lina Ben Mabrouk.</p>
+        <p>Site réalisé avec Astro, Tailwind CSS et PocketBase.</p>
+        <p>Polices : Space Grotesk, DM Sans, Titan One, Anton et Micro 5 (Google Fonts).</p>
+      </div>
+    </section>
+  </div>
+</Layout>

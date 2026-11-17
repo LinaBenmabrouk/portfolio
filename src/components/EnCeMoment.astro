@@ -46,7 +46,8 @@ const { boutonTexte, boutonLien, boutonTelecharger = false, class: classe } = As
     <!-- Mon personnage étoile (caché en mobile pour laisser la place au texte),
          avec des ✱ qui scintillent autour (chacun avec un petit retard différent) -->
     <div aria-hidden="true" class="relative hidden shrink-0 md:block">
-      <Image src={chibiEtoile} alt="" class="h-72 w-auto xl:h-96" />
+      <!-- widths + sizes : le navigateur charge une version réduite (affichée à 282 px de large au plus), pas l'image d'origine -->
+      <Image src={chibiEtoile} alt="" widths={[300, 600]} sizes="(min-width: 1280px) 282px, 211px" class="h-72 w-auto xl:h-96" />
       <span class="absolute top-4 left-0 animate-scintille text-2xl text-jaune">✱</span>
       <span class="absolute top-1/4 -right-4 animate-scintille text-xl text-rose" style="animation-delay: 0.8s">✱</span>
       <span class="absolute bottom-1/4 -left-6 animate-scintille text-lg text-rose" style="animation-delay: 1.4s">✱</span>

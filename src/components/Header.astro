@@ -86,8 +86,8 @@ const pageContact = chemin.startsWith("/contact") ? "page" : undefined;
   const iconeMenu = document.getElementById("icone-menu");
   const iconeClose = document.getElementById("icone-close");
 
-  // Au clic : on affiche ou cache le menu, et on échange les deux icônes
-  burger.addEventListener("click", () => {
+  // Ouvre le menu s'il est fermé, le ferme s'il est ouvert, et échange les deux icônes
+  function ouvrirFermer() {
     // Indique aux lecteurs d'écran si le menu est ouvert, et change le texte du bouton
     const ouvert = burger.getAttribute("aria-expanded") === "true";
     burger.setAttribute("aria-expanded", String(!ouvert));
@@ -104,5 +104,30 @@ const pageContact = chemin.startsWith("/contact") ? "page" : undefined;
       icone.classList.toggle("rotate-90");
       icone.classList.toggle("opacity-0");
     }
+
+    // À l'ouverture, le focus va sur le premier lien du menu (pour le clavier).
+    // Petit délai : au tout début de l'animation, le menu est encore caché et ne peut pas recevoir le focus
+    if (!ouvert) setTimeout(() => menu.querySelector("a").focus(), 50);
+  }
+
+  // Est-ce que le menu est ouvert ?
+  const menuOuvert = () => burger.getAttribute("aria-expanded") === "true";
+
+  // Clic sur le burger : on ouvre ou on ferme
+  burger.addEventListener("click", ouvrirFermer);
+
+  // Touche Échap : on ferme le menu et le focus revient sur le burger
+  document.addEventListener("keydown", (evenement) => {
+    if (evenement.key === "Escape" && menuOuvert()) {
+      ouvrirFermer();
+      burger.focus();
+    }
   });
+
+  // Clic sur un lien du menu : on le ferme aussi
+  for (const lien of menu.querySelectorAll("a")) {
+    lien.addEventListener("click", () => {
+      if (menuOuvert()) ouvrirFermer();
+    });
+  }
 </script>

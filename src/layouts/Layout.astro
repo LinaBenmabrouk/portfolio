@@ -18,7 +18,8 @@ import { getImage } from "astro:assets";
 import chibi from "../assets/images/chibi.png";
 
 // centre : le main devient flex, pour qu'une page puisse remplir et centrer la hauteur libre (page 404)
-const { title, description = "", centre = false } = Astro.props;
+// noindex : true pour que les moteurs de recherche n'indexent pas la page (page 404)
+const { title, description = "", centre = false, noindex = false } = Astro.props;
 
 // Titre de l'onglet : on ajoute mon nom, sauf s'il est déjà dans le titre (page d'accueil)
 const titrePage = title.includes("Lina Ben Mabrouk") ? title : title + " – Lina Ben Mabrouk";
@@ -35,6 +36,7 @@ const urlImage = new URL(imagePartage.src, Astro.url).href;
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="description" content={description} />
+    {noindex && <meta name="robots" content="noindex" />}
     <!-- Favicon : le logo étoile -->
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <title>{titrePage}</title>
@@ -56,8 +58,6 @@ const urlImage = new URL(imagePartage.src, Astro.url).href;
   </head>
   <!-- Au moins la hauteur de l'écran : main prend la place libre, le footer reste en bas -->
   <body class="flex min-h-dvh flex-col">
-    <!-- Étoiles qui flottent dans les marges, derrière le contenu -->
-    <div aria-hidden="true" class="fond-anime fixed inset-0 -z-10"></div>
     <!-- Lien d'évitement : caché, il apparaît au 1er appui sur Tab et mène directement au contenu -->
     <a href="#contenu" class="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-100 focus:rounded-lg focus:bg-jaune focus:px-4 focus:py-2 focus:font-bold focus:text-noir">
       Aller au contenu
@@ -67,35 +67,5 @@ const urlImage = new URL(imagePartage.src, Astro.url).href;
       <slot />
     </main>
     <Footer />
-
-    <script>
-      // Petites étoiles derrière la souris (pas sur téléphone, ni si "réduire les animations" est activé)
-      const avecSouris = matchMedia("(hover: hover) and (pointer: fine)").matches;
-      const moinsAnimations = matchMedia("(prefers-reduced-motion: reduce)").matches;
-
-      if (avecSouris && !moinsAnimations) {
-        const couleurs = ["bg-jaune", "bg-rose"];
-        let dernierX = 0;
-        let dernierY = 0;
-        let numero = 0;
-
-        document.addEventListener("mousemove", (evenement) => {
-          // Une étoile tous les 70 px parcourus, pour ne pas en mettre trop
-          if (Math.hypot(evenement.clientX - dernierX, evenement.clientY - dernierY) < 70) return;
-          dernierX = evenement.clientX;
-          dernierY = evenement.clientY;
-
-          const etoile = document.createElement("span");
-          etoile.className = "etoile-curseur " + couleurs[numero % 2];
-          etoile.style.left = evenement.clientX + "px";
-          etoile.style.top = evenement.clientY + "px";
-          document.body.append(etoile);
-          numero = numero + 1;
-
-          // L'étoile est retirée de la page à la fin de son animation
-          etoile.addEventListener("animationend", () => etoile.remove());
-        });
-      }
-    </script>
   </body>
 </html>
