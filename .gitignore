@@ -3,3 +3,4 @@ dist/
 .astro/
 pocketbase/pb_data/
 pocketbase/pocketbase
+cache-images/

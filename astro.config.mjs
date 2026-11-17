@@ -15,6 +15,8 @@ export default defineConfig({
       { protocol: "http", hostname: "127.0.0.1", port: "8090" },
       { protocol: "https", hostname: "pb.linabenmabrouk.fr" },
     ],
+    // Images calculées une seule fois puis gardées dans cache-images/ (voir le fichier)
+    endpoint: { entrypoint: "./src/js/images-cache.js" },
   },
   vite: {
     plugins: [tailwindcss()],

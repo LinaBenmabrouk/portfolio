@@ -51,6 +51,15 @@ jobs:
             sleep 5
             curl --fail http://localhost:3010/
 
+            # Visite chaque page du sitemap et demande toutes ses images (mobile et desktop) :
+            # elles sont calculées maintenant, et prêtes avant le premier vrai visiteur
+            echo "Préparation des images..."
+            for page in $(curl -s http://localhost:3010/sitemap.xml | grep -o '<loc>[^<]*' | sed 's|<loc>https://portfolio.linabenmabrouk.fr||'); do
+              for image in $(curl -s "http://localhost:3010$page" | grep -o '/_image?[^" ,]*' | sed 's/&#38;/\&/g; s/&amp;/\&/g' | sort -u); do
+                curl -s -o /dev/null "http://localhost:3010$image"
+              done
+            done
+
             echo "======================================"
             echo "Déploiement terminé"
             echo "======================================"
