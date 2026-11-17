@@ -1,14 +1,10 @@
 ---
-// Encadré bleu "En ce moment" (accueil et À propos) : je cherche un stage ou une alternance
 import { Image } from "astro:assets";
 import fleche from "../assets/icons/fleche.svg";
 import chibiEtoile from "../assets/images/chibi_stage.png";
 
-// boutonTexte et boutonLien : le bouton jaune ; boutonTelecharger : true pour télécharger un fichier (flèche vers le bas)
-// class : espace en plus autour de la section (ex : "pt-20 md:pt-32")
 const { boutonTexte, boutonLien, boutonTelecharger = false, class: classe } = Astro.props;
 ---
-
 <section class:list={["px-4 pb-16 md:px-7 md:pb-24", classe]}>
   <div class="flex items-center justify-between gap-8 rounded-3xl bg-bleu-fonce px-6 py-10 md:rounded-4xl md:px-17 md:py-17">
     <div class="md:max-w-4xl">
@@ -20,12 +16,10 @@ const { boutonTexte, boutonLien, boutonTelecharger = false, class: classe } = As
         En développement web front-end, et idéalement dans un studio de jeux vidéo. Je continue aussi à me former en autonomie sur de nouveaux outils.
       </p>
 
-      <!-- Dates du stage, dans une pastille jaune -->
       <p class="mt-6 inline-block rounded-full bg-jaune px-4 py-2 font-texte text-small-mobile text-bleu-fonce md:mt-10 md:px-6 md:py-3 md:text-button">
         ✱ Stage : <span class="ml-1 font-bold md:text-small">du 29 mars au 4 juin 2027</span>
       </p>
 
-      <!-- Bouton jaune : la flèche descend pour un téléchargement, monte en diagonale sinon -->
       <div class="mt-5 md:mt-8">
         <a
           href={boutonLien}
@@ -43,10 +37,7 @@ const { boutonTexte, boutonLien, boutonTelecharger = false, class: classe } = As
       </div>
     </div>
 
-    <!-- Mon personnage étoile (caché en mobile pour laisser la place au texte),
-         avec des ✱ qui scintillent autour (chacun avec un petit retard différent) -->
     <div aria-hidden="true" class="relative hidden shrink-0 md:block">
-      <!-- widths + sizes : le navigateur charge une version réduite (affichée à 282 px de large au plus), pas l'image d'origine -->
       <Image src={chibiEtoile} alt="" widths={[300, 600]} sizes="(min-width: 1280px) 282px, 211px" class="h-72 w-auto xl:h-96" />
       <span class="absolute top-4 left-0 animate-scintille text-2xl text-jaune">✱</span>
       <span class="absolute top-1/4 -right-4 animate-scintille text-xl text-rose" style="animation-delay: 0.8s">✱</span>

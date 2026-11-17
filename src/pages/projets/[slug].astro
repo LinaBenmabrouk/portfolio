@@ -6,32 +6,24 @@ import FlecheGauche from "../../assets/icons/fleche_gauche.svg";
 import FlecheDroite from "../../assets/icons/fleche_droite.svg";
 import { getProjetsNav, getProjet, getImageUrl } from "../../js/backend.mjs";
 
-// Le slug vient de l'URL : /projets/nunc -> slug = "nunc".
-// Le projet et la liste pour la navigation sont demandés en même temps
 const { slug } = Astro.params;
 const [projet, projets] = await Promise.all([getProjet(slug), getProjetsNav()]);
 
-// Slug inconnu : retour à la liste des projets
 if (!projet) {
   console.error(`Projet ${slug} introuvable`);
   return Astro.redirect("/projets");
 }
 
-// Cache d'une minute : la page n'est pas recalculée à chaque visite
 Astro.response.headers.set("Cache-Control", "public, max-age=60");
 
-// Projet précédent et suivant (la liste tourne en boucle)
 const position = projets.findIndex((p) => p.slug === projet.slug);
 const precedent = projets[(position - 1 + projets.length) % projets.length];
 const suivant = projets[(position + 1) % projets.length];
 const categorie = projet.categorie;
 
-// Titre long : un de ses mots fait plus de 7 lettres (ex : "Surchauffe"), il sortirait du cadre en grand
 const motLePlusLong = Math.max(...projet.titre.split(" ").map((mot) => mot.length));
 const titreLong = motLePlusLong > 7;
 
-// Couleurs selon la catégorie (classes écrites en entier pour Tailwind) :
-// titres de section et numéros des étapes, traits du processus
 const couleursParCategorie = {
   dev: { titre: "text-jaune-fonce", trait: "border-jaune" },
   animation: { titre: "text-rose", trait: "border-rose" },
@@ -39,28 +31,22 @@ const couleursParCategorie = {
 };
 const couleurs = couleursParCategorie[categorie] || couleursParCategorie.dev;
 
-// Classes communes à tous les titres de section, et aux petits titres roses du rendu
 const classeTitre = "font-titre text-h1-mobile font-bold uppercase md:text-h1";
 const classeSousTitre = "mb-3 font-titre text-small-mobile font-bold text-rose uppercase md:mb-4 md:text-base";
 
-// Fiche projet : un trait fin entre les blocs en desktop (sauf après le dernier)
 const classeBloc = "flex flex-col gap-2.5 md:min-h-30 md:border-r md:border-noir/20 md:px-7 md:first:pl-0 md:last:border-r-0 md:last:pr-0";
 const classeLabel = "font-titre text-xs font-bold tracking-wider text-bleu-fonce uppercase md:text-sm";
 const classeValeur = "font-texte text-body-mobile leading-normal font-medium text-noir md:text-body";
 
-// Surtitre du hero : "Projet étudiant ✱ BUT MMI 1" -> "Projet étudiant", puis " ✱ " + l'année
 const typeProjet = projet.contexte.split(/ [·✱] /)[0];
 const surtitre = typeProjet + " ✱ " + projet.annee;
 
-// Dans la fiche, le dernier label change selon la catégorie
 const labelOutils = categorie === "dev" ? "Technologies" : "Logiciels";
 
-// Listes d'images (vides si rien dans PocketBase)
 const declinaisons = projet.declinaisons || [];
 const miseEnSituation = projet.mise_en_situation || [];
 const etapes = projet.etapes || [];
 ---
-
 <Layout title={projet.titre} description={projet.resume}>
   <Hero
     surtitre={surtitre}
@@ -77,20 +63,15 @@ const etapes = projet.etapes || [];
   </Hero>
 
   <div class="mx-auto mt-10 mb-20 flex max-w-7xl flex-col gap-16 px-4 md:mt-15 md:gap-20 md:px-9">
-    <!-- FICHE PROJET : un dossier cartonné jaune (onglet + fond du dossier + panneau avant) -->
     <section class="relative">
-      <!-- Bouton retour vers la liste des projets (mobile seulement) -->
       <a href="/projets" class="mb-6 flex w-fit items-center gap-2 rounded-xl border-2 border-bleu-fonce px-3 py-2 font-texte text-mini font-normal text-bleu-fonce md:hidden">
         <FlecheGauche class="size-4" aria-hidden="true" /> Retour aux projets
       </a>
 
-      <!-- Onglet du dossier (titre de la section) -->
       <h2 class="w-fit rounded-t-2xl bg-jaune px-5 pt-3 pb-2 font-titre text-sm font-bold tracking-widest text-bleu-fonce uppercase md:w-75 md:rounded-t-3xl md:px-8 md:text-body">
         Fiche projet
       </h2>
-      <!-- Fond du dossier : il dépasse au-dessus du panneau, assombri vers le bas (ombre du panneau) -->
       <div class="h-12 rounded-tr-3xl bg-jaune bg-linear-to-b from-transparent to-noir/10 to-35% md:h-16 md:rounded-tr-4xl"></div>
-      <!-- Panneau avant : posé sur le fond (marge négative), arrondi aux 4 coins -->
       <div class="relative -mt-8 grid grid-cols-2 gap-4 rounded-3xl bg-jaune px-5.5 py-6.5 shadow-lg shadow-noir/10 md:-mt-10 md:grid-cols-4 md:gap-0 md:rounded-4xl md:px-12 md:py-9">
         <div class={classeBloc}>
           <p class={classeLabel}>Contexte</p>
@@ -111,7 +92,6 @@ const etapes = projet.etapes || [];
       </div>
     </section>
 
-    <!-- L'INTENTION : texte à gauche, visuel à droite -->
     <section class="flex flex-col gap-5.5 md:flex-row md:items-start md:gap-20">
       <div class="flex flex-col gap-8 md:flex-1">
         <h2 class:list={[classeTitre, couleurs.titre]}>L'intention.</h2>
@@ -120,7 +100,6 @@ const etapes = projet.etapes || [];
 
       {
         projet.visuel_intention && categorie === "animation" && (
-          <!-- Animation : le personnage posé sur un cercle rose -->
           <div class="relative mx-auto w-2/3 md:w-1/3">
             <div class="absolute top-1/2 left-1/2 aspect-square w-4/5 -translate-x-1/2 -translate-y-1/2 rounded-full bg-rose-poudre" />
             <PbImage record={projet} recordImage={projet.visuel_intention} miniature="1600x0" alt={"Personnage du projet " + projet.titre} class="relative w-full" />
@@ -129,7 +108,6 @@ const etapes = projet.etapes || [];
       }
       {
         projet.visuel_intention && categorie !== "animation" && (
-          <!-- Dev et design : limitée à 256 px de haut en mobile (les images carrées ou rondes étaient trop grandes) -->
           <PbImage
             record={projet}
             recordImage={projet.visuel_intention}
@@ -141,14 +119,12 @@ const etapes = projet.etapes || [];
       }
     </section>
 
-    <!-- LE PROCESSUS : 3 colonnes avec un trait de couleur en haut -->
     {
       etapes.length > 0 && (
         <section>
           <h2 class:list={[classeTitre, couleurs.titre]}>Le processus.</h2>
           <div class="mt-8 flex flex-col gap-10 md:mt-12 md:grid md:grid-cols-3 md:gap-12">
             {
-              // Pour chaque étape (JSON de PocketBase) : un numéro, un titre et un texte
               etapes.map((etape, index) => (
                 <article class:list={["border-t-3 pt-6", couleurs.trait]}>
                   <p class:list={["font-titre text-5xl leading-none font-bold", couleurs.titre]}>{"0" + (index + 1)}</p>
@@ -162,13 +138,11 @@ const etapes = projet.etapes || [];
       )
     }
 
-    <!-- LE RENDU : différent selon la catégorie -->
     <section>
       <h2 class:list={[classeTitre, couleurs.titre]}>Le rendu.</h2>
 
       <div class="mt-8 flex flex-col gap-7 md:mt-12 md:gap-10">
         {
-          /* ---------- Projet dev ---------- */
           categorie === "dev" && (
             <>
               {projet.visuel_principal && (
@@ -178,12 +152,10 @@ const etapes = projet.etapes || [];
                 </div>
               )}
 
-              <!-- Version mobile + identité visuelle : côte à côte en desktop -->
               <div class="flex flex-col gap-7 md:flex-row md:gap-10">
                 {declinaisons.length > 0 && (
                   <div>
                     <h3 class={classeSousTitre}>Version mobile</h3>
-                    <!-- Téléphone : la capture remplit l'écran (sans défilement), calée en haut -->
                     <div class="mx-auto h-135 w-62.5 overflow-hidden bg-blanc md:mx-0 md:h-169 md:w-79">
                       <PbImage record={projet} recordImage={declinaisons[0]} alt={"Version mobile du projet " + projet.titre} class="size-full object-cover object-top" />
                     </div>
@@ -194,24 +166,17 @@ const etapes = projet.etapes || [];
                   <div class:list={[miseEnSituation.length > 1 && "md:min-w-0 md:flex-1"]}>
                     <h3 class={classeSousTitre}>Identité visuelle</h3>
 
-                    {/* Une seule image : en mobile, toute la largeur et image complète (pas rognée) ;
-                        en desktop, même hauteur que le téléphone, largeur selon ses proportions */}
                     {miseEnSituation.length === 1 && (
                       <div>
                         <PbImage record={projet} recordImage={miseEnSituation[0]} miniature="1600x0" alt={"Identité visuelle du projet " + projet.titre} class="h-auto w-full md:h-169 md:w-auto md:object-cover" />
                       </div>
                     )}
 
-                    {/* Plusieurs images (sans fond ajouté : les images ont déjà le leur).
-                        En desktop, le bloc a la hauteur du téléphone (h-169) : la 1re image prend la place qui reste,
-                        sur toute la largeur (seul son bas peut être coupé : object-top) ;
-                        les 2 petites restent en entier (object-contain) */}
                     {miseEnSituation.length > 1 && (
                       <div class="md:flex md:h-169 md:flex-col md:gap-5">
                         <PbImage record={projet} recordImage={miseEnSituation[0]} miniature="1600x0" alt={"Identité visuelle du projet " + projet.titre} class="h-auto w-full md:min-h-0 md:flex-1 md:object-cover md:object-top" />
                         <div class="mt-3 grid grid-cols-2 items-start gap-3 md:mt-0 md:h-66 md:gap-5">
                           {
-                            // La 2e et la 3e image (s'il y en a une 3e)
                             miseEnSituation.slice(1, 3).map((image) => (
                               <PbImage record={projet} recordImage={image} alt={"Identité visuelle du projet " + projet.titre + ", détail"} class="h-auto w-full md:size-full md:object-contain md:object-left-top" />
                             ))
@@ -227,7 +192,6 @@ const etapes = projet.etapes || [];
         }
 
         {
-          /* ---------- Projet animation ---------- */
           categorie === "animation" && (
             <>
               {(projet.video || projet.visuel_principal) && (
@@ -243,7 +207,6 @@ const etapes = projet.etapes || [];
                         aria-label={"Vidéo du projet " + projet.titre}
                         class="w-full"
                       />
-                      {/* Filtre noir à 20 % et bouton lecture, cachés pendant la lecture */}
                       <div id="filtre-video" class="pointer-events-none absolute inset-0 z-10 bg-noir/20" />
                       <button
                         type="button"
@@ -271,7 +234,6 @@ const etapes = projet.etapes || [];
         }
 
         {
-          /* ---------- Projet design ---------- */
           categorie === "design" && (
             <>
               {projet.visuel_principal && (
@@ -284,10 +246,8 @@ const etapes = projet.etapes || [];
               {declinaisons.length > 0 && (
                 <div>
                   <h3 class={classeSousTitre}>Identité visuelle</h3>
-                  <!-- Une seule image : toute la largeur ; plusieurs : 3 colonnes en desktop -->
                   <div class:list={["grid grid-cols-1 gap-5 md:gap-6", declinaisons.length > 1 && "md:grid-cols-3"]}>
                     {
-                      // Une image par déclinaison, toutes à la même taille (object-fill) ; grande miniature si elle est seule
                       declinaisons.map((image) => (
                         <PbImage record={projet} recordImage={image} miniature={declinaisons.length > 1 ? "800x0" : "1600x0"} alt={"Identité visuelle du projet " + projet.titre} class="size-full object-fill" />
                       ))
@@ -301,7 +261,6 @@ const etapes = projet.etapes || [];
                   <h3 class={classeSousTitre}>Mise en situation</h3>
                   <div class="grid grid-cols-1 gap-5 md:grid-cols-3 md:gap-6">
                     {
-                      // Une image par mise en situation
                       miseEnSituation.map((image) => (
                         <PbImage record={projet} recordImage={image} alt={"Mise en situation du projet " + projet.titre} class="size-full object-fill" />
                       ))
@@ -315,9 +274,6 @@ const etapes = projet.etapes || [];
       </div>
     </section>
 
-    <!-- NAVIGATION : projet précédent / suivant.
-         Chaque lien fait au plus la moitié de la largeur : un titre trop long passe à la ligne
-         (coupure équilibrée avec text-balance), et la flèche reste collée au titre -->
     <nav aria-label="Autres projets" class="flex justify-between gap-6">
       <a href={"/projets/" + precedent.slug} class="group max-w-1/2">
         <p class="font-titre text-xs font-bold text-rose uppercase md:text-sm">Projet précédent</p>
@@ -338,23 +294,19 @@ const etapes = projet.etapes || [];
 </Layout>
 
 <script>
-  // Vidéo des projets animation (seulement si la page en a une)
   const video = document.getElementById("video-anim");
   const filtre = document.getElementById("filtre-video");
   const boutonLecture = document.getElementById("bouton-lecture");
 
   if (video) {
-    // Clic sur le bouton rose : la vidéo se lance
     boutonLecture.addEventListener("click", () => video.play());
 
-    // Pendant la lecture : on cache le filtre et le bouton, on affiche les contrôles
     video.addEventListener("play", () => {
       filtre.classList.add("hidden");
       boutonLecture.classList.add("hidden");
       video.controls = true;
     });
 
-    // À la fin : retour au début (le poster réapparaît), filtre et bouton reviennent
     video.addEventListener("ended", () => {
       video.controls = false;
       video.currentTime = 0;

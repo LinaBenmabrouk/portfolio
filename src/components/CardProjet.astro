@@ -1,27 +1,19 @@
 ---
-// Card d'un projet (section "Projets sélectionnés" de l'accueil)
 import PbImage from "./PbImage.astro";
 
 const { projet } = Astro.props;
 
-// Première partie du contexte : "Projet étudiant ✱ BUT MMI 1" -> "Projet étudiant"
-// (on coupe sur " · " ou sur " ✱ ")
 const typeProjet = projet.contexte.split(/ [·✱] /)[0];
 ---
-
-<!-- Toute la card est un lien vers la page du projet. Au survol, elle monte un peu avec une ombre rose et l'image zoome -->
 <a
   href={"/projets/" + projet.slug}
   class="group flex w-80 shrink-0 snap-start flex-col overflow-hidden rounded-2xl bg-rose shadow-rose/50 transition duration-300 hover:-translate-y-2 hover:shadow-xl md:w-full"
 >
-  <!-- Barre du haut : petit trait blanc + type de projet -->
   <div class="flex items-center gap-3 px-4 py-3 md:gap-4 md:px-6 md:py-4">
     <span class="h-px w-9 shrink-0 bg-blanc md:w-12"></span>
     <p class="font-texte text-small-mobile font-medium text-blanc md:text-body">{typeProjet}</p>
   </div>
 
-  <!-- Image de couverture (PocketBase) : on donne le nom du fichier enregistré -->
-  <!-- overflow-hidden : l'image zoome sans déborder sur le reste de la card -->
   <div class="overflow-hidden">
     <PbImage
       record={projet}
@@ -33,10 +25,7 @@ const typeProjet = projet.contexte.split(/ [·✱] /)[0];
     />
   </div>
 
-  <!-- Titre, résumé et tags (grow : le bloc remplit la card jusqu'en bas) -->
   <div class="flex grow flex-col gap-2 px-4 pt-4 pb-5 md:gap-3 md:px-6 md:py-6">
-    <!-- Le titre prend la police de l'identité du projet.
-         Même hauteur de ligne pour tous (leading-8 / md:leading-9), sinon la grande police du VTuber ajoute de l'espace -->
     <h3
       class:list={[
         "leading-8 text-jaune md:leading-9",
@@ -48,7 +37,6 @@ const typeProjet = projet.contexte.split(/ [·✱] /)[0];
       {projet.titre}
     </h3>
     <p class="font-texte text-body-mobile font-normal text-blanc md:text-body">{projet.resume}</p>
-    <!-- Tags : mt-auto les pousse tout en bas de la card -->
     <p class="mt-auto pt-1 font-texte text-xs font-medium text-jaune md:text-sm md:font-bold">{projet.tags}</p>
   </div>
 </a>

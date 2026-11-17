@@ -11,14 +11,10 @@ import chibi from "../assets/images/chibi-contente.png";
 import fleche from "../assets/icons/fleche.svg";
 import { getProjetsEnAvant } from "../js/backend.mjs";
 
-// Projets cochés "en_avant" dans PocketBase, triés par ordre
 const projets = await getProjetsEnAvant();
 
-// Cache d'une minute : la page n'est pas recalculée à chaque visite
 Astro.response.headers.set("Cache-Control", "public, max-age=60");
 
-// Fiche "Personne" pour Google (données structurées) : elle relie mon nom à ce site et à mes profils.
-// Invisible sur la page, elle est lue par les moteurs de recherche
 const fichePersonne = {
   "@context": "https://schema.org",
   "@type": "Person",
@@ -33,9 +29,7 @@ const fichePersonne = {
   ],
 };
 ---
-
 <Layout title="Lina Ben Mabrouk – Portfolio développeuse front-end" description="Portfolio de Lina Ben Mabrouk, étudiante en BUT MMI : intégration web, développement front-end, design et animation 2D.">
-  <!-- La fiche "Personne" va dans le head (emplacement "head" du Layout) -->
   <script type="application/ld+json" slot="head" set:html={JSON.stringify(fichePersonne)} />
 
   <Hero
@@ -48,16 +42,12 @@ const fichePersonne = {
     boutonTexte="Voir mes projets"
     boutonLien="/projets"
   >
-    <!-- "Folio" est décalé vers la droite, comme sur la maquette -->
     Port <span class="ml-7 text-rose md:ml-28">Folio</span><span class="text-jaune">.</span>
-    <!-- Chibi agrandi (le PNG a de grandes marges transparentes) : 1,2 fois en mobile, 1,5 fois en desktop, et penché de 6°. sizes : taille affichée après agrandissement -->
     <Image slot="visuel" src={chibi} alt="Chibi de Lina, l'air content" widths={[256, 512, 1024]} sizes="(min-width: 768px) 768px, 170px" class="size-full scale-120 rotate-6 md:scale-150 object-contain" loading="eager" fetchpriority="high" />
   </Hero>
 
-  <!-- Bandeau qui défile sous le hero -->
   <Bandeau texte="Je recherche un stage du 29 mars au 4 juin" />
 
-  <!-- Ce que je fais : 3 domaines (en colonne en mobile, sur une ligne en desktop) -->
   <section class="px-4 pt-12 pb-20 md:px-11 md:pt-24 md:pb-32">
     <h2 class="font-titre text-h1-mobile font-bold text-jaune-fonce uppercase md:text-h1">Ce que je fais.</h2>
 
@@ -89,9 +79,7 @@ const fichePersonne = {
     </div>
   </section>
 
-  <!-- Projets sélectionnés : carrousel en mobile, 3 colonnes en desktop -->
   <section class="px-4 pb-20 md:px-11 md:pb-32">
-    <!-- Titre + lien : l'un sous l'autre en mobile, sur la même ligne en desktop -->
     <div class="mb-8 flex flex-col gap-4 md:mb-16 md:flex-row md:items-end md:justify-between">
       <h2 class="font-titre text-titre-section-mobile font-bold text-jaune-fonce uppercase md:text-h1">Projets sélectionnés.</h2>
       <a href="/projets" class="font-texte text-body font-bold text-bleu-fonce underline">Voir tous les projets →</a>
@@ -99,14 +87,11 @@ const fichePersonne = {
 
     <div class="-mx-4 flex snap-x snap-mandatory scroll-px-4 gap-6 overflow-x-auto px-4 scrollbar-cache md:mx-0 md:grid md:grid-cols-3 md:gap-10 md:overflow-visible md:px-0">
       {
-        // Pour chaque projet venu de PocketBase, on affiche une card
         projets.map((projet) => <CardProjet projet={projet} />)
       }
     </div>
   </section>
 
-  <!-- Qui je suis : photo puis texte en mobile. En desktop, même grille que les projets :
-       photo dans la 1re colonne, texte aligné sur la 2e card -->
   <section class="flex flex-col gap-12 px-4 pb-20 md:grid md:grid-cols-3 md:gap-10 md:px-11 md:pb-32">
     <div class="md:col-span-2 md:max-w-3xl">
       <h2 class="font-titre text-h1-mobile font-bold text-jaune-fonce uppercase md:text-h1">Qui je suis.</h2>
@@ -119,7 +104,6 @@ const fichePersonne = {
         Je me passionne aussi pour l'animation 2D, les personnages virtuels et les environnements inspirés du streaming.
       </p>
 
-      <!-- Bouton vers la page À propos -->
       <a
         href="/a-propos"
         class="group mt-8 inline-flex items-center gap-3 rounded-xl bg-jaune px-4 py-3 font-texte text-small-mobile font-bold text-noir hover:bg-jaune-clair md:mt-10 md:gap-4 md:text-button"
@@ -129,13 +113,10 @@ const fichePersonne = {
       </a>
     </div>
 
-    <!-- Ma photo dans l'arche : au-dessus du texte en mobile, à gauche en desktop.
-         À partir de xl, elle va du haut du titre au bas du bouton (même méthode que la page À propos) -->
     <div class="order-first xl:relative">
       <PhotoArche class="mx-auto w-full max-w-xs md:mx-0 xl:absolute xl:bottom-0 xl:left-8 xl:h-27/25 xl:w-auto xl:max-w-none" />
     </div>
   </section>
 
-  <!-- En ce moment : encadré bleu, avec un bouton pour télécharger le CV -->
   <EnCeMoment boutonTexte="Télécharger mon CV" boutonLien="/cv.pdf" boutonTelecharger />
 </Layout>

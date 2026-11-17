@@ -10,8 +10,6 @@ import EnCeMoment from "../components/EnCeMoment.astro";
 import fleche from "../assets/icons/fleche.svg";
 import { getCompetences, getSavoirEtre, getTechnologies, getParcours } from "../js/backend.mjs";
 
-// Données de PocketBase : les 6 demandes partent en même temps (plus rapide que l'une après l'autre).
-// Technologies : une liste par groupe
 const [competences, savoirEtre, techDev, techDesign, techOutils, parcours] = await Promise.all([
   getCompetences(),
   getSavoirEtre(),
@@ -21,10 +19,8 @@ const [competences, savoirEtre, techDev, techDesign, techOutils, parcours] = awa
   getParcours(),
 ]);
 
-// Cache d'une minute : la page n'est pas recalculée à chaque visite
 Astro.response.headers.set("Cache-Control", "public, max-age=60");
 ---
-
 <Layout title="À propos" description="Mon parcours, mes compétences du BUT MMI et les technologies que j'utilise en développement web, design et animation.">
   <Hero
     surtitre="À propos de moi"
@@ -33,39 +29,29 @@ Astro.response.headers.set("Cache-Control", "public, max-age=60");
     boutonLien="/cv.pdf"
     boutonTelecharger
   >
-    <!-- "profil." est décalé vers la droite en desktop seulement
-         (un peu moins que "Folio" pour ne pas sortir de l'écran à 1280 px) -->
-    <!-- <br /> : "profil." toujours sur la 2e ligne -->
     Mon<br /><span class="text-rose md:ml-24">profil</span><span class="text-jaune">.</span>
-    <!-- Chibi agrandi (le PNG a de grandes marges transparentes) : 1,2 fois en mobile, 1,5 fois en desktop, et penché de 6°. sizes : taille affichée après agrandissement -->
     <Image slot="visuel" src={chibi} alt="Chibi de Lina, l'air timide" widths={[256, 512, 1024]} sizes="(min-width: 768px) 768px, 170px" class="size-full scale-120 rotate-6 md:scale-150 object-contain" loading="eager" fetchpriority="high" />
   </Hero>
 
-  <!-- Qui je suis : texte à gauche, photo à droite (l'un sous l'autre en mobile) -->
   <section class="grid gap-4 px-4 pt-12 pb-20 md:grid-cols-2 md:gap-24 md:px-11 md:pt-16 md:pb-32">
     <div>
       <h2 class="font-titre text-h1-mobile font-bold text-jaune-fonce uppercase md:text-h1">Qui je suis.</h2>
 
-      <!-- Paragraphes, espacés de 24 px -->
       <div class="mt-8 flex flex-col gap-6 font-texte text-body-mobile font-normal text-noir md:mt-12 md:text-body">
         <p>Je m'appelle Lina, une étudiante en BUT MMI passionnée par la création numérique sous toutes ses formes.</p>
         <p>Je souhaite plus tard travailler dans la programmation de jeux vidéo, un domaine qui m'attire autant pour son aspect technique que créatif.</p>
         <p>Mon intérêt pour le développement web s'inscrit naturellement dans cette démarche, concevoir des applications ou des jeux partage la même exigence de logique, d'interactivité et de soin apporté à l'expérience utilisateur.</p>
-        <p>Je me passionne aussi pour l'animation 2D, les personnages virtuels et les environnements numériques inspirés du streaming.</p>
+        <p>Je me passionne aussi pour l'animation 2D, le dessin, les personnages virtuels et les environnements numériques inspirés du streaming.</p>
         <p>J'apprécie explorer différents outils et apprendre en autonomie afin de progresser sur des réalisations personnelles mêlant design visuel, et interaction.</p>
         <p>À travers mes études et mes travaux, je cherche progressivement à améliorer des compétences qui me permettront de participer à la conception d'expériences immersives dans le web comme dans les jeux vidéo.</p>
       </div>
     </div>
 
-    <!-- Ma photo dans l'arche. À partir de xl, elle va du haut du titre à la fin du texte :
-         en absolute, elle suit la hauteur de la colonne sans l'agrandir, sa largeur suit ses proportions.
-         108 % de hauteur (h-27/25) car l'image a une marge vide au-dessus des cheveux -->
     <div class="md:pt-24 xl:relative xl:pt-0">
       <PhotoArche class="mx-auto w-full max-w-md xl:absolute xl:-right-6 xl:bottom-0 xl:h-27/25 xl:w-auto xl:max-w-none" />
     </div>
   </section>
 
-  <!-- Mes compétences : les 5 compétences du BUT MMI + les savoir-être -->
   <section class="px-4 pb-20 md:px-11 md:pb-32">
     <h2 class="font-titre text-h1-mobile font-bold text-jaune-fonce uppercase md:text-h1">Mes compétences.</h2>
 
@@ -73,11 +59,8 @@ Astro.response.headers.set("Cache-Control", "public, max-age=60");
       Ce que je sais faire, et que je mets en pratique dans mes projets.
     </p>
 
-    <!-- Liste : numéro, nom et description sur une ligne en desktop, l'un sous l'autre en mobile.
-         Au survol d'une ligne, le nom glisse un peu et devient rose -->
     <div class="mt-8">
       {
-        // Pour chaque compétence venue de PocketBase, on affiche une ligne
         competences.map((competence, index) => (
           <article class:list={["group flex flex-col items-start gap-2 border-b border-bleu-fonce/20 py-6 md:flex-row md:items-center md:gap-8", index === 0 && "border-t"]}>
             <p class="w-10 shrink-0 font-texte text-base font-bold text-rose">{"0" + competence.numero}</p>
@@ -88,12 +71,10 @@ Astro.response.headers.set("Cache-Control", "public, max-age=60");
       }
     </div>
 
-    <!-- Savoir-être : le label puis les pastilles jaunes à la suite -->
     <div class="mt-8 flex flex-wrap items-center gap-3">
       <p class="font-texte text-body-mobile font-bold text-noir md:text-body">Savoir-être</p>
       <ul class="flex flex-wrap items-center gap-3">
         {
-          // Pour chaque savoir-être venu de PocketBase, on affiche une pastille
           savoirEtre.map((qualite) => (
             <li class="rounded-full bg-jaune px-4 py-2 font-texte text-sm font-bold text-noir transition duration-300 hover:-translate-y-1 md:px-5 md:py-2.5 md:text-base">
               {qualite.nom}
@@ -104,7 +85,6 @@ Astro.response.headers.set("Cache-Control", "public, max-age=60");
     </div>
   </section>
 
-  <!-- Code, création et outils : 3 colonnes à partir de lg (trop étroites sur tablette), sinon l'une sous l'autre -->
   <section class="px-4 pb-20 md:px-11 md:pb-32">
     <h2 class="font-titre text-h1-mobile font-bold text-jaune-fonce uppercase md:text-h1">Code, création et outils.</h2>
 
@@ -115,30 +95,20 @@ Astro.response.headers.set("Cache-Control", "public, max-age=60");
     </div>
   </section>
 
-  <!-- Ma formation : frise verticale sur fond bleu clair à points -->
   <section class="fond-points relative w-full overflow-hidden bg-bleu-clair px-4 pt-12 pb-25 md:px-9">
-    <!-- z-10 : le contenu passe devant les points (fond-points) -->
     <div class="relative z-10 flex flex-col gap-15">
       <h2 class="font-titre text-h1-mobile font-bold text-bleu-fonce uppercase md:text-h1">Ma formation.</h2>
 
-      <!-- Frise -->
       <div class="relative mx-auto w-full max-w-270">
-        <!-- Trait pointillé, du haut de la frise jusqu'au milieu de l'étoile -->
         <div class="absolute top-0 bottom-14 left-1/2 -translate-x-1/2 border-l-4 border-dashed border-bleu-fonce md:bottom-16"></div>
 
         <div class="flex flex-col gap-15 md:gap-0">
           {
-            // Pour chaque étape du parcours : une carte, à gauche puis à droite en desktop
             parcours.map((etape, index) => {
-              // Si l'étape a une url (PocketBase), la carte est un lien vers l'école ou l'entreprise.
-              // Sinon, c'est une simple carte, non cliquable
               const Balise = etape.url ? "a" : "article";
 
-              // En desktop, chaque carte prend la moitié de la frise, moins 40 px vers le trait.
-              // Les cartes de droite remontent un peu (md:-mt-10)
               return (
               <div class:list={["md:w-1/2", index % 2 === 0 ? "md:self-start md:pr-10" : "md:-mt-10 md:self-end md:pl-10"]}>
-                <!-- Carte avec lien : elle monte un peu au survol (avec une ombre), et le focus clavier est visible -->
                 <Balise
                   href={etape.url}
                   target={etape.url ? "_blank" : undefined}
@@ -149,8 +119,6 @@ Astro.response.headers.set("Cache-Control", "public, max-age=60");
                   ]}
                 >
                   {
-                    // Flèche en haut à droite pour montrer que c'est un lien (elle tourne au survol),
-                    // et texte caché pour les lecteurs d'écran
                     etape.url && (
                       <>
                         <Image src={fleche} alt="" aria-hidden="true" class="absolute top-6 right-6 size-6 transition-transform duration-300 group-hover:rotate-45" />
@@ -162,11 +130,8 @@ Astro.response.headers.set("Cache-Control", "public, max-age=60");
                   <h3 class="font-titre text-h3 font-bold text-noir">{etape.titre} ✱ {etape.lieu}</h3>
                   <div class="details font-texte text-body-mobile text-noir md:text-body" set:html={etape.details} />
 
-                  <!-- Petit trait entre la carte et le rond (caché en mobile) -->
                   <div class:list={["absolute top-1/2 hidden h-0.75 w-10 -translate-y-1/2 bg-bleu md:block", index % 2 === 0 ? "-right-10" : "-left-10"]}></div>
 
-                  <!-- Rond rose sur le trait : sur le bas de la carte en mobile, à mi-hauteur à côté de la carte en desktop
-                       (14.75 : 56 px + les 3 px de bordure de la carte) -->
                   <div class:list={["absolute -bottom-3.5 left-1/2 size-6 -translate-x-1/2 rounded-full border-3 border-blanc bg-rose md:top-1/2 md:bottom-auto md:size-8 md:translate-x-0 md:-translate-y-1/2 md:border-4", index % 2 === 0 ? "md:left-auto md:-right-14.75" : "md:-left-14.75"]}></div>
                 </Balise>
               </div>
@@ -175,12 +140,10 @@ Astro.response.headers.set("Cache-Control", "public, max-age=60");
           }
         </div>
 
-        <!-- Étoile au bout de la frise (z-10 : devant le trait) -->
         <Etoile class="relative z-10 mx-auto mt-8 block size-28 md:size-32" />
       </div>
     </div>
   </section>
 
-  <!-- En ce moment : même encadré bleu que sur l'accueil, avec un bouton vers le contact -->
   <EnCeMoment boutonTexte="Me contacter" boutonLien="/contact" class="pt-20 md:pt-32" />
 </Layout>

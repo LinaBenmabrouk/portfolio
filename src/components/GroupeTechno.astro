@@ -1,12 +1,8 @@
 ---
-// Une colonne de technologies (ex : "Développement Web") : trait de couleur, titre, puis une ligne par techno
-// Au survol d'une ligne, l'icône grossit un peu
 import PbImage from "./PbImage.astro";
 
-// couleur : "bleu", "rose" ou "jaune" ; numero : "01", "02"... ; sousTitre : petite phrase sous le titre
 const { couleur, numero, titre, sousTitre, technologies } = Astro.props;
 
-// Couleurs selon le groupe (classes écrites en entier pour Tailwind)
 const couleursParGroupe = {
   bleu: { trait: "border-bleu-fonce", titre: "text-bleu-fonce", pastille: "bg-bleu-fonce/15 text-bleu-fonce" },
   rose: { trait: "border-rose", titre: "text-rose", pastille: "bg-rose/15 text-rose" },
@@ -14,7 +10,6 @@ const couleursParGroupe = {
 };
 const couleurs = couleursParGroupe[couleur];
 ---
-
 <div class:list={["border-t-3 pt-6", couleurs.trait]}>
   <p class="font-texte text-sm font-medium text-noir/60">{numero}</p>
   <h3 class:list={["font-titre text-h3 font-bold uppercase", couleurs.titre]}>{titre}</h3>
@@ -22,7 +17,6 @@ const couleurs = couleursParGroupe[couleur];
 
   <div class="mt-5">
     {
-      // Pour chaque technologie venue de PocketBase, on affiche une ligne
       technologies.map((techno) => (
         <div class="group flex items-center justify-between gap-3 border-b border-bleu-fonce/20 py-3.5">
           <div class="flex items-center gap-3.5">

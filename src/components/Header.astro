@@ -1,31 +1,23 @@
 ---
-// Images utilisées dans le header
 import { Image } from "astro:assets";
 import logo from "../assets/icons/logo-icon.svg";
 import iconeMenu from "../assets/icons/menu.svg";
 import iconeClose from "../assets/icons/close.svg";
 
-// Classes communes des liens (nav desktop et menu mobile), contour jaune au clavier (fond bleu)
 const classeLien = "font-texte text-xl font-normal text-blanc hover:text-jaune focus-visible:outline-jaune";
 const classeLienMobile = "border-b border-bleu pb-2.5 font-texte text-h4-mobile font-normal text-blanc focus-visible:outline-jaune";
 
-// Lien de la page actuelle : aria-current="page" (les pages projet comptent pour "Projets")
 const chemin = Astro.url.pathname;
 const pageAPropos = chemin.startsWith("/a-propos") ? "page" : undefined;
 const pageProjets = chemin.startsWith("/projets") ? "page" : undefined;
 const pageContact = chemin.startsWith("/contact") ? "page" : undefined;
 ---
-
 <header class="sticky top-0 z-50 w-full border-b border-blanc/20 bg-bleu-fonce">
-  <!-- Barre du header : 64 px en mobile, environ 90 px en desktop -->
   <div class="flex h-16 items-center justify-between pr-6 md:h-22 md:pr-15 md:pl-8">
-    <!-- Logo : centré verticalement dans la barre, il ne dépasse pas du header -->
     <a href="/" aria-label="Accueil - Lina Ben Mabrouk" class="relative z-10 ml-6 focus-visible:outline-jaune md:ml-0">
-      <!-- 40 px de haut en mobile, 72 px en desktop ; alt vide : le lien porte déjà le texte -->
       <Image src={logo} alt="" class="h-10 w-auto md:h-18" loading="eager" />
     </a>
 
-    <!-- Nav desktop -->
     <nav aria-label="Navigation principale" class="hidden items-center gap-16 md:flex">
       <a href="/a-propos" aria-current={pageAPropos} class={classeLien}>À propos</a>
       <a href="/projets" aria-current={pageProjets} class={classeLien}>Projets</a>
@@ -38,7 +30,6 @@ const pageContact = chemin.startsWith("/contact") ? "page" : undefined;
       </a>
     </nav>
 
-    <!-- Burger (mobile) : les deux icônes sont superposées dans le bouton -->
     <button
       id="burger"
       type="button"
@@ -62,16 +53,11 @@ const pageContact = chemin.startsWith("/contact") ? "page" : undefined;
     </button>
   </div>
 
-  <!-- Menu mobile : caché par défaut, placé juste sous le header
-       (mt-px : il commence sous la ligne blanche au lieu de la recouvrir).
-       Fermé : invisible et écrasé en hauteur (scale-y-0). Il se déroule depuis le haut (origin-top)
-       et rebondit un peu à la fin (ease-rebond) -->
   <nav
     id="menu-mobile"
     aria-label="Navigation mobile"
     class="invisible absolute top-full left-0 mt-px w-full origin-top scale-y-0 bg-bleu-fonce px-10 py-16 transition-all duration-500 ease-rebond motion-reduce:transition-none md:hidden"
   >
-    <!-- Liens en colonne, avec une ligne sous chacun -->
     <div class="flex flex-col gap-12">
       <a href="/a-propos" aria-current={pageAPropos} class={classeLienMobile}>À propos</a>
       <a href="/projets" aria-current={pageProjets} class={classeLienMobile}>Mes projets</a>
@@ -86,18 +72,14 @@ const pageContact = chemin.startsWith("/contact") ? "page" : undefined;
   const iconeMenu = document.getElementById("icone-menu");
   const iconeClose = document.getElementById("icone-close");
 
-  // Ouvre le menu s'il est fermé, le ferme s'il est ouvert, et échange les deux icônes
   function ouvrirFermer() {
-    // Indique aux lecteurs d'écran si le menu est ouvert, et change le texte du bouton
     const ouvert = burger.getAttribute("aria-expanded") === "true";
     burger.setAttribute("aria-expanded", String(!ouvert));
     burger.setAttribute("aria-label", ouvert ? "Ouvrir le menu" : "Fermer le menu");
 
-    // Le menu se déroule depuis le haut, ou se replie (transition dans ses classes)
     menu.classList.toggle("invisible");
     menu.classList.toggle("scale-y-0");
 
-    // Chaque icône passe de "visible" à "tournée + invisible", ou l'inverse
     for (const icone of [iconeMenu, iconeClose]) {
       icone.classList.toggle("rotate-0");
       icone.classList.toggle("opacity-100");
@@ -105,18 +87,13 @@ const pageContact = chemin.startsWith("/contact") ? "page" : undefined;
       icone.classList.toggle("opacity-0");
     }
 
-    // À l'ouverture, le focus va sur le premier lien du menu (pour le clavier).
-    // Petit délai : au tout début de l'animation, le menu est encore caché et ne peut pas recevoir le focus
     if (!ouvert) setTimeout(() => menu.querySelector("a").focus(), 50);
   }
 
-  // Est-ce que le menu est ouvert ?
   const menuOuvert = () => burger.getAttribute("aria-expanded") === "true";
 
-  // Clic sur le burger : on ouvre ou on ferme
   burger.addEventListener("click", ouvrirFermer);
 
-  // Touche Échap : on ferme le menu et le focus revient sur le burger
   document.addEventListener("keydown", (evenement) => {
     if (evenement.key === "Escape" && menuOuvert()) {
       ouvrirFermer();
@@ -124,7 +101,6 @@ const pageContact = chemin.startsWith("/contact") ? "page" : undefined;
     }
   });
 
-  // Clic sur un lien du menu : on le ferme aussi
   for (const lien of menu.querySelectorAll("a")) {
     lien.addEventListener("click", () => {
       if (menuOuvert()) ouvrirFermer();

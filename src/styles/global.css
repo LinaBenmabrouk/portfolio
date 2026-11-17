@@ -1,9 +1,6 @@
-/* Tailwind CSS */
 @import "tailwindcss";
 
-/* Variables du site : couleurs, polices, tailles de texte et animations */
 @theme {
-  /* Couleurs */
   --color-bleu: #1734DA;
   --color-bleu-fonce: #0000BB;
   --color-bleu-clair: #ECF2FF;
@@ -12,19 +9,16 @@
   --color-rose: #F34D85;
   --color-rose-pale: #FEF3F7;
   --color-rose-poudre: #FFD6E5;
-  /* Jaune plus foncé pour les titres sur fond clair */
   --color-jaune-fonce: #FFC600;
   --color-blanc: #FFFFFF;
   --color-noir: #000000;
 
-  /* Polices */
   --font-titre: "Space Grotesk", sans-serif;
   --font-texte: "DM Sans", sans-serif;
   --font-nunc: "Titan One", sans-serif;
   --font-flying: "Anton", sans-serif;
   --font-vtuber: "Micro 5", sans-serif;
 
-  /* Tailles de texte desktop */
   --text-h1: 48px;
   --text-h1--line-height: 50px;
   --text-h2: 36px;
@@ -40,10 +34,8 @@
   --text-small: 16px;
   --text-small--line-height: 20px;
 
-  /* Tailles de texte mobile */
   --text-h1-mobile: 32px;
   --text-h1-mobile--line-height: 30px;
-  /* Titre de section qui doit tenir sur une ligne en mobile (ex : Projets sélectionnés) */
   --text-titre-section-mobile: 28px;
   --text-titre-section-mobile--line-height: 30px;
   --text-h2-mobile: 24px;
@@ -55,13 +47,11 @@
   --text-small-mobile: 13px;
   --text-small-mobile--line-height: 15px;
 
-  /* Petites tailles mobile */
   --text-mini: 10px;
   --text-mini--line-height: 15px;
   --text-intro-mobile: 11px;
   --text-intro-mobile--line-height: 15px;
 
-  /* Grand titre du hero */
   --text-display: 160px;
   --text-display--line-height: 95px;
   --text-display--letter-spacing: -0.05em;
@@ -69,23 +59,17 @@
   --text-display-mobile--line-height: 26px;
   --text-display-mobile--letter-spacing: -0.05em;
 
-  /* Grand titre du hero quand un mot est long (ex : SURCHAUFFE), pour qu'il ne sorte pas du cadre */
   --text-titre-long: 90px;
-  --text-titre-long--line-height: 60px; /* même rapport que le grand titre (95 / 160) */
+  --text-titre-long--line-height: 60px;
   --text-titre-long--letter-spacing: -0.05em;
-  /* Même titre, plus grand sur les grands écrans (2xl : 1536 px et plus) */
   --text-titre-long-grand: 104px;
   --text-titre-long-grand--line-height: 62px;
   --text-titre-long-grand--letter-spacing: -0.05em;
 
-  /* Espacement des lettres */
   --tracking-large: 0.3em;
 
-  /* Arrondi du bas de l'arche (classe rounded-b-arche) */
   --radius-arche: 2.5rem;
 
-  /* Étoiles qui jaillissent du bouton après l'envoi du formulaire (classe animate-etincelle).
-     --x, --y et --r (direction et rotation) sont donnés par le script pour chaque étoile */
   --animate-etincelle: etincelle 0.9s ease-out forwards;
 
   @keyframes etincelle {
@@ -99,9 +83,7 @@
     }
   }
 
-  /* Petit rebond quand la bulle du personnage change de texte (classe animate-rebond) */
   --animate-rebond: rebond 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
-  /* Même courbe pour les transitions (classe ease-rebond) : ça dépasse un peu puis revient, comme un rebond */
   --ease-rebond: cubic-bezier(0.34, 1.56, 0.64, 1);
 
   @keyframes rebond {
@@ -115,9 +97,6 @@
     }
   }
 
-  /* Petit coucou quand le chibi de la page contact change (classe animate-coucou) :
-     il apparaît puis se balance à gauche et à droite, de moins en moins, comme pour dire bonjour.
-     Il revient à sa position et son inclinaison de départ */
   --animate-coucou: coucou 0.8s ease-in-out;
 
   @keyframes coucou {
@@ -145,8 +124,6 @@
     }
   }
 
-  /* ✱ qui scintillent autour du chibi de l'encadré "En ce moment" (classe animate-scintille) :
-     ils grandissent et s'allument, puis rapetissent et pâlissent, en aller-retour fluide (alternate) */
   --animate-scintille: scintille 1.6s ease-in-out infinite alternate;
 
   @keyframes scintille {
@@ -160,7 +137,6 @@
     }
   }
 
-  /* Animation du bandeau qui défile (classe animate-defile) */
   --animate-defile: defile 30s linear infinite;
 
   @keyframes defile {
@@ -173,7 +149,6 @@
   }
 }
 
-/* Styles de base : police et fond de la page, police des titres */
 @layer base {
   body {
     @apply font-texte bg-rose-pale;
@@ -185,22 +160,17 @@
     @apply font-titre;
   }
 
-  /* Contour visible quand on navigue au clavier (liens, boutons, champs).
-     Sur fond bleu, les liens ajoutent la classe focus-visible:outline-jaune */
   :focus-visible {
     outline: 2px solid var(--color-bleu-fonce);
     outline-offset: 2px;
   }
 
-  /* Texte sélectionné à la souris : jaune clair, visible sur tous les fonds du site */
   ::selection {
     background-color: var(--color-jaune-clair);
     color: var(--color-bleu-fonce);
   }
 }
 
-/* Moins d'animations si la personne l'a demandé dans son système :
-   transitions, animations et défilement doux deviennent instantanés */
 @media (prefers-reduced-motion: reduce) {
   *,
   ::before,
@@ -212,7 +182,6 @@
   }
 }
 
-/* Classe scrollbar-cache : cache la barre de défilement (le contenu défile toujours) */
 @utility scrollbar-cache {
   scrollbar-width: none;
 
@@ -221,9 +190,7 @@
   }
 }
 
-/* Classes du site */
 @layer components {
-  /* .details : texte riche venu de PocketBase (les puces des listes deviennent des étoiles roses) */
   .details ul {
     display: flex;
     flex-direction: column;
@@ -235,17 +202,12 @@
     color: var(--color-rose);
   }
 
-  /* Liens dans le texte riche : roses, soulignés et en gras */
   .details a {
     color: var(--color-rose);
     text-decoration: underline;
     font-weight: 700;
   }
 
-  /* Fonds à points bleus : nets en haut, flous en bas.
-     .fond-points (section Mon parcours) et .fond-points-clair (formulaire de contact, plus clair).
-     Deux calques de points identiques : ::before net qui s'efface vers le bas,
-     ::after flou qui apparaît vers le bas */
   .fond-points::before,
   .fond-points::after,
   .fond-points-clair::before,
@@ -255,12 +217,10 @@
     inset: 0;
     border-radius: inherit;
     pointer-events: none;
-    /* Ma couleur bleu à 6 % */
     background-image: radial-gradient(circle, color-mix(in srgb, var(--color-bleu) 6%, transparent) 5px, transparent 6px);
     background-size: 30px 30px;
   }
 
-  /* Version claire : points à 0.05 d'opacité */
   .fond-points-clair::before,
   .fond-points-clair::after {
     background-image: radial-gradient(circle, rgb(23 52 218 / 0.05) 5px, transparent 6px);
@@ -280,18 +240,11 @@
     mask-image: linear-gradient(to bottom, transparent 5%, black 45%);
   }
 
-  /* Le contenu du formulaire passe devant les points
-     (pour Mon parcours, c'est la div relative z-10 de la page) */
   .fond-points-clair > * {
     position: relative;
     z-index: 1;
   }
 
-  /* Motifs de points du hero et du footer (remplacent les SVG Figma de 5,7 Mo et 1,3 Mo).
-     Le fond porte le dégradé de couleur, le masque le découpe en petits points.
-     Mêmes valeurs que dans Figma : taille des points, espacement, opacité et dégradé */
-  /* Points identiques pour les deux motifs.
-     Mobile : points 2 fois plus petits, comme l'ancien SVG réduit dans un hero moins haut */
   .motif-hero,
   .motif-footer {
     pointer-events: none;
@@ -308,20 +261,15 @@
     }
   }
 
-  /* Hero : rose au milieu, bleu en haut et en bas (dégradé en ellipse centré en haut).
-     Les tailles sont en % du hero : le dégradé reste centré quelle que soit la largeur de l'écran */
   .motif-hero {
     opacity: 0.7;
     background-image: radial-gradient(128% 85% at 50% 0, var(--color-bleu-fonce) 30%, var(--color-rose) 65%, var(--color-rose) 78%, var(--color-bleu-fonce) 104%);
   }
 
-  /* Arche de la photo : demi-cercle en haut, coins arrondis en bas.
-     50 % de la largeur et 45,6 % de la hauteur font un vrai demi-cercle avec les proportions de l'arche */
   .arche {
     border-radius: 50% 50% var(--radius-arche) var(--radius-arche) / 45.6% 45.6% var(--radius-arche) var(--radius-arche);
   }
 
-  /* Footer : bleu en haut à droite, rose en bas à gauche, sur les 1274 premiers px (comme dans Figma), bleu après */
   .motif-footer {
     opacity: 0.6;
     background: linear-gradient(195deg, var(--color-bleu-fonce) 38%, var(--color-rose) 100%) left bottom / 1274px 100% no-repeat,

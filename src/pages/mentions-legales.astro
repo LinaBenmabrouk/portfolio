@@ -1,24 +1,18 @@
 ---
-// Page Mentions légales : contenu écrit à la main (pas de PocketBase), pas de hero
 import Layout from "../layouts/Layout.astro";
 
-// Classes communes aux 6 parties
-// Section : trait lavande en haut ; en desktop, numéro + titre à gauche, texte à droite
 const classeSection = "flex flex-col gap-4 border-t border-bleu-fonce/20 py-9 md:flex-row md:gap-10";
 const classeColonne = "md:w-90 md:shrink-0";
 const classeNumero = "font-texte text-button font-bold text-rose md:text-small";
 const classeTitre = "mt-2 font-titre text-h3 font-bold text-bleu-fonce uppercase md:text-3xl";
 const classeTexte = "flex flex-col gap-3 font-texte text-body-mobile font-normal text-noir md:text-body";
-// Liens du texte : soulignés, et contour visible au clavier
 const classeLien = "text-bleu-fonce underline underline-offset-4 hover:text-rose";
 ---
-
 <Layout
   title="Mentions légales"
   description="Qui édite et héberge le portfolio de Lina Ben Mabrouk, et ce qui est fait des données envoyées par le formulaire de contact."
 >
   <div class="px-4 pt-12 pb-20 md:px-11 md:pt-20 md:pb-32">
-    <!-- Haut de page -->
     <p class="font-texte text-small-mobile font-bold text-rose uppercase md:text-small">✱ Infos légales</p>
     <h1 class="mt-4 font-titre text-5xl leading-none font-bold text-bleu-fonce uppercase md:text-8xl">
       Mentions légales<span class="text-jaune">.</span>
@@ -26,7 +20,6 @@ const classeLien = "text-bleu-fonce underline underline-offset-4 hover:text-rose
     <p class="mt-4 font-texte text-body-mobile font-normal text-noir md:text-xl">Qui édite et héberge ce site, et ce que je fais de vos données.</p>
     <p class="mt-8 mb-8 font-texte text-sm font-normal text-noir md:mt-12 md:text-small">Dernière mise à jour : novembre 2026</p>
 
-    <!-- 01 -->
     <section class={classeSection}>
       <div class={classeColonne}>
         <p class={classeNumero}>01</p>
@@ -39,7 +32,6 @@ const classeLien = "text-bleu-fonce underline underline-offset-4 hover:text-rose
       </div>
     </section>
 
-    <!-- 02 -->
     <section class={classeSection}>
       <div class={classeColonne}>
         <p class={classeNumero}>02</p>
@@ -53,7 +45,6 @@ const classeLien = "text-bleu-fonce underline underline-offset-4 hover:text-rose
       </div>
     </section>
 
-    <!-- 03 -->
     <section class={classeSection}>
       <div class={classeColonne}>
         <p class={classeNumero}>03</p>
@@ -65,7 +56,6 @@ const classeLien = "text-bleu-fonce underline underline-offset-4 hover:text-rose
       </div>
     </section>
 
-    <!-- 04 -->
     <section class={classeSection}>
       <div class={classeColonne}>
         <p class={classeNumero}>04</p>
@@ -77,7 +67,6 @@ const classeLien = "text-bleu-fonce underline underline-offset-4 hover:text-rose
       </div>
     </section>
 
-    <!-- 05 -->
     <section class={classeSection}>
       <div class={classeColonne}>
         <p class={classeNumero}>05</p>
@@ -88,7 +77,6 @@ const classeLien = "text-bleu-fonce underline underline-offset-4 hover:text-rose
       </div>
     </section>
 
-    <!-- 06 -->
     <section class={classeSection}>
       <div class={classeColonne}>
         <p class={classeNumero}>06</p>

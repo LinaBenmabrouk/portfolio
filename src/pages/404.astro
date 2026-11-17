@@ -1,16 +1,12 @@
 ---
-// Page affichée automatiquement quand l'adresse n'existe pas
 import { Image } from "astro:assets";
 import Layout from "../layouts/Layout.astro";
 import dossierFond from "../assets/icons/dossier-fond.svg";
 import dossierDevant from "../assets/icons/dossier-devant.svg";
 import fleche from "../assets/icons/fleche.svg";
 ---
-
 <Layout title="Page introuvable" description="Cette page n'existe pas." centre noindex>
-  <!-- Contenu centré, qui remplit la hauteur entre le header et le footer -->
   <section class="flex flex-1 flex-col items-center justify-center px-4 py-16 text-center md:py-24">
-    <!-- Dossier vide : le fond donne la taille, le devant est posé par-dessus, "404" sur le rabat jaune -->
     <div class="relative w-52 md:w-100">
       <Image src={dossierFond} alt="" aria-hidden="true" class="w-full" />
       <Image src={dossierDevant} alt="" aria-hidden="true" class="absolute bottom-0 left-0 w-full" />
@@ -20,7 +16,6 @@ import fleche from "../assets/icons/fleche.svg";
     <h1 class="mt-8 text-h2-mobile font-bold text-bleu-fonce md:mt-10 md:text-h2">Page introuvable.</h1>
     <p class="mt-3 text-body-mobile text-noir md:text-body">On dirait que ce dossier est vide…</p>
 
-    <!-- Bouton jaune (mêmes classes que celui du hero) -->
     <a
       href="/"
       class="group mt-8 inline-flex items-center gap-2 rounded-lg bg-jaune px-2.5 py-2 text-mini font-semibold text-noir hover:bg-jaune-clair md:gap-3 md:rounded-xl md:px-6 md:py-4 md:text-button md:font-bold"

@@ -15,35 +15,26 @@ import "../styles/global.css";
 import Header from "../components/Header.astro";
 import Footer from "../components/Footer.astro";
 import { getImage } from "astro:assets";
-import chibi from "../assets/images/chibi-contente.png";
+import partage from "../assets/images/partage.png";
 
-// centre : le main devient flex, pour qu'une page puisse remplir et centrer la hauteur libre (page 404)
-// noindex : true pour que les moteurs de recherche n'indexent pas la page (page 404)
 const { title, description = "", centre = false, noindex = false } = Astro.props;
 
-// Titre de l'onglet : on ajoute mon nom, sauf s'il est déjà dans le titre (page d'accueil)
 const titrePage = title.includes("Lina Ben Mabrouk") ? title : title + " – Lina Ben Mabrouk";
 
-// Image de la carte de partage (LinkedIn, Discord…) : mon chibi en 1200 px de large.
-// Les réseaux veulent une adresse complète : on la construit avec l'adresse de la page visitée
-const imagePartage = await getImage({ src: chibi, width: 1200, format: "png" });
+const imagePartage = await getImage({ src: partage, width: 1200, format: "jpg" });
 const urlImage = new URL(imagePartage.src, Astro.url).href;
 ---
-
 <!doctype html>
-<!-- overscroll-y-none : pas d'effet de rebond en haut et en bas de la page (Mac, téléphone),
-     sinon on voit le fond rose au-dessus du header -->
 <html lang="fr" class="overscroll-y-none">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="description" content={description} />
     {noindex && <meta name="robots" content="noindex" />}
-    <!-- Favicon : le logo étoile -->
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="theme-color" content="#0000BB" />
     <title>{titrePage}</title>
 
-    <!-- Open Graph : la carte affichée quand on partage le lien du site -->
     <meta property="og:type" content="website" />
     <meta property="og:site_name" content="Lina Ben Mabrouk" />
     <meta property="og:locale" content="fr_FR" />
@@ -51,16 +42,14 @@ const urlImage = new URL(imagePartage.src, Astro.url).href;
     <meta property="og:description" content={description} />
     <meta property="og:url" content={Astro.url.href} />
     <meta property="og:image" content={urlImage} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
     <meta property="og:image:alt" content="Lina en chibi" />
-    <!-- Même carte, en grand, pour X (Twitter) -->
     <meta name="twitter:card" content="summary_large_image" />
 
-    <!-- Emplacement pour ce qu'une page veut ajouter dans le head (ex : la fiche "Personne" de l'accueil) -->
     <slot name="head" />
   </head>
-  <!-- Au moins la hauteur de l'écran : main prend la place libre, le footer reste en bas -->
   <body class="flex min-h-dvh flex-col">
-    <!-- Lien d'évitement : caché, il apparaît au 1er appui sur Tab et mène directement au contenu -->
     <a href="#contenu" class="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-100 focus:rounded-lg focus:bg-jaune focus:px-4 focus:py-2 focus:font-bold focus:text-noir">
       Aller au contenu
     </a>

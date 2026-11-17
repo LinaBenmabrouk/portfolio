@@ -1,26 +1,19 @@
 ---
-// Ma photo dans une arche, avec les cheveux qui dépassent en haut
 import { Image } from "astro:assets";
 import Etoile from "./Etoile.astro";
 import photo from "../assets/images/photo-lina.png";
 
-// class : la largeur (ex : "w-full max-w-sm")
 const { class: classe } = Astro.props;
 ---
-
 <div class:list={["relative aspect-637/691", classe]}>
-  <!-- Arche rose, derrière, pour le relief -->
   <div class="arche absolute bottom-0 left-2/25 h-87/100 w-43/50 bg-rose"></div>
 
-  <!-- Arche jaune -->
   <div class="arche absolute bottom-3/100 left-1/20 h-87/100 w-43/50 bg-jaune-clair"></div>
 
-  <!-- Photo : seul le bas est coupé, les cheveux dépassent au-dessus de l'arche -->
   <div class="absolute bottom-3/100 left-1/20 h-97/100 w-43/50 overflow-hidden rounded-b-arche">
     <Image src={photo} alt="Photo de Lina Ben Mabrouk" widths={[400, 600, 800]} sizes="(min-width: 1280px) 580px, 385px" class="h-full w-full object-cover object-top" />
   </div>
 
-  <!-- Étoiles décoratives -->
   <Etoile class="absolute top-9/50 left-81/100 w-17/100 -rotate-12" />
   <Etoile fond="fill-rose" contour="stroke-jaune" class="absolute top-13/20 left-1/100 w-9/100 rotate-12" />
 </div>

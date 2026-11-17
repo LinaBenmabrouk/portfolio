@@ -2,10 +2,7 @@
 import { Image } from "astro:assets";
 import { getImageUrl } from "../js/backend.mjs";
 
-// miniature : taille de la version réduite faite par PocketBase ("800x0" ou "1600x0" pour les grandes images),
-// pour ne pas charger l'image d'origine (parfois plus de 6 Mo)
 const { record, recordImage, miniature = "800x0", ...attrs } = Astro.props;
 const src = getImageUrl(record, recordImage, miniature);
 ---
-
 <Image src={src} alt={record.titre} inferSize {...attrs} />
