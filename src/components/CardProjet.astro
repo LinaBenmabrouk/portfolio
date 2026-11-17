@@ -7,7 +7,7 @@ const typeProjet = projet.contexte.split(/ [·✱] /)[0];
 ---
 <a
   href={"/projets/" + projet.slug}
-  class="group flex w-80 shrink-0 snap-start flex-col overflow-hidden rounded-2xl bg-rose shadow-rose/50 transition duration-300 hover:-translate-y-2 hover:shadow-xl md:w-full"
+  class="group flex w-80 shrink-0 snap-start flex-col overflow-hidden rounded-2xl bg-rose shadow-rose/50 transition duration-300 hover:-translate-y-2 hover:shadow-xl md:w-full focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-bleu-fonce motion-reduce:transition-none"
 >
   <div class="flex items-center gap-3 px-4 py-3 md:gap-4 md:px-6 md:py-4">
     <span class="h-px w-9 shrink-0 bg-blanc md:w-12"></span>
@@ -21,7 +21,7 @@ const typeProjet = projet.contexte.split(/ [·✱] /)[0];
       alt={"Couverture du projet " + projet.titre}
       widths={[400, 800]}
       sizes="(min-width: 768px) 33vw, 320px"
-      class="aspect-video w-full object-cover transition-transform duration-500 group-hover:scale-105"
+      class="aspect-video w-full object-cover transition-transform duration-500 group-hover:scale-105 motion-reduce:transition-none"
     />
   </div>
 
@@ -32,6 +32,7 @@ const typeProjet = projet.contexte.split(/ [·✱] /)[0];
         projet.slug === "nunc" && "font-nunc text-3xl md:text-4xl",
         projet.slug === "flying-tap-fest" && "font-flying text-3xl uppercase md:text-4xl",
         projet.slug === "vtuber" && "font-vtuber text-5xl md:text-7xl",
+        projet.slug !== "nunc" && projet.slug !== "flying-tap-fest" && projet.slug !== "vtuber" && "font-titre",
       ]}
     >
       {projet.titre}

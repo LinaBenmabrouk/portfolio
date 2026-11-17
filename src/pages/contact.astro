@@ -8,13 +8,6 @@ import fleche from "../assets/icons/fleche.svg";
 import flecheBas from "../assets/icons/fleche_bas.svg";
 import chibiContact from "../assets/images/chibi_contact1.png";
 import chibiContact2 from "../assets/images/chibi_contact2.png";
-
-const classeLigne = "flex flex-col gap-2 md:flex-row md:items-center md:gap-13";
-const classeLabel = "font-titre text-sm font-bold text-bleu-fonce uppercase md:w-25 md:text-right md:text-h3 md:text-noir md:normal-case";
-const classeLien = "group flex items-center gap-3 font-texte text-h4-mobile font-medium text-rose transition-colors hover:text-bleu-fonce md:text-h4";
-const classeFleche = "size-5 transition-transform group-hover:translate-x-1 group-hover:-translate-y-1 md:size-6";
-const classeChamp = "w-full border-b border-noir bg-transparent pb-1 font-texte text-body-mobile text-noir transition-colors placeholder:text-rose placeholder:italic focus:border-b-2 focus:border-bleu-fonce focus:pb-0.75 focus-visible:outline-none md:text-body";
-const classeLabelChamp = "font-titre text-h4 font-bold text-noir";
 ---
 <Layout title="Contact" description="Une proposition de stage, d'alternance ou un projet ? Écrivez à Lina Ben Mabrouk.">
   <Hero
@@ -22,7 +15,7 @@ const classeLabelChamp = "font-titre text-h4 font-bold text-noir";
     sousTitre="Un projet en tête ?"
     texte="Un stage, une alternance ou simplement échanger sur le dev ? Envoyez-moi un message, je réponds rapidement."
   >
-    On fait <span class="text-rose md:ml-12">équipe</span><span class="text-jaune">?</span>
+    On fait <span class="text-rose md:ml-12">équipe</span>&#8239;<span class="text-jaune">?</span>
     <Image slot="visuel" src={chibi} alt="Chibi de Lina, l'air enthousiaste" widths={[256, 512, 1024]} sizes="(min-width: 768px) 768px, 170px" class="size-full scale-120 rotate-6 md:scale-150 object-contain" loading="eager" fetchpriority="high" />
   </Hero>
 
@@ -33,63 +26,63 @@ const classeLabelChamp = "font-titre text-h4 font-bold text-noir";
       <div class="relative grid grid-cols-2 gap-x-3 gap-y-6 md:flex md:flex-col md:gap-13">
         <div class="absolute top-0 bottom-0 left-31 hidden border-l-5 border-dashed border-bleu-fonce md:block"></div>
 
-        <div class:list={["col-span-2", classeLigne]}>
-          <p class={classeLabel}>E-mail</p>
-          <a href="mailto:linabenmabrouk23@gmail.com" class="font-texte text-h4-mobile font-medium text-rose underline-offset-4 transition-colors hover:text-bleu-fonce hover:underline md:text-h4">linabenmabrouk23@gmail.com</a>
+        <div class="col-span-2 flex flex-col gap-2 md:flex-row md:items-center md:gap-13">
+          <p class="font-titre text-sm font-bold text-bleu-fonce uppercase md:w-25 md:text-right md:text-h3 md:text-noir md:normal-case">E-mail</p>
+          <a href="mailto:linabenmabrouk23@gmail.com" class="font-texte text-h4-mobile font-medium text-rose underline-offset-4 transition-colors hover:text-bleu-fonce hover:underline md:text-h4 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-bleu-fonce motion-reduce:transition-none">linabenmabrouk23@gmail.com</a>
         </div>
 
-        <div class={classeLigne}>
-          <p class={classeLabel}>Behance</p>
-          <a href="https://www.behance.net/linabenmabrouk" target="_blank" rel="noopener" class={classeLien}>
-            Mes designs <span class="sr-only">(nouvel onglet)</span> <Image src={fleche} alt="" aria-hidden="true" class={classeFleche} />
+        <div class="flex flex-col gap-2 md:flex-row md:items-center md:gap-13">
+          <p class="font-titre text-sm font-bold text-bleu-fonce uppercase md:w-25 md:text-right md:text-h3 md:text-noir md:normal-case">Behance</p>
+          <a href="https://www.behance.net/linabenmabrouk" target="_blank" rel="noopener" class="group flex items-center gap-3 font-texte text-h4-mobile font-medium text-rose transition-colors hover:text-bleu-fonce md:text-h4 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-bleu-fonce motion-reduce:transition-none">
+            Mes designs <span class="sr-only">(nouvel onglet)</span> <Image src={fleche} alt="" aria-hidden="true" class="size-5 transition-transform group-hover:translate-x-1 group-hover:-translate-y-1 md:size-6 motion-reduce:transition-none" />
           </a>
         </div>
 
-        <div class={classeLigne}>
-          <p class={classeLabel}>LinkedIn</p>
-          <a href="https://www.linkedin.com/in/lina-ben-mabrouk-b28564397/" target="_blank" rel="noopener" class={classeLien}>
-            Mon profil <span class="sr-only">(nouvel onglet)</span> <Image src={fleche} alt="" aria-hidden="true" class={classeFleche} />
+        <div class="flex flex-col gap-2 md:flex-row md:items-center md:gap-13">
+          <p class="font-titre text-sm font-bold text-bleu-fonce uppercase md:w-25 md:text-right md:text-h3 md:text-noir md:normal-case">LinkedIn</p>
+          <a href="https://www.linkedin.com/in/lina-ben-mabrouk-b28564397/" target="_blank" rel="noopener" class="group flex items-center gap-3 font-texte text-h4-mobile font-medium text-rose transition-colors hover:text-bleu-fonce md:text-h4 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-bleu-fonce motion-reduce:transition-none">
+            Mon profil <span class="sr-only">(nouvel onglet)</span> <Image src={fleche} alt="" aria-hidden="true" class="size-5 transition-transform group-hover:translate-x-1 group-hover:-translate-y-1 md:size-6 motion-reduce:transition-none" />
           </a>
         </div>
 
-        <div class={classeLigne}>
-          <p class={classeLabel}>GitHub</p>
-          <a href="https://github.com/LinaBenmabrouk" target="_blank" rel="noopener" class={classeLien}>
-            Mes dépôts <span class="sr-only">(nouvel onglet)</span> <Image src={fleche} alt="" aria-hidden="true" class={classeFleche} />
+        <div class="flex flex-col gap-2 md:flex-row md:items-center md:gap-13">
+          <p class="font-titre text-sm font-bold text-bleu-fonce uppercase md:w-25 md:text-right md:text-h3 md:text-noir md:normal-case">GitHub</p>
+          <a href="https://github.com/LinaBenmabrouk" target="_blank" rel="noopener" class="group flex items-center gap-3 font-texte text-h4-mobile font-medium text-rose transition-colors hover:text-bleu-fonce md:text-h4 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-bleu-fonce motion-reduce:transition-none">
+            Mes dépôts <span class="sr-only">(nouvel onglet)</span> <Image src={fleche} alt="" aria-hidden="true" class="size-5 transition-transform group-hover:translate-x-1 group-hover:-translate-y-1 md:size-6 motion-reduce:transition-none" />
           </a>
         </div>
 
-        <div class={classeLigne}>
-          <p class={classeLabel}>CV</p>
-          <a href="/cv.pdf" download class={classeLien}>
-            Télécharger <Image src={fleche} alt="" aria-hidden="true" class="size-5 rotate-135 transition-transform group-hover:translate-y-1 md:size-6" />
+        <div class="flex flex-col gap-2 md:flex-row md:items-center md:gap-13">
+          <p class="font-titre text-sm font-bold text-bleu-fonce uppercase md:w-25 md:text-right md:text-h3 md:text-noir md:normal-case">CV</p>
+          <a href="/cv.pdf" download class="group flex items-center gap-3 font-texte text-h4-mobile font-medium text-rose transition-colors hover:text-bleu-fonce md:text-h4 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-bleu-fonce motion-reduce:transition-none">
+            Télécharger <Image src={fleche} alt="" aria-hidden="true" class="size-5 rotate-135 transition-transform group-hover:translate-y-1 md:size-6 motion-reduce:transition-none" />
           </a>
         </div>
       </div>
 
       <div class="flex items-start justify-center gap-4 md:justify-start md:gap-3 xl:translate-x-12">
-        <Image id="chibi-attente" src={chibiContact} alt="Lina en chibi qui fait le signe peace" width="480" class="h-auto w-55 shrink-0 -rotate-14 md:w-60" />
-        <Image id="chibi-merci" src={chibiContact2} alt="Lina en chibi qui vous remercie" width="480" class="hidden h-auto w-55 shrink-0 -rotate-6 md:w-60" />
-        <p id="bulle" aria-live="polite" class="-ml-6 mt-25 w-40 shrink-0 origin-bottom-left rounded-3xl rounded-bl-none bg-rose px-4 py-3 font-texte text-sm font-normal text-blanc md:whitespace-pre-line md:mt-14 md:ml-0 md:w-auto md:min-w-48 md:px-6.5 md:py-4 md:text-body">Je vous réponds
+        <Image id="chibi-attente" src={chibiContact} alt="Lina en chibi qui fait le signe peace" width="480" class="h-auto w-55 shrink-0 -rotate-14 md:w-60 motion-reduce:animate-none" />
+        <Image id="chibi-merci" src={chibiContact2} alt="Lina en chibi qui vous remercie" width="480" class="hidden h-auto w-55 shrink-0 -rotate-6 md:w-60 motion-reduce:animate-none" />
+        <p id="bulle" aria-live="polite" class="-ml-6 mt-25 w-40 shrink-0 origin-bottom-left rounded-3xl rounded-bl-none bg-rose px-4 py-3 font-texte text-sm font-normal text-blanc md:whitespace-pre-line md:mt-14 md:ml-0 md:w-auto md:min-w-48 md:px-6.5 md:py-4 md:text-body motion-reduce:animate-none">Je vous réponds
           sous 48 h !</p>
       </div>
     </div>
 
     <form id="form-contact" class="fond-points-clair relative flex flex-col gap-17 rounded-2xl bg-bleu-clair p-5 md:w-1/2 md:p-7.5">
       <div class="flex flex-col gap-6">
-        <label for="nom" class={classeLabelChamp}>Nom & Prénom*</label>
-        <input id="nom" type="text" name="nom" placeholder="votre nom" required class={classeChamp} />
+        <label for="nom" class="font-titre text-h4 font-bold text-noir">Nom & Prénom*</label>
+        <input id="nom" type="text" name="nom" placeholder="votre nom" required class="w-full border-b border-noir bg-transparent pb-1 font-texte text-body-mobile text-noir transition-colors placeholder:text-rose placeholder:italic focus:border-b-2 focus:border-bleu-fonce focus:pb-0.75 focus-visible:outline-none md:text-body motion-reduce:transition-none" />
       </div>
 
       <div class="flex flex-col gap-6">
-        <label for="email" class={classeLabelChamp}>E-mail*</label>
-        <input id="email" type="email" name="email" placeholder="exemple@gmail.com" required class={classeChamp} />
+        <label for="email" class="font-titre text-h4 font-bold text-noir">E-mail*</label>
+        <input id="email" type="email" name="email" placeholder="exemple@gmail.com" required class="w-full border-b border-noir bg-transparent pb-1 font-texte text-body-mobile text-noir transition-colors placeholder:text-rose placeholder:italic focus:border-b-2 focus:border-bleu-fonce focus:pb-0.75 focus-visible:outline-none md:text-body motion-reduce:transition-none" />
       </div>
 
       <div class="flex flex-col gap-6">
-        <label for="sujet" class={classeLabelChamp}>Sujet*</label>
+        <label for="sujet" class="font-titre text-h4 font-bold text-noir">Sujet*</label>
         <div class="relative">
-          <select id="sujet" name="sujet" required class="w-full appearance-none rounded-md bg-blanc px-4 py-2.5 font-texte text-body-mobile text-noir invalid:text-rose invalid:italic md:text-body">
+          <select id="sujet" name="sujet" required class="w-full appearance-none rounded-md bg-blanc px-4 py-2.5 font-texte text-body-mobile text-noir invalid:text-rose invalid:italic md:text-body focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-bleu-fonce">
             <option value="" disabled selected class="text-rose italic">choisir votre sujet...</option>
             <option>Proposition de stage</option>
             <option>Projet ou collaboration</option>
@@ -98,17 +91,17 @@ const classeLabelChamp = "font-titre text-h4 font-bold text-noir";
           </select>
           <Image src={flecheBas} alt="" aria-hidden="true" class="pointer-events-none absolute top-1/2 right-3 size-6 -translate-y-1/2" />
         </div>
-        <input id="sujet-autre" type="text" name="sujetAutre" placeholder="précisez votre sujet..." aria-label="Précisez votre sujet" class:list={["hidden", classeChamp]} />
+        <input id="sujet-autre" type="text" name="sujetAutre" placeholder="précisez votre sujet..." aria-label="Précisez votre sujet" class="hidden w-full border-b border-noir bg-transparent pb-1 font-texte text-body-mobile text-noir transition-colors placeholder:text-rose placeholder:italic focus:border-b-2 focus:border-bleu-fonce focus:pb-0.75 focus-visible:outline-none md:text-body motion-reduce:transition-none" />
       </div>
 
       <div class="flex flex-col gap-6">
-        <label for="message" class={classeLabelChamp}>Message*</label>
-        <textarea id="message" name="message" rows="3" placeholder="écrire votre message..." required class="w-full resize-none overflow-hidden rounded-md bg-blanc px-4 py-2.5 font-texte text-body-mobile text-noir placeholder:text-rose placeholder:italic md:text-body"></textarea>
+        <label for="message" class="font-titre text-h4 font-bold text-noir">Message*</label>
+        <textarea id="message" name="message" rows="3" placeholder="écrire votre message..." required class="w-full resize-none overflow-hidden rounded-md bg-blanc px-4 py-2.5 font-texte text-body-mobile text-noir placeholder:text-rose placeholder:italic md:text-body focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-bleu-fonce"></textarea>
       </div>
 
       <div class="flex flex-col gap-3">
-        <button type="submit" class="group relative flex w-full items-center justify-center gap-2.5 rounded-xl bg-jaune py-3 font-texte text-button font-bold text-noir hover:bg-jaune-clair disabled:opacity-50">
-          Envoyer le message <Image src={fleche} alt="" aria-hidden="true" class="size-6 transition-transform group-enabled:group-hover:translate-x-1 group-enabled:group-hover:-translate-y-1" />
+        <button type="submit" class="group relative flex w-full items-center justify-center gap-2.5 rounded-xl bg-jaune py-3 font-texte text-button font-bold text-noir hover:bg-jaune-clair disabled:opacity-50 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-bleu-fonce">
+          Envoyer le message <Image src={fleche} alt="" aria-hidden="true" class="size-6 transition-transform group-enabled:group-hover:translate-x-1 group-enabled:group-hover:-translate-y-1 motion-reduce:transition-none" />
         </button>
         <p id="message-retour" aria-live="polite" class="font-texte text-small text-bleu-fonce"></p>
       </div>

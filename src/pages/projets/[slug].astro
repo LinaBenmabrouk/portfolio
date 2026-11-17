@@ -24,19 +24,6 @@ const categorie = projet.categorie;
 const motLePlusLong = Math.max(...projet.titre.split(" ").map((mot) => mot.length));
 const titreLong = motLePlusLong > 7;
 
-const couleursParCategorie = {
-  dev: { titre: "text-jaune-fonce", trait: "border-jaune" },
-  animation: { titre: "text-rose", trait: "border-rose" },
-  design: { titre: "text-bleu-fonce", trait: "border-bleu-fonce" },
-};
-const couleurs = couleursParCategorie[categorie] || couleursParCategorie.dev;
-
-const classeTitre = "font-titre text-h1-mobile font-bold uppercase md:text-h1";
-const classeSousTitre = "mb-3 font-titre text-small-mobile font-bold text-rose uppercase md:mb-4 md:text-base";
-
-const classeBloc = "flex flex-col gap-2.5 md:min-h-30 md:border-r md:border-noir/20 md:px-7 md:first:pl-0 md:last:border-r-0 md:last:pr-0";
-const classeLabel = "font-titre text-xs font-bold tracking-wider text-bleu-fonce uppercase md:text-sm";
-const classeValeur = "font-texte text-body-mobile leading-normal font-medium text-noir md:text-body";
 
 const typeProjet = projet.contexte.split(/ [·✱] /)[0];
 const surtitre = typeProjet + " ✱ " + projet.annee;
@@ -64,7 +51,7 @@ const etapes = projet.etapes || [];
 
   <div class="mx-auto mt-10 mb-20 flex max-w-7xl flex-col gap-16 px-4 md:mt-15 md:gap-20 md:px-9">
     <section class="relative">
-      <a href="/projets" class="mb-6 flex w-fit items-center gap-2 rounded-xl border-2 border-bleu-fonce px-3 py-2 font-texte text-mini font-normal text-bleu-fonce md:hidden">
+      <a href="/projets" class="mb-6 flex w-fit items-center gap-2 rounded-xl border-2 border-bleu-fonce px-3 py-2 font-texte text-mini font-normal text-bleu-fonce md:hidden focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-bleu-fonce">
         <FlecheGauche class="size-4" aria-hidden="true" /> Retour aux projets
       </a>
 
@@ -73,28 +60,28 @@ const etapes = projet.etapes || [];
       </h2>
       <div class="h-12 rounded-tr-3xl bg-jaune bg-linear-to-b from-transparent to-noir/10 to-35% md:h-16 md:rounded-tr-4xl"></div>
       <div class="relative -mt-8 grid grid-cols-2 gap-4 rounded-3xl bg-jaune px-5.5 py-6.5 shadow-lg shadow-noir/10 md:-mt-10 md:grid-cols-4 md:gap-0 md:rounded-4xl md:px-12 md:py-9">
-        <div class={classeBloc}>
-          <p class={classeLabel}>Contexte</p>
-          <p class={classeValeur}>{projet.contexte_fiche}</p>
+        <div class="flex flex-col gap-2.5 md:min-h-30 md:border-r md:border-noir/20 md:px-7 md:first:pl-0 md:last:border-r-0 md:last:pr-0">
+          <p class="font-titre text-xs font-bold tracking-wider text-bleu-fonce uppercase md:text-sm">Contexte</p>
+          <p class="font-texte text-body-mobile leading-normal font-medium text-noir md:text-body">{projet.contexte_fiche}</p>
         </div>
-        <div class={classeBloc}>
-          <p class={classeLabel}>Format</p>
-          <p class={classeValeur}>{projet.format}</p>
+        <div class="flex flex-col gap-2.5 md:min-h-30 md:border-r md:border-noir/20 md:px-7 md:first:pl-0 md:last:border-r-0 md:last:pr-0">
+          <p class="font-titre text-xs font-bold tracking-wider text-bleu-fonce uppercase md:text-sm">Format</p>
+          <p class="font-texte text-body-mobile leading-normal font-medium text-noir md:text-body">{projet.format}</p>
         </div>
-        <div class={classeBloc}>
-          <p class={classeLabel}>Mon rôle</p>
-          <p class={classeValeur}>{projet.role}</p>
+        <div class="flex flex-col gap-2.5 md:min-h-30 md:border-r md:border-noir/20 md:px-7 md:first:pl-0 md:last:border-r-0 md:last:pr-0">
+          <p class="font-titre text-xs font-bold tracking-wider text-bleu-fonce uppercase md:text-sm">Mon rôle</p>
+          <p class="font-texte text-body-mobile leading-normal font-medium text-noir md:text-body">{projet.role}</p>
         </div>
-        <div class={classeBloc}>
-          <p class={classeLabel}>{labelOutils}</p>
-          <p class={classeValeur}>{projet.technologies}</p>
+        <div class="flex flex-col gap-2.5 md:min-h-30 md:border-r md:border-noir/20 md:px-7 md:first:pl-0 md:last:border-r-0 md:last:pr-0">
+          <p class="font-titre text-xs font-bold tracking-wider text-bleu-fonce uppercase md:text-sm">{labelOutils}</p>
+          <p class="font-texte text-body-mobile leading-normal font-medium text-noir md:text-body">{projet.technologies}</p>
         </div>
       </div>
     </section>
 
     <section class="flex flex-col gap-5.5 md:flex-row md:items-start md:gap-20">
       <div class="flex flex-col gap-8 md:flex-1">
-        <h2 class:list={[classeTitre, couleurs.titre]}>L'intention.</h2>
+        <h2 class:list={["font-titre text-h1-mobile font-bold uppercase md:text-h1", categorie === "dev" && "text-jaune-fonce", categorie === "animation" && "text-rose", categorie === "design" && "text-bleu-fonce"]}>L'intention.</h2>
         <div class="details space-y-5 font-texte text-body-mobile leading-7 text-noir md:text-body" set:html={projet.intention} />
       </div>
 
@@ -122,12 +109,12 @@ const etapes = projet.etapes || [];
     {
       etapes.length > 0 && (
         <section>
-          <h2 class:list={[classeTitre, couleurs.titre]}>Le processus.</h2>
+          <h2 class:list={["font-titre text-h1-mobile font-bold uppercase md:text-h1", categorie === "dev" && "text-jaune-fonce", categorie === "animation" && "text-rose", categorie === "design" && "text-bleu-fonce"]}>Le processus.</h2>
           <div class="mt-8 flex flex-col gap-10 md:mt-12 md:grid md:grid-cols-3 md:gap-12">
             {
               etapes.map((etape, index) => (
-                <article class:list={["border-t-3 pt-6", couleurs.trait]}>
-                  <p class:list={["font-titre text-5xl leading-none font-bold", couleurs.titre]}>{"0" + (index + 1)}</p>
+                <article class:list={["border-t-3 pt-6", categorie === "dev" && "border-jaune", categorie === "animation" && "border-rose", categorie === "design" && "border-bleu-fonce"]}>
+                  <p class:list={["font-titre text-5xl leading-none font-bold", categorie === "dev" && "text-jaune-fonce", categorie === "animation" && "text-rose", categorie === "design" && "text-bleu-fonce"]}>{"0" + (index + 1)}</p>
                   <h3 class="mt-4 font-titre text-h4 font-bold text-noir md:text-h3">{etape.titre}</h3>
                   <p class="mt-3 font-texte text-body-mobile leading-7 text-noir/70 md:text-body">{etape.texte}</p>
                 </article>
@@ -139,7 +126,7 @@ const etapes = projet.etapes || [];
     }
 
     <section>
-      <h2 class:list={[classeTitre, couleurs.titre]}>Le rendu.</h2>
+      <h2 class:list={["font-titre text-h1-mobile font-bold uppercase md:text-h1", categorie === "dev" && "text-jaune-fonce", categorie === "animation" && "text-rose", categorie === "design" && "text-bleu-fonce"]}>Le rendu.</h2>
 
       <div class="mt-8 flex flex-col gap-7 md:mt-12 md:gap-10">
         {
@@ -147,7 +134,7 @@ const etapes = projet.etapes || [];
             <>
               {projet.visuel_principal && (
                 <div>
-                  <h3 class={classeSousTitre}>Version desktop</h3>
+                  <h3 class="mb-3 font-titre text-small-mobile font-bold text-rose uppercase md:mb-4 md:text-base">Version desktop</h3>
                   <PbImage record={projet} recordImage={projet.visuel_principal} miniature="1600x0" alt={"Version desktop du projet " + projet.titre} class="w-full" />
                 </div>
               )}
@@ -155,7 +142,7 @@ const etapes = projet.etapes || [];
               <div class="flex flex-col gap-7 md:flex-row md:gap-10">
                 {declinaisons.length > 0 && (
                   <div>
-                    <h3 class={classeSousTitre}>Version mobile</h3>
+                    <h3 class="mb-3 font-titre text-small-mobile font-bold text-rose uppercase md:mb-4 md:text-base">Version mobile</h3>
                     <div class="mx-auto h-135 w-62.5 overflow-hidden bg-blanc md:mx-0 md:h-169 md:w-79">
                       <PbImage record={projet} recordImage={declinaisons[0]} alt={"Version mobile du projet " + projet.titre} class="size-full object-cover object-top" />
                     </div>
@@ -164,7 +151,7 @@ const etapes = projet.etapes || [];
 
                 {miseEnSituation.length > 0 && (
                   <div class:list={[miseEnSituation.length > 1 && "md:min-w-0 md:flex-1"]}>
-                    <h3 class={classeSousTitre}>Identité visuelle</h3>
+                    <h3 class="mb-3 font-titre text-small-mobile font-bold text-rose uppercase md:mb-4 md:text-base">Identité visuelle</h3>
 
                     {miseEnSituation.length === 1 && (
                       <div>
@@ -196,7 +183,7 @@ const etapes = projet.etapes || [];
             <>
               {(projet.video || projet.visuel_principal) && (
                 <div>
-                  <h3 class={classeSousTitre}>Vidéo animation</h3>
+                  <h3 class="mb-3 font-titre text-small-mobile font-bold text-rose uppercase md:mb-4 md:text-base">Vidéo animation</h3>
                   {projet.video ? (
                     <div class="relative overflow-hidden">
                       <video
@@ -212,7 +199,7 @@ const etapes = projet.etapes || [];
                         type="button"
                         id="bouton-lecture"
                         aria-label="Lire la vidéo"
-                        class="absolute inset-0 z-20 m-auto flex size-16 items-center justify-center rounded-full bg-rose md:size-22"
+                        class="absolute inset-0 z-20 m-auto flex size-16 items-center justify-center rounded-full bg-rose md:size-22 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-bleu-fonce"
                       >
                         <svg viewBox="0 0 24 24" class="ml-1 size-7 fill-blanc md:size-9" aria-hidden="true"><path d="M7 4.5v15a1 1 0 0 0 1.5.86l12-7.5a1 1 0 0 0 0-1.72l-12-7.5A1 1 0 0 0 7 4.5Z" /></svg>
                       </button>
@@ -225,7 +212,7 @@ const etapes = projet.etapes || [];
 
               {declinaisons.length > 0 && (
                 <div>
-                  <h3 class={classeSousTitre}>Déclinaison</h3>
+                  <h3 class="mb-3 font-titre text-small-mobile font-bold text-rose uppercase md:mb-4 md:text-base">Déclinaison</h3>
                   <PbImage record={projet} recordImage={declinaisons[0]} miniature="1600x0" alt={"Déclinaison du projet " + projet.titre} class="w-full" />
                 </div>
               )}
@@ -238,14 +225,14 @@ const etapes = projet.etapes || [];
             <>
               {projet.visuel_principal && (
                 <div>
-                  <h3 class={classeSousTitre}>Maquette desktop</h3>
+                  <h3 class="mb-3 font-titre text-small-mobile font-bold text-rose uppercase md:mb-4 md:text-base">Maquette desktop</h3>
                   <PbImage record={projet} recordImage={projet.visuel_principal} miniature="1600x0" alt={"Maquette desktop du projet " + projet.titre} class="w-full" />
                 </div>
               )}
 
               {declinaisons.length > 0 && (
                 <div>
-                  <h3 class={classeSousTitre}>Identité visuelle</h3>
+                  <h3 class="mb-3 font-titre text-small-mobile font-bold text-rose uppercase md:mb-4 md:text-base">Identité visuelle</h3>
                   <div class:list={["grid grid-cols-1 gap-5 md:gap-6", declinaisons.length > 1 && "md:grid-cols-3"]}>
                     {
                       declinaisons.map((image) => (
@@ -258,7 +245,7 @@ const etapes = projet.etapes || [];
 
               {miseEnSituation.length > 0 && (
                 <div>
-                  <h3 class={classeSousTitre}>Mise en situation</h3>
+                  <h3 class="mb-3 font-titre text-small-mobile font-bold text-rose uppercase md:mb-4 md:text-base">Mise en situation</h3>
                   <div class="grid grid-cols-1 gap-5 md:grid-cols-3 md:gap-6">
                     {
                       miseEnSituation.map((image) => (
@@ -275,18 +262,18 @@ const etapes = projet.etapes || [];
     </section>
 
     <nav aria-label="Autres projets" class="flex justify-between gap-6">
-      <a href={"/projets/" + precedent.slug} class="group max-w-1/2">
+      <a href={"/projets/" + precedent.slug} class="group max-w-1/2 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-bleu-fonce">
         <p class="font-titre text-xs font-bold text-rose uppercase md:text-sm">Projet précédent</p>
         <p class="mt-1.5 flex gap-1.5 font-titre text-sm font-bold text-bleu-fonce md:gap-3 md:text-2xl">
-          <FlecheGauche class="mt-0.5 size-4 shrink-0 transition-transform group-hover:-translate-x-1 md:mt-1 md:size-6" aria-hidden="true" />
+          <FlecheGauche class="mt-0.5 size-4 shrink-0 transition-transform group-hover:-translate-x-1 md:mt-1 md:size-6 motion-reduce:transition-none" aria-hidden="true" />
           <span class="text-balance group-hover:underline">{precedent.titre}</span>
         </p>
       </a>
-      <a href={"/projets/" + suivant.slug} class="group max-w-1/2 text-right">
+      <a href={"/projets/" + suivant.slug} class="group max-w-1/2 text-right focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-bleu-fonce">
         <p class="font-titre text-xs font-bold text-rose uppercase md:text-sm">Projet suivant</p>
         <p class="mt-1.5 flex justify-end gap-1.5 font-titre text-sm font-bold text-bleu-fonce md:gap-3 md:text-2xl">
           <span class="text-balance group-hover:underline">{suivant.titre}</span>
-          <FlecheDroite class="mt-0.5 size-4 shrink-0 transition-transform group-hover:translate-x-1 md:mt-1 md:size-6" aria-hidden="true" />
+          <FlecheDroite class="mt-0.5 size-4 shrink-0 transition-transform group-hover:translate-x-1 md:mt-1 md:size-6 motion-reduce:transition-none" aria-hidden="true" />
         </p>
       </a>
     </nav>

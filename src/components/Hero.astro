@@ -58,10 +58,10 @@ const morceaux = surtitre.split("✱");
 
       {sousTitre && (
         <p class="relative z-10 mt-5 uppercase text-blanc font-titre font-normal text-small-mobile md:mt-9 md:ml-5 md:text-xl">
-          <BaliseSousTitre href={sousTitreLien} class:list={[sousTitreLien && "group transition-colors hover:text-jaune focus-visible:outline-jaune"]}>
+          <BaliseSousTitre href={sousTitreLien} class:list={[sousTitreLien && "group transition-colors hover:text-jaune focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-jaune motion-reduce:transition-none"]}>
             {sousTitre}
             {sousTitreLigne2 && <>{" "}<br class="md:hidden" />{sousTitreLigne2}</>}
-            {flecheSousTitre && <Image src={flecheJaune} alt="" aria-hidden="true" class="ml-1 inline-block size-3 align-baseline transition-transform group-hover:translate-x-1 group-hover:-translate-y-1 md:ml-2 md:size-5" />}
+            {flecheSousTitre && <Image src={flecheJaune} alt="" aria-hidden="true" class="ml-1 inline-block size-3 align-baseline transition-transform group-hover:translate-x-1 group-hover:-translate-y-1 md:ml-2 md:size-5 motion-reduce:transition-none" />}
           </BaliseSousTitre>
         </p>
       )}
@@ -92,7 +92,7 @@ const morceaux = surtitre.split("✱");
             target={boutonNouvelOnglet ? "_blank" : undefined}
             rel={boutonNouvelOnglet ? "noopener" : undefined}
             class:list={[
-              "group mt-5 inline-flex items-center gap-2 rounded-lg bg-jaune text-noir hover:bg-jaune-clair focus-visible:outline-jaune font-texte font-semibold text-mini px-2.5 py-2 md:rounded-xl md:gap-3 md:font-bold md:text-button md:px-6 md:py-4",
+              "group mt-5 inline-flex items-center gap-2 rounded-lg bg-jaune text-noir hover:bg-jaune-clair focus-visible:outline-jaune font-texte font-semibold text-mini px-2.5 py-2 md:rounded-xl md:gap-3 md:font-bold md:text-button md:px-6 md:py-4 focus-visible:outline-2 focus-visible:outline-offset-2",
               texte ? "md:mt-8" : "md:mt-25",
             ]}
           >
@@ -101,7 +101,7 @@ const morceaux = surtitre.split("✱");
             <Image
               src={fleche}
               alt="" aria-hidden="true"
-              class:list={["size-3 transition-transform md:size-6", boutonTelecharger ? "rotate-135 group-hover:translate-y-1" : "group-hover:translate-x-1 group-hover:-translate-y-1"]}
+              class:list={["size-3 transition-transform md:size-6 motion-reduce:transition-none", boutonTelecharger ? "rotate-135 group-hover:translate-y-1" : "group-hover:translate-x-1 group-hover:-translate-y-1"]}
             />
           </a>
         )

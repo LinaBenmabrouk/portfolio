@@ -2,17 +2,10 @@
 import PbImage from "./PbImage.astro";
 
 const { couleur, numero, titre, sousTitre, technologies } = Astro.props;
-
-const couleursParGroupe = {
-  bleu: { trait: "border-bleu-fonce", titre: "text-bleu-fonce", pastille: "bg-bleu-fonce/15 text-bleu-fonce" },
-  rose: { trait: "border-rose", titre: "text-rose", pastille: "bg-rose/15 text-rose" },
-  jaune: { trait: "border-jaune-fonce", titre: "text-noir", pastille: "bg-jaune/15 text-noir" },
-};
-const couleurs = couleursParGroupe[couleur];
 ---
-<div class:list={["border-t-3 pt-6", couleurs.trait]}>
+<div class:list={["border-t-3 pt-6", couleur === "bleu" && "border-bleu-fonce", couleur === "rose" && "border-rose", couleur === "jaune" && "border-jaune-fonce"]}>
   <p class="font-texte text-sm font-medium text-noir/60">{numero}</p>
-  <h3 class:list={["font-titre text-h3 font-bold uppercase", couleurs.titre]}>{titre}</h3>
+  <h3 class:list={["font-titre text-h3 font-bold uppercase", couleur === "bleu" && "text-bleu-fonce", couleur === "rose" && "text-rose", couleur === "jaune" && "text-noir"]}>{titre}</h3>
   <p class="font-texte text-base text-noir/60">{sousTitre}</p>
 
   <div class="mt-5">
@@ -20,10 +13,10 @@ const couleurs = couleursParGroupe[couleur];
       technologies.map((techno) => (
         <div class="group flex items-center justify-between gap-3 border-b border-bleu-fonce/20 py-3.5">
           <div class="flex items-center gap-3.5">
-            <PbImage record={techno} recordImage={techno.icone} alt={techno.nom} class="size-7.5 shrink-0 object-contain transition-transform duration-300 group-hover:scale-125" />
+            <PbImage record={techno} recordImage={techno.icone} alt={techno.nom} class="size-7.5 shrink-0 object-contain transition-transform duration-300 group-hover:scale-125 motion-reduce:transition-none" />
             <p class="font-texte text-body font-medium text-noir">{techno.nom}</p>
           </div>
-          <p class:list={["shrink-0 rounded-full px-3 py-1 font-texte text-sm font-semibold", couleurs.pastille]}>{techno.niveau}</p>
+          <p class:list={["shrink-0 rounded-full px-3 py-1 font-texte text-sm font-semibold", couleur === "bleu" && "bg-bleu-fonce/15 text-bleu-fonce", couleur === "rose" && "bg-rose/15 text-rose", couleur === "jaune" && "bg-jaune/15 text-noir"]}>{techno.niveau}</p>
         </div>
       ))
     }

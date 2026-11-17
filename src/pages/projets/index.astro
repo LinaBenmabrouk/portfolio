@@ -17,9 +17,6 @@ const nbDesign = projets.filter((projet) => projet.categorie === "design").lengt
 const nbAnimation = projets.filter((projet) => projet.categorie === "animation").length;
 
 Astro.response.headers.set("Cache-Control", "public, max-age=60");
-
-const classeFiltre = "bouton-filtre rounded-xl border-2 border-jaune px-3 py-2 font-texte text-mini font-semibold text-noir md:border-3 md:px-7.5 md:py-2.5 md:text-button md:font-bold";
-const classePage = "group flex items-center gap-2 rounded-xl border-2 border-jaune px-3 py-2 font-texte text-mini font-normal text-noir hover:bg-jaune-clair disabled:opacity-40 disabled:hover:bg-transparent md:border-3 md:px-6 md:py-2.5 md:text-button";
 ---
 <Layout title="Mes projets" description="Mes projets de développement web, de design et d'animation, réalisés en BUT MMI ou en autonomie.">
   <Hero
@@ -32,10 +29,10 @@ const classePage = "group flex items-center gap-2 rounded-xl border-2 border-jau
   </Hero>
 
   <div class="mx-auto mt-9 mb-9 flex flex-wrap gap-5 px-4 md:mt-15 md:mb-14 md:gap-9 md:px-11">
-    <button type="button" data-filtre="tout" aria-pressed="true" class:list={[classeFiltre, "bg-jaune"]}>Tout ({projets.length})</button>
-    <button type="button" data-filtre="dev" aria-pressed="false" class={classeFiltre}>Développement ({nbDev})</button>
-    <button type="button" data-filtre="design" aria-pressed="false" class={classeFiltre}>Design ({nbDesign})</button>
-    <button type="button" data-filtre="animation" aria-pressed="false" class={classeFiltre}>Animation ({nbAnimation})</button>
+    <button type="button" data-filtre="tout" aria-pressed="true" class="bouton-filtre rounded-xl border-2 border-jaune px-3 py-2 font-texte text-mini font-semibold text-noir md:border-3 md:px-7.5 md:py-2.5 md:text-button md:font-bold bg-jaune focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-bleu-fonce">Tout ({projets.length})</button>
+    <button type="button" data-filtre="dev" aria-pressed="false" class="bouton-filtre rounded-xl border-2 border-jaune px-3 py-2 font-texte text-mini font-semibold text-noir md:border-3 md:px-7.5 md:py-2.5 md:text-button md:font-bold focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-bleu-fonce">Développement ({nbDev})</button>
+    <button type="button" data-filtre="design" aria-pressed="false" class="bouton-filtre rounded-xl border-2 border-jaune px-3 py-2 font-texte text-mini font-semibold text-noir md:border-3 md:px-7.5 md:py-2.5 md:text-button md:font-bold focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-bleu-fonce">Design ({nbDesign})</button>
+    <button type="button" data-filtre="animation" aria-pressed="false" class="bouton-filtre rounded-xl border-2 border-jaune px-3 py-2 font-texte text-mini font-semibold text-noir md:border-3 md:px-7.5 md:py-2.5 md:text-button md:font-bold focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-bleu-fonce">Animation ({nbAnimation})</button>
   </div>
 
   <div id="liste-projets" class="mx-auto mb-16 flex scroll-mt-28 flex-col gap-12 px-4 md:mb-24 md:gap-15 md:px-11">
@@ -44,7 +41,7 @@ const classePage = "group flex items-center gap-2 rounded-xl border-2 border-jau
         <a
           href={"/projets/" + projet.slug}
           data-categorie={projet.categorie}
-          class="carte-projet group flex flex-col gap-5 md:flex-row md:gap-6"
+          class="carte-projet group flex flex-col gap-5 md:flex-row md:gap-6 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-bleu-fonce"
         >
           <div class="relative w-48 shrink-0 md:w-86 md:self-start">
             <Image src={dossierFond} alt="" aria-hidden="true" class="w-full" />
@@ -53,7 +50,7 @@ const classePage = "group flex items-center gap-2 rounded-xl border-2 border-jau
                 record={projet}
                 recordImage={projet.image_couverture}
                 alt={"Couverture du projet " + projet.titre}
-                class="size-full rounded-xl object-cover transition-shadow duration-500 group-hover:shadow-xl max-md:group-data-ouvert:shadow-xl md:rounded-3xl"
+                class="size-full rounded-xl object-cover transition-shadow duration-500 group-hover:shadow-xl max-md:group-data-ouvert:shadow-xl md:rounded-3xl motion-reduce:transition-none"
               />
             </div>
             <Image src={dossierDevant} alt="" aria-hidden="true" class="absolute bottom-0 left-0 w-full" />
@@ -84,9 +81,9 @@ const classePage = "group flex items-center gap-2 rounded-xl border-2 border-jau
   </div>
 
   <nav id="pagination" aria-label="Pagination des projets" class="mb-16 flex items-center justify-center gap-4 px-4 md:mb-24 md:gap-8">
-    <button type="button" id="page-precedente" class={classePage}><FlecheGauche class="size-4 transition-transform group-enabled:group-hover:-translate-x-1 md:size-5" aria-hidden="true" /> Précédent</button>
+    <button type="button" id="page-precedente" class="group flex items-center gap-2 rounded-xl border-2 border-jaune px-3 py-2 font-texte text-mini font-normal text-noir hover:bg-jaune-clair disabled:opacity-40 disabled:hover:bg-transparent md:border-3 md:px-6 md:py-2.5 md:text-button focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-bleu-fonce"><FlecheGauche class="size-4 transition-transform group-enabled:group-hover:-translate-x-1 md:size-5 motion-reduce:transition-none" aria-hidden="true" /> Précédent</button>
     <p id="page-info" aria-live="polite" class="font-texte text-small-mobile font-normal text-noir md:text-body">Page 1 / 1</p>
-    <button type="button" id="page-suivante" class={classePage}>Suivant <FlecheDroite class="size-4 transition-transform group-enabled:group-hover:translate-x-1 md:size-5" aria-hidden="true" /></button>
+    <button type="button" id="page-suivante" class="group flex items-center gap-2 rounded-xl border-2 border-jaune px-3 py-2 font-texte text-mini font-normal text-noir hover:bg-jaune-clair disabled:opacity-40 disabled:hover:bg-transparent md:border-3 md:px-6 md:py-2.5 md:text-button focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-bleu-fonce">Suivant <FlecheDroite class="size-4 transition-transform group-enabled:group-hover:translate-x-1 md:size-5 motion-reduce:transition-none" aria-hidden="true" /></button>
   </nav>
 </Layout>
 

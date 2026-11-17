@@ -40,9 +40,9 @@ Astro.response.headers.set("Cache-Control", "public, max-age=60");
       <div class="mt-8 flex flex-col gap-6 font-texte text-body-mobile font-normal text-noir md:mt-12 md:text-body">
         <p>Je m'appelle Lina, une étudiante en BUT MMI passionnée par la création numérique sous toutes ses formes.</p>
         <p>Je souhaite plus tard travailler dans la programmation de jeux vidéo, un domaine qui m'attire autant pour son aspect technique que créatif.</p>
-        <p>Mon intérêt pour le développement web s'inscrit naturellement dans cette démarche, concevoir des applications ou des jeux partage la même exigence de logique, d'interactivité et de soin apporté à l'expérience utilisateur.</p>
+        <p>Mon intérêt pour le développement web s'inscrit naturellement dans cette démarche : concevoir des applications ou des jeux partage la même exigence de logique, d'interactivité et de soin apporté à l'expérience utilisateur.</p>
         <p>Je me passionne aussi pour l'animation 2D, le dessin, les personnages virtuels et les environnements numériques inspirés du streaming.</p>
-        <p>J'apprécie explorer différents outils et apprendre en autonomie afin de progresser sur des réalisations personnelles mêlant design visuel, et interaction.</p>
+        <p>J'aime explorer différents outils et apprendre en autonomie afin de progresser sur des réalisations personnelles mêlant design visuel et interaction.</p>
         <p>À travers mes études et mes travaux, je cherche progressivement à améliorer des compétences qui me permettront de participer à la conception d'expériences immersives dans le web comme dans les jeux vidéo.</p>
       </div>
     </div>
@@ -64,7 +64,7 @@ Astro.response.headers.set("Cache-Control", "public, max-age=60");
         competences.map((competence, index) => (
           <article class:list={["group flex flex-col items-start gap-2 border-b border-bleu-fonce/20 py-6 md:flex-row md:items-center md:gap-8", index === 0 && "border-t"]}>
             <p class="w-10 shrink-0 font-texte text-base font-bold text-rose">{"0" + competence.numero}</p>
-            <h3 class="w-75 shrink-0 font-titre text-h3 font-bold text-bleu-fonce uppercase transition duration-300 group-hover:translate-x-2 group-hover:text-rose">{competence.nom}</h3>
+            <h3 class="w-75 shrink-0 font-titre text-h3 font-bold text-bleu-fonce uppercase transition duration-300 group-hover:translate-x-2 group-hover:text-rose motion-reduce:transition-none">{competence.nom}</h3>
             <p class="font-texte text-body font-normal text-noir/70">{competence.description}</p>
           </article>
         ))
@@ -76,7 +76,7 @@ Astro.response.headers.set("Cache-Control", "public, max-age=60");
       <ul class="flex flex-wrap items-center gap-3">
         {
           savoirEtre.map((qualite) => (
-            <li class="rounded-full bg-jaune px-4 py-2 font-texte text-sm font-bold text-noir transition duration-300 hover:-translate-y-1 md:px-5 md:py-2.5 md:text-base">
+            <li class="rounded-full bg-jaune px-4 py-2 font-texte text-sm font-bold text-noir transition duration-300 hover:-translate-y-1 md:px-5 md:py-2.5 md:text-base motion-reduce:transition-none">
               {qualite.nom}
             </li>
           ))
@@ -115,13 +115,13 @@ Astro.response.headers.set("Cache-Control", "public, max-age=60");
                   rel={etape.url ? "noopener" : undefined}
                   class:list={[
                     "relative flex flex-col gap-3.5 rounded-4xl border-3 border-bleu bg-blanc px-6 py-6 shadow-rose/50 md:px-9 md:py-7.5",
-                    etape.url && "group transition duration-300 hover:-translate-y-1 hover:shadow-xl focus-visible:outline-3 focus-visible:outline-offset-4 focus-visible:outline-rose",
+                    etape.url && "group transition duration-300 hover:-translate-y-1 hover:shadow-xl focus-visible:outline-3 focus-visible:outline-offset-4 focus-visible:outline-rose motion-reduce:transition-none",
                   ]}
                 >
                   {
                     etape.url && (
                       <>
-                        <Image src={fleche} alt="" aria-hidden="true" class="absolute top-6 right-6 size-6 transition-transform duration-300 group-hover:rotate-45" />
+                        <Image src={fleche} alt="" aria-hidden="true" class="absolute top-6 right-6 size-6 transition-transform duration-300 group-hover:rotate-45 motion-reduce:transition-none" />
                         <span class="sr-only">(Voir le site de {etape.lieu}, nouvel onglet)</span>
                       </>
                     )

@@ -149,39 +149,6 @@
   }
 }
 
-@layer base {
-  body {
-    @apply font-texte bg-rose-pale;
-  }
-
-  h1,
-  h2,
-  h3 {
-    @apply font-titre;
-  }
-
-  :focus-visible {
-    outline: 2px solid var(--color-bleu-fonce);
-    outline-offset: 2px;
-  }
-
-  ::selection {
-    background-color: var(--color-jaune-clair);
-    color: var(--color-bleu-fonce);
-  }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  *,
-  ::before,
-  ::after {
-    animation-duration: 0.01ms !important;
-    animation-iteration-count: 1 !important;
-    transition-duration: 0.01ms !important;
-    scroll-behavior: auto !important;
-  }
-}
-
 @utility scrollbar-cache {
   scrollbar-width: none;
 
@@ -190,28 +157,33 @@
   }
 }
 
-@layer components {
-  .details ul {
+@utility details {
+  & ul {
     display: flex;
     flex-direction: column;
     gap: 0.5rem;
   }
 
-  .details li::before {
+  & li::before {
     content: "✱ ";
     color: var(--color-rose);
   }
 
-  .details a {
+  & a {
     color: var(--color-rose);
     text-decoration: underline;
     font-weight: 700;
   }
 
-  .fond-points::before,
-  .fond-points::after,
-  .fond-points-clair::before,
-  .fond-points-clair::after {
+  & a:focus-visible {
+    outline: 2px solid var(--color-bleu-fonce);
+    outline-offset: 2px;
+  }
+}
+
+@utility fond-points {
+  &::before,
+  &::after {
     content: "";
     position: absolute;
     inset: 0;
@@ -221,58 +193,72 @@
     background-size: 30px 30px;
   }
 
-  .fond-points-clair::before,
-  .fond-points-clair::after {
-    background-image: radial-gradient(circle, rgb(23 52 218 / 0.05) 5px, transparent 6px);
-  }
-
-  .fond-points::before {
+  &::before {
     mask-image: linear-gradient(to bottom, black 40%, transparent);
   }
 
-  .fond-points-clair::before {
+  &::after {
+    filter: blur(6px);
+    mask-image: linear-gradient(to bottom, transparent 5%, black 45%);
+  }
+}
+
+@utility fond-points-clair {
+  &::before,
+  &::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    pointer-events: none;
+    background-image: radial-gradient(circle, rgb(23 52 218 / 0.05) 5px, transparent 6px);
+    background-size: 30px 30px;
+  }
+
+  &::before {
     mask-image: linear-gradient(to bottom, black 5%, transparent 45%);
   }
 
-  .fond-points::after,
-  .fond-points-clair::after {
+  &::after {
     filter: blur(6px);
     mask-image: linear-gradient(to bottom, transparent 5%, black 45%);
   }
 
-  .fond-points-clair > * {
+  & > * {
     position: relative;
     z-index: 1;
   }
+}
 
-  .motif-hero,
-  .motif-footer {
-    pointer-events: none;
-    mask-repeat: repeat;
-    mask-image: radial-gradient(0.9px 0.82px at 0.75px 0.68px, black 75%, transparent 100%);
-    mask-size: 4.7px 4.8px;
-  }
+@utility motif-hero {
+  pointer-events: none;
+  opacity: 0.7;
+  background-image: radial-gradient(128% 85% at 50% 0, var(--color-bleu-fonce) 30%, var(--color-rose) 65%, var(--color-rose) 78%, var(--color-bleu-fonce) 104%);
+  mask-repeat: repeat;
+  mask-image: radial-gradient(0.9px 0.82px at 0.75px 0.68px, black 75%, transparent 100%);
+  mask-size: 4.7px 4.8px;
 
   @media (min-width: 48rem) {
-    .motif-hero,
-    .motif-footer {
-      mask-image: radial-gradient(1.8px 1.65px at 1.5px 1.36px, black 75%, transparent 100%);
-      mask-size: 9.35px 9.6px;
-    }
+    mask-image: radial-gradient(1.8px 1.65px at 1.5px 1.36px, black 75%, transparent 100%);
+    mask-size: 9.35px 9.6px;
   }
+}
 
-  .motif-hero {
-    opacity: 0.7;
-    background-image: radial-gradient(128% 85% at 50% 0, var(--color-bleu-fonce) 30%, var(--color-rose) 65%, var(--color-rose) 78%, var(--color-bleu-fonce) 104%);
-  }
+@utility motif-footer {
+  pointer-events: none;
+  opacity: 0.6;
+  background: linear-gradient(195deg, var(--color-bleu-fonce) 38%, var(--color-rose) 100%) left bottom / 1274px 100% no-repeat,
+    var(--color-bleu-fonce);
+  mask-repeat: repeat;
+  mask-image: radial-gradient(0.9px 0.82px at 0.75px 0.68px, black 75%, transparent 100%);
+  mask-size: 4.7px 4.8px;
 
-  .arche {
-    border-radius: 50% 50% var(--radius-arche) var(--radius-arche) / 45.6% 45.6% var(--radius-arche) var(--radius-arche);
+  @media (min-width: 48rem) {
+    mask-image: radial-gradient(1.8px 1.65px at 1.5px 1.36px, black 75%, transparent 100%);
+    mask-size: 9.35px 9.6px;
   }
+}
 
-  .motif-footer {
-    opacity: 0.6;
-    background: linear-gradient(195deg, var(--color-bleu-fonce) 38%, var(--color-rose) 100%) left bottom / 1274px 100% no-repeat,
-      var(--color-bleu-fonce);
-  }
+@utility arche {
+  border-radius: 50% 50% var(--radius-arche) var(--radius-arche) / 45.6% 45.6% var(--radius-arche) var(--radius-arche);
 }

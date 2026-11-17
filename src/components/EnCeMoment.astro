@@ -24,14 +24,14 @@ const { boutonTexte, boutonLien, boutonTelecharger = false, class: classe } = As
         <a
           href={boutonLien}
           download={boutonTelecharger}
-          class="group inline-flex items-center gap-3 rounded-xl bg-jaune px-4 py-3 font-texte text-small-mobile font-bold text-noir hover:bg-jaune-clair focus-visible:outline-jaune md:gap-4 md:text-button"
+          class="group inline-flex items-center gap-3 rounded-xl bg-jaune px-4 py-3 font-texte text-small-mobile font-bold text-noir hover:bg-jaune-clair focus-visible:outline-jaune md:gap-4 md:text-button focus-visible:outline-2 focus-visible:outline-offset-2"
         >
           {boutonTexte}
           <Image
             src={fleche}
             alt=""
             aria-hidden="true"
-            class:list={["size-4 transition-transform md:size-6", boutonTelecharger ? "rotate-135 group-hover:translate-y-1" : "group-hover:translate-x-1 group-hover:-translate-y-1"]}
+            class:list={["size-4 transition-transform md:size-6 motion-reduce:transition-none", boutonTelecharger ? "rotate-135 group-hover:translate-y-1" : "group-hover:translate-x-1 group-hover:-translate-y-1"]}
           />
         </a>
       </div>
@@ -39,10 +39,10 @@ const { boutonTexte, boutonLien, boutonTelecharger = false, class: classe } = As
 
     <div aria-hidden="true" class="relative hidden shrink-0 md:block">
       <Image src={chibiEtoile} alt="" widths={[300, 600]} sizes="(min-width: 1280px) 282px, 211px" class="h-72 w-auto xl:h-96" />
-      <span class="absolute top-4 left-0 animate-scintille text-2xl text-jaune">✱</span>
-      <span class="absolute top-1/4 -right-4 animate-scintille text-xl text-rose" style="animation-delay: 0.8s">✱</span>
-      <span class="absolute bottom-1/4 -left-6 animate-scintille text-lg text-rose" style="animation-delay: 1.4s">✱</span>
-      <span class="absolute right-2 bottom-6 animate-scintille text-2xl text-jaune" style="animation-delay: 0.4s">✱</span>
+      <span class="absolute top-4 left-0 animate-scintille text-2xl text-jaune motion-reduce:animate-none">✱</span>
+      <span class="absolute top-1/4 -right-4 animate-scintille text-xl text-rose motion-reduce:animate-none" style="animation-delay: 0.8s">✱</span>
+      <span class="absolute bottom-1/4 -left-6 animate-scintille text-lg text-rose motion-reduce:animate-none" style="animation-delay: 1.4s">✱</span>
+      <span class="absolute right-2 bottom-6 animate-scintille text-2xl text-jaune motion-reduce:animate-none" style="animation-delay: 0.4s">✱</span>
     </div>
   </div>
 </section>

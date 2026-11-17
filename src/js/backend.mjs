@@ -30,11 +30,11 @@ export async function getCompetences() {
 }
 
 export async function getSavoirEtre() {
-  return await getListe("savoir_etre", { sort: "ordre" });
+  return await getListe("savoir_etre", { sort: "created" });
 }
 
 export async function getTechnologies(categorie) {
-  return await getListe("technologies", { filter: 'categorie = "' + categorie + '"', sort: "ordre" });
+  return await getListe("technologies", { filter: 'categorie = "' + categorie + '"', sort: "created" });
 }
 
 export async function getParcours() {

@@ -34,7 +34,7 @@ const fichePersonne = {
 
   <Hero
     surtitre="Étudiante en BUT MMI ✱ 2e année"
-    sousTitre="Salut! Je suis"
+    sousTitre="Salut ! Je suis"
     sousTitreLigne2="Lina Ben Mabrouk"
     flecheSousTitre
     sousTitreLien="/a-propos"
@@ -55,7 +55,7 @@ const fichePersonne = {
       <CardCompetence
         couleur="border-jaune"
         titre="Développement web"
-        texte="J'intègre des maquettes en sites responsives et je développe des applications web interactives."
+        texte="J'intègre des maquettes en sites responsive et je développe des applications web interactives."
         outils="HTML · CSS · JavaScript · Astro · Tailwind"
         fond="fill-jaune"
         contour="stroke-rose"
@@ -82,7 +82,7 @@ const fichePersonne = {
   <section class="px-4 pb-20 md:px-11 md:pb-32">
     <div class="mb-8 flex flex-col gap-4 md:mb-16 md:flex-row md:items-end md:justify-between">
       <h2 class="font-titre text-titre-section-mobile font-bold text-jaune-fonce uppercase md:text-h1">Projets sélectionnés.</h2>
-      <a href="/projets" class="font-texte text-body font-bold text-bleu-fonce underline">Voir tous les projets →</a>
+      <a href="/projets" class="font-texte text-body font-bold text-bleu-fonce underline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-bleu-fonce">Voir tous les projets →</a>
     </div>
 
     <div class="-mx-4 flex snap-x snap-mandatory scroll-px-4 gap-6 overflow-x-auto px-4 scrollbar-cache md:mx-0 md:grid md:grid-cols-3 md:gap-10 md:overflow-visible md:px-0">
@@ -106,10 +106,10 @@ const fichePersonne = {
 
       <a
         href="/a-propos"
-        class="group mt-8 inline-flex items-center gap-3 rounded-xl bg-jaune px-4 py-3 font-texte text-small-mobile font-bold text-noir hover:bg-jaune-clair md:mt-10 md:gap-4 md:text-button"
+        class="group mt-8 inline-flex items-center gap-3 rounded-xl bg-jaune px-4 py-3 font-texte text-small-mobile font-bold text-noir hover:bg-jaune-clair md:mt-10 md:gap-4 md:text-button focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-bleu-fonce"
       >
         En savoir plus
-        <Image src={fleche} alt="" aria-hidden="true" class="size-4 transition-transform group-hover:translate-x-1 group-hover:-translate-y-1 md:size-6" />
+        <Image src={fleche} alt="" aria-hidden="true" class="size-4 transition-transform group-hover:translate-x-1 group-hover:-translate-y-1 md:size-6 motion-reduce:transition-none" />
       </a>
     </div>
 
