@@ -124,19 +124,6 @@
     }
   }
 
-  --animate-scintille: scintille 1.6s ease-in-out infinite alternate;
-
-  @keyframes scintille {
-    from {
-      scale: 0.5;
-      opacity: 0.2;
-    }
-    to {
-      scale: 1;
-      opacity: 1;
-    }
-  }
-
   --animate-defile: defile 30s linear infinite;
 
   @keyframes defile {
