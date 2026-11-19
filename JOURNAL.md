@@ -10,7 +10,7 @@
 ## Semaine 2 — Recherche graphique **05/10 – 11/10**
 - **Fait** : moodboard, puis exploration de plusieurs pistes graphiques.
 - **Décidé** : rose, bleu et jaune comme seules couleurs. Space Grotesk et DM Sans pour les textes, Titan One pour les touches ludiques. Des personnages chibi pour me représenter.
-- **Décidé** : deux pistes écartées, une piste sombre et néon, trop "gaming" et peu lisible et une piste style collage en noir et blanc, qui ne me ressemblait pas. 
+- **Décidé** : j'ai laissé de côté deux pistes : une piste sombre et néon, trop « gaming » et peu lisible, et une piste style collage en noir et blanc, qui ne me ressemblait pas.
 - **Coincé** : trouver un rose et un jaune qui restent lisibles sur le bleu.
 
 ## Semaine 3 — Maquette Figma **12/10 – 18/10**
@@ -24,7 +24,7 @@
 - **Retours** :
   - Xavier n'est pas convaincu par le « logo dans le logo » et trouve que les compétences ne doivent pas se limiter à des logiciels ;
   - Pascal veut plus de détails sur les projets dans la liste, aime les dossiers, et rappelle que ce sont des technologies, pas des compétences.
-- **Fait** : analyse des commentaires avec Claude, qui a proposé des idées. J'ai choisi et fait les changements dans Figma.
+- **Fait** : j'ai analysé les commentaires avec Claude, qui m'a proposé des idées. J'ai choisi les changements et je les ai faits dans Figma.
 - **Décidé** :
   - un nouveau logo (une étoile avec mes initiales) ;
   - une section « Mes compétences » séparée de « Code, création et outils » ;
@@ -44,8 +44,8 @@
 - **Décidé** : rendu côté serveur (SSR, adaptateur Node), pour que les contenus de PocketBase soient à jour sans tout reconstruire.
 - **Décidé** : méthode de travail avec Claude Code, avec un plan à valider avant chaque modification, puis un test à 402px et 1280px.
 - **Décidé** : couleur d'accent selon la catégorie du projet (dev ou design).
-- **Coincé** : la page projet ne ressemblait pas assez à la maquette, ce qui a demandé deux séries de corrections. Il a aussi fallu adapter le mobile à part.
-- **Coincé** : le 30/10, la page d'un projet a demandé des rectifications dans le même commit (« Page d'un projet + rectification code »). Les motifs du hero et du footer ont été ajoutés en SVG, puis en PNG, et retirés le soir même pour être refaits en CSS dans `global.css`.
+- **Coincé** : la page projet ne ressemblait pas assez à la maquette, il a fallu deux séries de corrections, et adapter le mobile à part.
+- **Coincé** : le 30/10, j'ai dû corriger la page d'un projet dans le même commit (« Page d'un projet + rectification code »). J'ai aussi ajouté les motifs du hero et du footer en SVG, puis en PNG, et je les ai retirés le soir même pour les refaire en CSS dans `global.css`.
 
 ## Semaine 6 — Sans commit **02/11 – 08/11**
 - Pas de commit cette semaine. Les pages, l'effet sur les boutons (30/10), la passe accessibilité (30/10) et le logo + favicon (30/10) sont déjà dans les commits de la semaine 5.
@@ -64,15 +64,23 @@
   - DNS sur Infomaniak (portfolio.linabenmabrouk.fr, pb.linabenmabrouk.fr, et redirection du domaine principal) ;
   - PocketBase et le site sur le VPS (ports 8002 et 3010), certificats HTTPS ;
   - déploiement automatique avec GitHub Actions (13/11).
-- **Coincé** : une erreur dans le déploiement automatique, comprise et corrigée. Le premier déploiement échouait au test de santé : le commit « déploiement automatique 2 » ajoute une pause de 5 secondes avant ce test (13/11). Le site appelle aussi PocketBase en ligne au lieu de `127.0.0.1` (13/11).
+- **Coincé** : le premier déploiement automatique échouait au test de santé. J'ai compris l'erreur et ajouté une pause de 5 secondes avant ce test (commit « déploiement automatique 2 », 13/11). J'ai aussi fait appeler PocketBase en ligne au lieu de `127.0.0.1` (13/11).
 - **Décidé** : déployer automatiquement le site à chaque push sur main, avec GitHub Actions (13/11).
 
 ## Semaine 8 — Finitions **16/11 – 22/11**
 - **Fait** : passage de npm à bun (16/11).
 - **Fait** : modèle 3D du chibi dans Blender. J'ai refait la base à cause des cheveux, puis créé les expressions avec des shape keys, une par page.
 - **Coincé** : la prise en main de Blender (interface, raccourcis sans pavé numérique).
-- **Décidé** : un seul fichier 3D avec plusieurs expressions, plutôt qu'un fichier par page, pour garder le site léger.
+- **Décidé** : un seul fichier Blender avec toutes les expressions, plutôt que refaire un modèle pour chaque page.
 - **Fait** : maquette mise à jour pour correspondre au site, et page Mentions légales sans hero.
+- **Décidé** : j'ai abandonné le chibi en 3D sur le site. Avec model-viewer, le cadrage et l'éclairage ne ressemblaient pas à mon rendu Blender. J'ai mis à la place un chibi en PNG sur chaque page, avec une expression différente (17/11).
+- **Fait** : une image de partage (1200×630, avec le chibi), qui s'affiche quand on envoie le lien du portfolio (17/11).
+- **Fait** : les images chargeaient trop lentement, donc je les ai mises en cache sur le serveur, et elles sont préparées à chaque déploiement (17/11).
+- **Fait** : j'ai supprimé les fichiers qui ne servaient plus, dont les modèles 3D (17/11).
+- **Coincé** : après avoir supprimé le champ `ordre` dans PocketBase, les technologies ne s'affichaient plus en ligne. J'ai trié les savoir-être et les technologies par date de création à la place (17/11).
+- **Fait** : un fichier `.env` pour l'adresse de PocketBase, et la mise à jour de la section Hébergement des mentions légales : le site est sur un VPS et le nom de domaine chez Infomaniak (18/11).
+- **Fait** : j'ai ajouté mon CV, qu'on peut télécharger depuis l'accueil, À propos et Contact (19/11).
+- **Fait** : j'ai refait le bouton de lecture de la vidéo (triangle plus grand, arrondi et centré) et enlevé les étoiles autour du chibi du bloc « En ce moment ».
 
 ## Choix des réseaux professionnels
 

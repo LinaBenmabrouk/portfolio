@@ -1,89 +1,90 @@
 # Déclaration d'usage de l'IA
 
-Ce fichier déclare, pour chaque outil d'IA utilisé dans le projet : à quelle étape, pour quoi faire, et ce que j'ai modifié, corrigé ou rejeté dans ce qu'il a produit.
+Dans ce fichier, j'explique quels outils d'IA j'ai utilisés pendant le projet, à quel moment, pour quoi faire, et ce que j'ai changé ou pas gardé dans ce qu'ils m'ont proposé.
 
-## Ce qui a été fait sans IA
+## Ce que j'ai fait sans IA
 
-- **Positionnement, cible et sélection des trois projets** : rédigés par moi.
+- **Positionnement, cible et choix des trois projets** : écrits par moi.
 - **Moodboard, pistes graphiques et identité visuelle** (couleurs rose, bleu et jaune, typographies, logo) : faits par moi.
-- **Maquette Figma desktop et mobile** : conçue et réalisée entièrement par moi. Elle a été présentée à la soutenance maquette.
-- **Dessins** : les personnages, les chibis et les illustrations des projets sont dessinés par moi.
+- **Maquette Figma desktop et mobile** : entièrement faite par moi, et présentée à la soutenance maquette.
+- **Dessins** : les personnages, les chibis et les illustrations des projets sont mes dessins.
 - **Modèle 3D du chibi** : modélisé par moi dans Blender.
-- **Textes des projets et de l'À propos** : écrits par moi dans la maquette, puis repris tels quels dans PocketBase.
+- **Textes des projets et de l'À propos** : écrits par moi dans la maquette, puis recopiés tels quels dans PocketBase.
 
 ## 1. Claude (Anthropic), dans un projet claude.ai
 
-### Après la soutenance maquette : analyse des commentaires des profs
-- **Pour quoi faire** : j'ai donné ma maquette et les commentaires de Xavier et Pascal, et j'ai demandé des idées pour y répondre. Les commentaires portaient sur le logo dans le logo, les compétences limitées aux logiciels, et le manque de détails dans la liste des projets.
-- **Ce que j'ai gardé ou rejeté** : c'est moi qui ai choisi les changements et qui les ai faits dans Figma. Les changements : un nouveau logo (une étoile avec mes initiales), une section « Mes compétences » séparée de « Code, création et outils », et des cartes projets enrichies (année, contexte, rôle).
+### Après la soutenance maquette : les retours des profs
+- **Pour quoi faire** : je lui ai donné ma maquette et les commentaires de Xavier et Pascal pour avoir des idées. Les remarques portaient sur le « logo dans le logo », les compétences qui se limitaient aux logiciels, et le manque de détails dans la liste des projets.
+- **Ce que j'en ai fait** : j'ai choisi moi-même les changements et je les ai faits dans Figma : un nouveau logo (une étoile avec mes initiales), une section « Mes compétences » séparée de « Code, création et outils », et des cartes projets plus complètes (année, contexte, rôle).
 
 ### PocketBase : organisation des contenus
 - **Pour quoi faire** :
-  - les schémas des collections PocketBase (projets, messages, à propos) ;
-  - des fiches pour recopier mes textes de la maquette dans les champs PocketBase.
-- **Ce que j'ai modifié** : d'après les migrations PocketBase du dépôt : dans projets, j'ai ajouté `categorie` (liste de choix), `mise_en_situation` (images) et `contexte_fiche` ; dans competences, j'ai enlevé `exemple` ; dans technologies, j'ai ajouté `niveau` et transformé `categorie` en liste de choix ; dans parcours, j'ai ajouté `url` (13/11).
+  - préparer les collections PocketBase (projets, messages, à propos) ;
+  - faire des fiches pour recopier les textes de ma maquette dans les bons champs.
+- **Ce que j'ai changé ensuite** (on le voit dans les migrations PocketBase du dépôt) : dans projets, j'ai ajouté `categorie` (liste de choix), `mise_en_situation` (images) et `contexte_fiche` ; dans competences, j'ai enlevé `exemple` ; dans technologies, j'ai ajouté `niveau` et transformé `categorie` en liste de choix ; dans parcours, j'ai ajouté `url` (13/11).
 
-### Développement : rédaction des prompts pour Claude Code
-- **Pour quoi faire** : rédiger, à partir de ma maquette, les consignes de chaque étape. Les prompts sont gardés dans le dossier `prompts/` :
+### Développement : écrire les prompts pour Claude Code
+- **Pour quoi faire** : écrire, à partir de ma maquette, les consignes de chaque étape :
   - les pages : compétences, technologies, parcours, Mes projets, page projet et ses corrections, Contact, 404 ;
   - les refontes : accueil, À propos, pages projet, photo en arche ;
   - le reste : logo, cartes de formation cliquables, accessibilité et performance.
-- **Mes règles dans chaque prompt** :
-  - Claude Code doit lire le code et me proposer un plan, et je valide avant qu'il modifie quoi que ce soit ;
-  - une vérification à 402px et 1280px.
-- **Ce que j'ai corrigé ou rejeté** : à chaque fois, je comparais le résultat avec ma maquette et je redemandais des corrections quand ce n'était pas pareil. Par exemple : la page Mentions légales avait des textes gris, alors que ma maquette est en noir, donc j'ai demandé « que du noir » ; le chibi du hero était trop grand en mobile, donc j'ai fait réduire son agrandissement. Pour le chibi, j'ai aussi rejeté la version 3D affichée avec model-viewer : le cadrage et l'éclairage ne ressemblaient pas à mon rendu Blender, donc je suis passée à des images PNG.
+- **Ce que je demandais à chaque fois** :
+  - que Claude Code lise le code et me propose un plan, que je validais avant qu'il modifie quoi que ce soit ;
+  - une vérification à 402px et à 1280px.
+- **Ce que j'ai corrigé** : je comparais toujours le résultat avec ma maquette, et je redemandais des corrections quand ce n'était pas pareil. Par exemple, la page Mentions légales avait des textes gris alors que ma maquette est en noir, donc j'ai demandé « que du noir ». Le chibi du hero était trop grand en mobile, donc je l'ai fait réduire. J'ai aussi essayé d'afficher le chibi en 3D avec model-viewer, mais le cadrage et l'éclairage ne ressemblaient pas à mon rendu Blender, donc je suis passée à des images PNG.
 
 ### Mise en ligne
-- **Pour quoi faire** : adapter les TP de R215 (DNS, PocketBase, Astro, certificat HTTPS, GitHub Actions) à mon portfolio, dans le fichier `guide-deploiement-portfolio.md`. Ce travail a aussi servi à comprendre une erreur du déploiement automatique.
+- **Pour quoi faire** : adapter les TP de R215 (DNS, PocketBase, Astro, certificat HTTPS, GitHub Actions) à mon portfolio. Ça m'a aussi aidée à comprendre une erreur du déploiement automatique.
 - **Ce que j'ai fait moi-même** : toutes les commandes sur le VPS, la configuration DNS sur Infomaniak et les secrets GitHub.
 
 ### Modèle 3D dans Blender
-- **Pour quoi faire** : de l'aide sur l'utilisation de Blender, comme retrouver les raccourcis, créer les expressions avec des shape keys, ou garder un seul fichier 3D pour que le site reste léger.
-- **Ce que j'ai fait moi-même** : toute la modélisation et toutes les expressions. L'IA a seulement expliqué les outils.
+- **Pour quoi faire** : de l'aide pour utiliser Blender : retrouver les raccourcis, faire les expressions avec des shape keys, ou garder un seul fichier Blender pour toutes les expressions.
+- **Ce que j'ai fait moi-même** : toute la modélisation et toutes les expressions. L'IA m'a seulement expliqué les outils.
 
 ### Mise à jour de la maquette après le développement
 - **Pour quoi faire** : de petites modifications dans Figma pour que la maquette corresponde au site en ligne :
   - aligner le mobile sur le site ;
   - ajouter la page Mentions légales et mettre à jour le guide de style ;
   - créer une bibliothèque d'images.
-- **Ce que j'ai corrigé ou rejeté** :
-  - j'ai rejeté une première fiche projet mobile, qui reprenait l'ancien design rose, et les traits de séparation en mobile ;
-  - j'ai rejeté une page Mentions légales avec un hero et un nouveau chibi 3D, pour garder une version sans hero ;
-  - j'ai fait recaler le footer desktop sur le site ;
-  - j'ai fait refaire la bibliothèque d'images, parce que des logos n'étaient pas visibles.
+- **Ce que j'ai corrigé** :
+  - la première fiche projet mobile reprenait l'ancien design rose, avec des traits de séparation en mobile : je ne l'ai pas gardée ;
+  - une version de la page Mentions légales avait un hero et un nouveau chibi 3D : j'ai préféré une version sans hero ;
+  - j'ai fait recaler le footer desktop sur celui du site ;
+  - j'ai fait refaire la bibliothèque d'images, parce que certains logos n'étaient pas visibles.
 
 ### Mentions légales et livrables
 - **Pour quoi faire** :
-  - un premier texte des mentions légales, à partir des informations sur mon site ;
-  - un brouillon de ce fichier, de `QUALITE.md` et de `JOURNAL.md`, que j'ai ensuite complétés.
-- **Ce que j'ai vérifié** : l'hébergeur indiqué, mes coordonnées, et chaque point de la grille qualité sur mon site.
+  - un premier texte des mentions légales, à partir des informations de mon site ;
+  - un brouillon de ce fichier, de `QUALITE.md` et de `JOURNAL.md`, que j'ai complétés ensuite.
+- **Ce que j'ai vérifié** : l'hébergement, mes coordonnées, et chaque point de la grille qualité sur mon site.
 
 ## 2. Claude Code (Anthropic)
 
-- **Étape** : pendant l'intégration, comme assistant de code, en plus de mon propre travail sur le site.
+- **Quand** : pendant l'intégration, comme assistant de code, en plus de mon propre travail sur le site.
 - **Pour quoi faire** : m'aider à écrire ou modifier certaines parties du code (composants Astro, styles Tailwind, scripts JavaScript, liaison avec PocketBase), à partir de ma maquette et de mes consignes.
 - **Comment je l'ai contrôlé** :
-  - il proposait un plan, que je validais ou corrigeais ;
-  - je relisais et adaptais les fichiers modifiés ;
-  - je testais dans le navigateur en mobile et en desktop.
-- **Ce que j'ai modifié ou rejeté**, d'après mon historique Git :
-  - **30/10** : sur la page d'un projet, j'ai fait des rectifications dans le même commit (« Page d'un projet + rectification code ») et j'ai retiré deux fichiers qui ne servaient plus (`motif-parcours.svg`, `fleche_telechargement.svg`) ;
-  - **30/10** : j'ai abandonné les motifs du hero et du footer en SVG, puis en PNG, pour les refaire en CSS (commits « Accessibilité » puis « Changement logo + favicon ») ;
-  - **11/11** : j'ai retiré les images provisoires (`perso.png`, `image_emplacement.png`) et des icônes qui ne servaient plus (commit « Ajout chibi page contact ») ;
-  - **13/11** : j'ai corrigé le déploiement automatique, en ajoutant une pause de 5 secondes avant le test de santé (commit « déploiement automatique 2 ») ;
-  - **16/11** : j'ai abandonné npm pour bun, et supprimé `package-lock.json`.
+  - il me proposait un plan, que je validais ou corrigeais ;
+  - je relisais et j'adaptais les fichiers modifiés ;
+  - je testais dans le navigateur, en mobile et en desktop.
+- **Ce que j'ai changé ou abandonné**, d'après mon historique Git :
+  - **30/10** : sur la page d'un projet, j'ai fait des corrections dans le même commit (« Page d'un projet + rectification code ») et j'ai enlevé deux fichiers qui ne servaient plus (`motif-parcours.svg`, `fleche_telechargement.svg`) ;
+  - **30/10** : les motifs du hero et du footer ont d'abord été faits en SVG, puis en PNG, et je les ai finalement refaits en CSS (commits « Accessibilité » puis « Changement logo + favicon ») ;
+  - **11/11** : j'ai enlevé les images provisoires (`perso.png`, `image_emplacement.png`) et des icônes qui ne servaient plus (commit « Ajout chibi page contact ») ;
+  - **13/11** : j'ai corrigé le déploiement automatique en ajoutant une pause de 5 secondes avant le test de santé (commit « déploiement automatique 2 ») ;
+  - **16/11** : je suis passée de npm à bun, et j'ai supprimé `package-lock.json` ;
+  - **17/11** : j'ai abandonné le chibi en 3D avec model-viewer, et supprimé les modèles 3D du site (commit « Supprimé fichiers inutilisé ») ;
+  - j'ai fait refaire le bouton de lecture de la vidéo, parce que le triangle n'était pas centré.
 
 ## 3. Autres outils
 
-Je n'ai utilisé aucun autre outil d'IA. Claude Code a aussi servi, avec le connecteur Figma, à mettre à jour la maquette pour qu'elle corresponde au site, et à faire les captures d'écran du site en mobile.
+Je n'ai utilisé aucun autre outil d'IA. Claude Code m'a aussi servi, avec le connecteur Figma, à mettre à jour la maquette pour qu'elle corresponde au site, et à faire les captures d'écran du site en mobile.
 
 ## Ce que je peux expliquer en soutenance
 
 Je peux expliquer :
 - la structure du projet : les pages, les composants, le layout ;
-- la récupération des données PocketBase dans `src/js/backend.mjs` ;
+- la récupération des données PocketBase dans `src/js/backend.mjs`, avec l'adresse de PocketBase dans le fichier `.env` ;
 - le rendu côté serveur (SSR) ;
 - les filtres et la pagination de Mes projets ;
 - le formulaire de contact et son hook ;
 - le déploiement avec GitHub Actions.
-
